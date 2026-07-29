@@ -19,7 +19,7 @@
 |---|---|---|---|---|
 | 项目初始化（骨架） | 全部占位页 | 空 JSON 骨架 | ✅ 完成（模块一） | 目录 / 布局 / 核心 JS / 占位页 / README |
 | 项目文档（Docs） | `docs/*` | — | ✅ 完成（模块二） | architecture / roadmap / json-schema / development-guide |
-| 术语表 Glossary | `glossary.html` / `term.html` | `glossary.json` | ✅ 完成（模块三） | 首个填充内容的模块；`term.html` 确立全站详情页模板规范 |
+| 术语表 Glossary | `glossary.html` / `term.html` | `glossary.json` | ✅ Released（模块三 · v0.3.0） | 首个填充内容的模块；`term.html` 确立全站详情页模板规范 |
 | 势力 / 组织 Factions | `factions.html` / `faction.html` | `factions.json` | ⬜ 待开发 | 用 `category` 区分阵营/组织/机构/网络，不拆模块 |
 | 角色 Characters | `characters.html` / `character.html` | `characters.json` | ⬜ 待开发 | 字段最多，作复杂度标杆 |
 | 剧情 Story | `story.html` / `chapter.html` | `story.json` | ⬜ 待开发 | 含 `participantIds` / `factionIds` / `timelineIds` 交叉引用 |
