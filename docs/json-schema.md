@@ -66,22 +66,41 @@
     {
       "id": "example-chapter",
       "title": null,
-      "type": null,              // 如 主线/支线/委托/活动
+      "titleEn": null,           // 英文标题（可选）
+      "type": null,              // 受控词表 id，词表见 config.storyTypes（main/special/agent/event）
       "version": null,           // 所属游戏版本
       "season": null,
       "chapter": null,
-      "order": null,             // 排序用整数
+      "order": null,             // 排序用整数（同 type 内按 order 计算上/下章）
       "releaseDate": null,
-      "summary": null,
-      "synopsis": null,          // 详细剧情概要
+      "summary": null,           // 一句话简介（始终可见，不含剧透）
+      "synopsis": null,          // 详细剧情概要（spoiler=true 时默认折叠）
       "participantIds": [],      // → characters.id
       "factionIds": [],          // → factions.id
+      "locationIds": [],         // → locations.id（新增，可选）
+      "termIds": [],             // → glossary(terms).id（新增，可选）
       "timelineIds": [],         // → timeline(events).id
-      "spoiler": false           // 是否含剧透
+      "spoiler": false,          // 是否含剧透（true 时详细剧情默认折叠）
+      "source": {                // 结构化引用来源（§2.10，新增）
+        "type": "official",
+        "title": null,
+        "url": null
+      },
+      "updatedAt": null          // 本条资料更新日期 YYYY-MM-DD（新增）
     }
   ]
 }
 ```
+
+> **Story Type 受控词表（单一数据源）**：`type` 的取值（`main` 主线 / `special` 特别篇 / `agent` 代理人剧情 / `event` 活动剧情）统一维护在 `assets/js/config.js` 的 `window.ZZZ.storyTypes`（含 `id` 与展示 `label`）。列表页筛选 chips、详情徽标、搜索均读取同一份词表；新增类型只需改 `config.js`，**不在 JSON 或页面硬编码**。展示时 `label` 由该词表映射得到。
+
+> **列表页筛选**：`story.html` 的筛选 chips = Story Type 受控词表（来自 `config.storyTypes`）+ 版本 chips（按数据中 `releaseDate` 动态生成、倒序）；搜索匹配 `title` / `titleEn` / `chapter` / `season` / `summary` / `synopsis`；排序支持「剧情顺序（默认，按 releaseDate + type + order）」「上线版本倒序」「名称排序」。
+
+> **计算式导航（不存储 prevId/nextId）**：详情页「上一章 / 下一章」由同 `type` 兄弟节点按 `order` 动态计算（Design Review D4 确认），在主线 / 特别篇 / 代理人剧情 / 活动剧情之间彼此隔离。
+
+> **剧透处理（Design Review D5 方案 A）**：`spoiler=true` 时，`synopsis` 默认折叠并显示「显示剧透内容」按钮，用户主动展开；`summary` 始终可见。
+
+> **新增字段（模块六）**：在既有 14 字段基础上新增 `titleEn` / `locationIds` / `termIds` / `source` / `updatedAt`；**不新增 `arcId`**（D1/D3 确认，章节只靠 `type` + `order` 串联，跨季分章由 `season` / `chapter` 文本字段表达）。完整字段（19 个）：`id, title, titleEn, type, version, season, chapter, order, releaseDate, summary, synopsis, participantIds, factionIds, locationIds, termIds, timelineIds, spoiler, source, updatedAt`。
 
 ### 2.4 `characters.json` — 列表字段 `characters`
 ```jsonc
@@ -296,7 +315,10 @@ locations.relatedFactionIds─▶  factions.id
 locations.relatedTermIds  ──▶  glossary.terms.id
 story.participantIds      ──▶  characters.id
 story.factionIds          ──▶  factions.id
+story.locationIds         ──▶  locations.id
+story.termIds             ──▶  glossary.terms.id
 story.timelineIds         ──▶  timeline.events.id
+story.source              ──▶  结构化引用来源（§2.10：official/game/video/story）
 timeline.relatedStoryIds  ──▶  story.id
 timeline.relatedFactionIds──▶  factions.id
 timeline.relatedTermIds   ──▶  glossary.terms.id

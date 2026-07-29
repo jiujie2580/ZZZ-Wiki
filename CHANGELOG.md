@@ -7,6 +7,30 @@
 
 ---
 
+## v0.6.0
+- Story Module
+- Code Review Completed
+
+## [仓库] 模块六：剧情 / 章节（Story）
+- `feat(story): implement story list & detail` — 第四个填充内容的模块（对齐 Characters / Factions / Glossary 模板）：
+  - **数据 Schema 定稿**（`data/story.json`）：在既有 14 字段基础上新增 5 字段（`titleEn` / `locationIds` / `termIds` / `source` / `updatedAt`）；**不新增 `arcId`**（Design Review D1/D3 确认）。首批录入 43 条官方剧情，均严格基于官方正式剧情/设定，无编造：
+    - 主线 20 条（序章「生意×诡异×道义」→ 第三季·第一章「某个梦游者的自白」，覆盖 1.0–3.0）；
+    - 特别篇 3 条（卧底蓝调 / 虚拟杀机 / 闪耀的此刻）；
+    - 代理人剧情 17 条（哲与铃 / 11号洞中谍 / 猫又贼猫御鼠 / 格莉丝钢铁的女巫 / 珂蕾妲满级小学生 / 莱卡恩而英雄总是归于幕后 / 丽娜直到您彻底遗忘 / 青衣失踪邦口 / 柏妮思幸运当头 / 莱特无人喝彩之冠 / 浅羽悠真此地长眠者 / 艾莲我是艾莲在忙有事留言 / 零号·安比白银的复苏 / 扳机目不可及 / 橘福福猛虎伏魔传 / 席德花之谷的苙罗拉 / 卢西娅失梦者奇谭）；
+    - 活动剧情 3 条（仲夏游梦绮谭 / 滚烫寻鲜记 / 集结！模考逆袭计划）。
+    - **边界**：依据 D7，仅录入截至官方 3.0 的全部官方剧情；官方 3.1 章节「漫长的告别」于 2026-07-29 当日上线，暂未录入，待后续版本补齐。
+  - **Story Type 受控词表单一数据源**：`assets/js/config.js` 新增 `window.ZZZ.storyTypes`（`main` 主线 / `special` 特别篇 / `agent` 代理人剧情 / `event` 活动剧情），筛选/展示/搜索共用，不在 JSON 或页面硬编码。
+  - **列表页**（`story.html` + `assets/js/pages/story.js`）：搜索（title/titleEn/chapter/season/summary/synopsis）、Story Type 受控词表 chips + 版本 chips（数据动态生成，按上线日期倒序）、排序（剧情顺序默认 / 上线版本倒序 / 名称排序）、卡片网格（类型徽标 + 版本/剧透徽标）。
+  - **详情页**（`chapter.html` + `assets/js/pages/chapter.js`）：对齐详情页模板（hero → 基本信息 → 剧情简介（summary 始终可见）→ 详细剧情 → 关联角色/势力/地点/术语/时间线 → 引用来源）；
+    - **剧透处理（D5 方案 A）**：`spoiler=true` 时详细剧情默认折叠并显示「显示剧透内容」按钮，用户主动展开；`summary` 始终可见（如 3.0 第一章「某个梦游者的自白」）。
+    - **计算式导航（D4）**：上一章/下一章根据同 `type` 兄弟节点按 `order` 动态计算，不保存 `prevId`/`nextId`；导航在类型间隔离（主线/特别篇/代理人/活动各自成链）。
+    - **外键降级**：`locationIds`/`termIds`/`timelineIds` 目标缺失时灰态 chip 显示 id，绝不报错（当前 locations/timeline 未建，关联区优雅显示）。
+  - **搜索增强**：`core/search.js` 的 `story` MAP 标题字段增 `titleEn`、文本字段增 `chapter`，专名与章节名可搜。
+  - **未知内容**：所有未说明字段渲染为【官方暂未说明】（如 `synopsis` 缺失的章节），未编造。
+  - **受控修改**：`config.js`（注册 `storyTypes`）、`core/search.js`（story MAP）、`assets/css/pages.css`（追加 Story 模块样式块，仅新增不改动既有规则）、`docs/json-schema.md`（§2.3 新增 5 字段 + §3 storyTypes 说明）、`docs/roadmap.md`（状态标记 Released）、`README.md`（进度 + 数据表）。
+  - **自测**：jsdom 无头自测 34/34 PASS（列表交互/类型筛选/版本筛选/搜索/空态/排序、详情渲染/剧透折叠展开/计算式导航隔离/外键降级/引用来源/全局搜索索引、无控制台错误）；自测过程中发现并修复 1 个真实渲染缺陷（`chapter.js` 未知 id 时 `UI.placeholderPage(...)` 误写 `"undefined"`，已改为直接调用）。
+  - 同步更新 `docs/json-schema.md`、`docs/roadmap.md`（Story 标记 Released）、`README.md`（进度 + 数据表）。
+
 ## v0.5.0
 - Characters Module
 - Code Review Completed

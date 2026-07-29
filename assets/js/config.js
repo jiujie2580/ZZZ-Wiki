@@ -37,6 +37,15 @@ window.ZZZ = {
     { id: 'A', label: 'A 级' }
   ],
 
+  // 剧情类型受控词表（单一数据源）：data/story.json 的 type 存此 id，label 用于展示/筛选
+  // 新增类型只需改这里，页面逻辑不得硬编码类型字符串。
+  storyTypes: [
+    { id: 'main',    label: '主线' },
+    { id: 'special', label: '特别篇' },
+    { id: 'agent',   label: '代理人剧情' },
+    { id: 'event',   label: '活动剧情' }
+  ],
+
   // 数据文件清单：逻辑名 -> data 目录下的文件名（不含 .json）
   dataFiles: {
     site: 'site',

@@ -178,3 +178,65 @@ a.rel-chip:hover { box-shadow: var(--glow-cyan); background: rgba(57, 240, 230, 
   .character-hero .term-hero-meta { justify-content: center; }
   .character-card-foot { gap: 6px; }
 }
+
+/* ===================== Story 模块（模块六追加，仅新增不改动） ===================== */
+
+/* 列表页卡片网格 */
+.story-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-3); }
+.story-card { display: flex; flex-direction: column; gap: 6px; padding: var(--space-3) var(--space-3) var(--space-2);
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+  transition: transform .2s, border-color .2s, box-shadow .2s; }
+.story-card:hover { transform: translateY(-3px); border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+.story-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.story-card-title { margin: 0; font-size: 17px; color: var(--text-1); font-family: var(--font-head); line-height: 1.4; }
+.story-card-sub { margin: 0; color: var(--text-3); font-size: 12px; letter-spacing: .3px; }
+.story-card-summary { margin: 2px 0 0; color: var(--text-2); font-size: 13px; line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.story-card-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  margin-top: auto; padding-top: 8px; }
+
+/* 类型徽章（受控词表 main/special/agent/event 配色，单一映射避免硬编码） */
+.badge-type-main    { color: #57e0ff; border-color: rgba(87, 224, 255, .5);  background: rgba(87, 224, 255, .08); }
+.badge-type-special { color: #ff9de2; border-color: rgba(255, 157, 226, .5); background: rgba(255, 157, 226, .08); }
+.badge-type-agent   { color: #ffd166; border-color: rgba(255, 209, 102, .5); background: rgba(255, 209, 102, .08); }
+.badge-type-event   { color: #8affc1; border-color: rgba(138, 255, 193, .5); background: rgba(138, 255, 193, .08); }
+.badge-cyan  { color: #57e0ff; border-color: rgba(87, 224, 255, .5); background: rgba(87, 224, 255, .08); }
+.badge-warn  { color: #ff6b6b; border-color: rgba(255, 107, 107, .5); background: rgba(255, 107, 107, .1); }
+
+/* 详情页 hero：剧情无头像，改为纵向堆叠 + 顶部徽章行 */
+.story-hero { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+.story-hero .detail-hero-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.story-summary { margin: 0; color: var(--text-1); line-height: 1.9; }
+
+/* 剧透折叠 */
+.spoiler-block { margin-top: var(--space-2); }
+.spoiler-toggle { cursor: pointer; padding: 8px 18px; border-radius: 999px; font-size: 13px;
+  border: 1px solid var(--neon-cyan); color: var(--neon-cyan); background: rgba(57, 240, 230, .06);
+  transition: box-shadow .2s, background .2s; }
+.spoiler-toggle:hover { box-shadow: var(--glow-cyan); background: rgba(57, 240, 230, .12); }
+.spoiler-content { margin-top: var(--space-2); padding: var(--space-3); border-radius: var(--radius-sm);
+  border: 1px dashed var(--glass-border); color: var(--text-1); line-height: 1.9; background: rgba(255, 255, 255, .02); }
+
+/* 上一章 / 下一章 计算式导航（按 type + order 计算，不保存 prevId/nextId） */
+.chapter-nav { display: flex; gap: var(--space-3); margin-top: var(--space-4); flex-wrap: wrap; }
+.chapter-nav-link { flex: 1 1 220px; display: flex; flex-direction: column; gap: 4px; padding: var(--space-3);
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  text-decoration: none; transition: border-color .2s, box-shadow .2s; }
+.chapter-nav-link:hover { border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+.chapter-nav-link.next { text-align: right; align-items: flex-end; }
+.chapter-nav-dir { color: var(--text-3); font-size: 12px; }
+.chapter-nav-title { color: var(--text-1); font-size: 15px; font-family: var(--font-head); }
+
+/* 无障碍：减少动效时关闭本模块动画（仅作用于新增类） */
+@media (prefers-reduced-motion: reduce) {
+  .story-card, .story-card:hover, .rel-chip, .spoiler-toggle,
+  .chapter-nav-link, .chapter-nav-link:hover { transition: none; transform: none; }
+}
+
+/* 移动端适配（Story 专属） */
+@media (max-width: 768px) {
+  .story-grid { grid-template-columns: 1fr; }
+  .chapter-nav { flex-direction: column; }
+  .chapter-nav-link.next { text-align: left; align-items: flex-start; }
+}

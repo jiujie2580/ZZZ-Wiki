@@ -44,7 +44,7 @@ zzz-wiki/
 |---|---|---|---|
 | `site.json` | 站点元信息 + 导航配置（真实可用） | — | — |
 | `version.json` | 版本更新日志 | `versions` | changelog.html |
-| `story.json` | 剧情章节/委托 | `story` | chapter.html |
+| `story.json` | 剧情章节（主线/特别篇/代理人剧情/活动剧情，Story Type 受控词表见 `config.storyTypes`） | `story` | chapter.html |
 | `characters.json` | 角色（代理人） | `characters` | character.html |
 | `factions.json` | 势力 + 组织/机构/网络（`category` 区分） | `factions` | faction.html |
 | `locations.json` | 地区（都市/空洞/地带） | `locations` | location.html |
@@ -124,6 +124,12 @@ npx serve zzz-wiki
 - [x] 模块二：项目文档（`docs/`：architecture / roadmap / json-schema / development-guide）
 - [x] 模块三：术语表（Glossary）— 首个填充内容的模块（`glossary.html` 列表 + `term.html` 详情页 + `glossary.json` 19 字段 Schema + 受控词表 meta）
 - [x] 模块四：势力 / 组织（Factions）— 列表（`factions.html`） + 详情（`faction.html`） + `factions.json` 21 条官方势力 + 分类受控词表 `config.factionCategories`；关联渲染原语抽取至 `core/components.js` 供详情页复用
-- [x] 角色 → 剧情 → 时间线 → 地区 → 世界观 → 更新日志 → 搜索 → 关于/404
+- [x] 模块五：角色 Characters（已 Released · v0.5.0）— 56 名官方代理人（至 3.0）；属性/稀有度受控词表在 `config.js`；关联 storyIds/termIds/timelineIds
+- [x] 模块六：剧情 / 章节（Story）— 列表（`story.html`） + 详情（`chapter.html`） + `story.json` 43 条官方剧情（主线 20 / 特别篇 3 / 代理人剧情 17 / 活动剧情 3，均至 3.0）；Story Type 受控词表 `config.storyTypes`；剧透折叠（spoiler）+ 计算式上/下章导航 + 外键关联（角色/势力/地点/术语/时间线）优雅降级
+- [ ] 时间线 Timeline（v0.7.0）
+- [ ] 地区 Locations（v0.8.0）
+- [ ] 世界观 Worldview（v0.9.0）
+- [ ] 更新日志 Changelog / 搜索 Search / 关于 About（归入 v1.0.0 前收尾）
+- [ ] 404 兜底页（壳已完成）
 
 > 规范文档见 [`docs/`](docs/)：[架构](docs/architecture.md) · [路线图](docs/roadmap.md) · [JSON Schema](docs/json-schema.md) · [开发指南](docs/development-guide.md)。

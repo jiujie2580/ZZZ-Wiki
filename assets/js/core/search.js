@@ -15,7 +15,7 @@
     factions:   ['factions',   'faction',   ['name', 'nameEn'], ['summary', 'alias']],
     locations:  ['locations',  'location',  ['name', 'nameEn'], ['summary']],
     glossary:   ['terms',      'term',      ['name', 'nameEn'], ['summary']],
-    story:      ['story',      'chapter',   ['title'],          ['summary']],
+    story:      ['story',      'chapter',   ['title', 'titleEn'], ['summary', 'chapter']],
     timeline:   ['events',     'timeline',  ['title'],          ['description']],
     version:    ['versions',   'changelog', ['version', 'name'],['highlights']]
   };
