@@ -64,7 +64,7 @@ zzz-wiki/
 3. **数据驱动**：内容只写在 `data/*.json`；新增内容 = 改 JSON，不碰 HTML/JS。
 4. **模块化**：每个功能模块 = 一组页面 `.html` + 一个 `pages/*.js` + 对应 `data/*.json`；一次只做一个模块，不重构已完成内容。
 5. **统一布局**：禁止在页面中重复写 Header/Footer；统一由 `core/layout.js` 注入。新增页面只需复制页面骨架并改 `data-page` 与脚本引用。
-6. **外键关联**：跨模块引用用 `*Id` / `*Ids`（如 `factionId`、`memberIds`、`relatedTermIds`），保持 id 唯一且小写下划线。
+6. **外键关联**：跨模块引用用 `*Id` / `*Ids`（如 `factionId`、`memberIds`、`relatedTermIds`）；JSON 键使用驼峰（camelCase），`id` 值使用小写连字符（kebab-case，唯一，如 `example-character`）。
 
 ---
 
@@ -121,5 +121,8 @@ npx serve zzz-wiki
 ## 8. 当前进度
 
 - [x] 模块一：项目初始化（目录 / 布局 / 核心 JS / 占位页 / 数据骨架 / README）
+- [x] 模块二：项目文档（`docs/`：architecture / roadmap / json-schema / development-guide）
 - [ ] 术语表（Glossary）— 第一个填充内容的模块
 - [ ] 势力/组织 → 角色 → 剧情 → 时间线 → 地区 → 世界观 → 更新日志 → 搜索 → 关于/404
+
+> 规范文档见 [`docs/`](docs/)：[架构](docs/architecture.md) · [路线图](docs/roadmap.md) · [JSON Schema](docs/json-schema.md) · [开发指南](docs/development-guide.md)。
