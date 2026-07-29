@@ -16,7 +16,7 @@
       "factionIds": ["cunning-hares"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["prologue-cat", "random-play"],
       "spoiler": false,
       "source": { "type": "official", "title": "《绝区零》1.0 版本更新公告（官方）", "url": null },
       "updatedAt": "2026-07-29"
@@ -37,7 +37,7 @@
       "factionIds": ["cunning-hares"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["prologue-cat", "cunning-hares-founded"],
       "spoiler": false,
       "source": { "type": "official", "title": "《绝区零》1.0 版本更新公告（官方）", "url": null },
       "updatedAt": "2026-07-29"
@@ -79,7 +79,7 @@
       "factionIds": ["belobog-heavy-industries"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["belobog-founded"],
       "spoiler": false,
       "source": { "type": "official", "title": "《绝区零》1.1 版本更新公告（官方）", "url": null },
       "updatedAt": "2026-07-29"
@@ -121,7 +121,7 @@
       "factionIds": ["victoria-housekeeping"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["victoria-founded"],
       "spoiler": false,
       "source": { "type": "official", "title": "《绝区零》1.2 版本更新公告（官方）", "url": null },
       "updatedAt": "2026-07-29"
@@ -163,7 +163,7 @@
       "factionIds": ["hollow-special-operations-section-6"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["section-6-founded", "truth-of-fall"],
       "spoiler": false,
       "source": { "type": "official", "title": "《绝区零》1.4 版本更新公告（官方）", "url": null },
       "updatedAt": "2026-07-29"
@@ -205,7 +205,7 @@
       "factionIds": ["mockingbird"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["season1-end"],
       "spoiler": false,
       "source": { "type": "official", "title": "《绝区零》1.7 版本更新公告（官方）", "url": null },
       "updatedAt": "2026-07-29"
@@ -226,7 +226,7 @@
       "factionIds": ["yunkui-summit"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["season2-start"],
       "spoiler": false,
       "source": { "type": "official", "title": "《绝区零》2.0 版本更新公告（官方）", "url": null },
       "updatedAt": "2026-07-29"
@@ -415,7 +415,7 @@
       "factionIds": ["external-strategy-department"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["season3-start"],
       "spoiler": true,
       "source": { "type": "official", "title": "《绝区零》3.0 版本更新公告（官方）", "url": "https://zzz.mihoyo.com/main/" },
       "updatedAt": "2026-07-29"
@@ -499,7 +499,7 @@
       "factionIds": ["phaethon"],
       "locationIds": [],
       "termIds": [],
-      "timelineIds": [],
+      "timelineIds": ["random-play"],
       "spoiler": false,
       "source": { "type": "official", "title": "《绝区零》官方剧情（代理人秘闻）", "url": null },
       "updatedAt": "2026-07-29"

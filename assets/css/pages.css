@@ -240,3 +240,45 @@ a.rel-chip:hover { box-shadow: var(--glow-cyan); background: rgba(57, 240, 230, 
   .chapter-nav { flex-direction: column; }
   .chapter-nav-link.next { text-align: left; align-items: flex-start; }
 }
+
+/* ===================== Timeline 模块（模块七追加，仅新增不改动既有规则） ===================== */
+
+/* 列表卡片：复用 .timeline-track / .timeline-item 既有圆点与竖线（定义于文件顶部） */
+.timeline-item.expanded .timeline-card { border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+.timeline-item.highlight .timeline-card { border-color: var(--neon-purple);
+  box-shadow: 0 0 0 1px var(--neon-purple), 0 0 16px rgba(168, 85, 247, .35); }
+.timeline-card { display: block; padding: var(--space-3) var(--space-4); background: var(--glass-bg);
+  border: 1px solid var(--glass-border); border-radius: var(--radius);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+  transition: border-color .2s, box-shadow .2s; }
+.timeline-card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
+.timeline-date { color: var(--neon-cyan); font-size: 13px; font-family: var(--font-head); letter-spacing: .5px; }
+.timeline-date.unknown { color: var(--text-3); }
+.timeline-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.timeline-title { margin: 8px 0 0; font-size: 17px; color: var(--text-1); font-family: var(--font-head); }
+.timeline-title-en { margin: 2px 0 0; color: var(--text-3); font-size: 12px; letter-spacing: .3px; }
+.timeline-desc { margin: 8px 0 0; color: var(--text-2); font-size: 13px; line-height: 1.7;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.timeline-toggle { margin-top: 10px; cursor: pointer; padding: 6px 16px; border-radius: 999px; font-size: 13px;
+  border: 1px solid var(--neon-cyan); color: var(--neon-cyan); background: rgba(57, 240, 230, .06);
+  transition: box-shadow .2s, background .2s; }
+.timeline-toggle:hover { box-shadow: var(--glow-cyan); background: rgba(57, 240, 230, .12); }
+.timeline-detail { margin-top: var(--space-3); }
+.timeline-detail[hidden] { display: none; }
+.timeline-detail-desc { margin: 0 0 var(--space-2); color: var(--text-1); line-height: 1.9; }
+.back-link { display: inline-block; margin: var(--space-2) 0; color: var(--neon-cyan); font-size: 14px; }
+.timeline-track.single { margin-top: var(--space-3); }
+
+/* 纪元 / 分类徽标（受控词表，单一映射避免硬编码） */
+.badge-era { color: #57e0ff; border-color: rgba(87, 224, 255, .5); background: rgba(87, 224, 255, .08); }
+.badge-cat { color: #ffd166; border-color: rgba(255, 209, 102, .5); background: rgba(255, 209, 102, .08); }
+
+/* 无障碍：减少动效时关闭本模块动画（仅作用于新增类） */
+@media (prefers-reduced-motion: reduce) {
+  .timeline-card, .timeline-toggle { transition: none; }
+}
+
+/* 移动端适配（Timeline 专属） */
+@media (max-width: 768px) {
+  .timeline-card-head { flex-direction: column; align-items: flex-start; }
+}

@@ -256,17 +256,28 @@
     {
       "id": "example-event",
       "title": null,
-      "date": null,              // 可精确日期或年代描述
-      "era": null,               // 纪元/时期
-      "importance": null,        // 重要度
+      "titleEn": null,           // 英文标题（可选）
+      "date": null,              // 精确日期 "YYYY-MM-DD"；未知 -> null
+      "dateText": null,          // 非精确时间描述（如 "旧文明时期"）；与 date 二选一
+      "era": null,               // 受控词表 id，词表见 config.timelineEras
+      "category": null,          // 受控词表 id，词表见 config.timelineCategories（取代原 importance）
       "description": null,
       "relatedStoryIds": [],     // → story.id
       "relatedFactionIds": [],   // → factions.id
-      "relatedTermIds": []       // → glossary(terms).id
+      "relatedTermIds": [],      // → glossary(terms).id
+      "locationIds": [],         // → locations.id（新增，可选；Locations 模块建成后回填）
+      "source": { "type": "official", "title": null, "url": null }, // 结构化引用来源（§2.10）
+      "updatedAt": null          // 本条资料更新日期 YYYY-MM-DD
     }
   ]
 }
 ```
+
+> **纪元 / 分类受控词表（单一数据源）**：`era` 的取值（`old-civilization` 旧文明时代 / `hollow-disaster` 空洞灾害时期 / `new-eridu` 新艾利都时期 / `present` 当前时间线）与 `category` 的取值（`disaster` 灾害 / `history` 历史事件 / `organization` 组织事件 / `character` 人物事件 / `war` 战争 / `tech` 科技 / `exploration` 探索）统一维护在 `assets/js/config.js` 的 `window.ZZZ.timelineEras` / `window.ZZZ.timelineCategories`（各含 `id` 与展示 `label`）。筛选 chips、详情徽标、搜索均读取同一份词表；**取消 `importance` 字段**（属编辑判断，Design Review D3 决策），改用更客观的 `category` 分类。**不在 JSON 或页面硬编码**。
+
+> **日期（D5）**：支持精确 `date:"YYYY-MM-DD"`、未知 `date:null`、非精确 `dateText:"旧文明时期"` 三种情况；排序以「纪元序号 → 精确日期 → 录入顺序」为时间轴顺序。
+
+> **列表页筛选/排序**：`timeline.html` 的筛选 chips = `timelineEras`（纪元）+ `timelineCategories`（分类），二者可组合；搜索匹配 `title` / `titleEn` / `description` / `dateText`；排序支持「时间顺序（默认）」「分类」「名称排序」。详情采用单页 `timeline.html?id=<eventId>`（自动展开 + 高亮 + 上/下事件导航），不新增独立详情页（D1 决策）。
 
 ### 2.9 预留文件（空数组，开发对应模块时细化字段）
 | 文件 | 列表字段 | 建议字段（待定，开发时确认） |

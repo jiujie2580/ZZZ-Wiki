@@ -7,6 +7,27 @@
 
 ---
 
+## v0.7.0
+- Timeline Module
+- Code Review Completed
+
+## [仓库] 模块七：时间线（Timeline）
+- `feat(timeline): implement timeline list & detail` — 第五个填充内容的模块（对齐 Characters / Factions / Glossary / Story 模板）：
+  - **数据 Schema 定稿**（`data/timeline.json`）：落实 Design Review D2/D3 最终决策，删除原 `importance` 字段，新增 `titleEn` / `locationIds` / `source` / `updatedAt` / `dateText`；首批录入 16 个官方世界观时间节点，严格基于官方正式设定，无编造：
+    - 宏观历史线：旧文明时代 → 旧都覆灭·空洞诞生 → 空洞灾害蔓延 → 新艾利都建立 → 新艾利都治安与探索体系确立 → 绳匠（Proxy）职业兴起（6 条）；
+    - 势力/组织成立：Random Play 录像店 / 狡兔屋 / 白祇重工 / 维多利亚家政 / 对空六课（5 条）；
+    - 剧情明确节点（与 `story.json` 双向互引）：序章·猫的失物招领 / 旧都陷落真相初现 / 第一季落幕 / 第二季开启·云岿山篇 / 第三季开启（5 条）。
+    - **边界**：依据 D7，仅录入截至官方 3.0 已明确公开的世界观时间节点；不含粉丝推测、非官方理论、单纯版本发布日期；未知日期一律 `date:null` + `dateText` 描述。
+  - **受控词表（单一数据源）**：`assets/js/config.js` 新增 `window.ZZZ.timelineEras`（旧文明时代 / 空洞灾害时期 / 新艾利都时期 / 当前时间线）与 `window.ZZZ.timelineCategories`（灾害 / 历史事件 / 组织事件 / 人物事件 / 战争 / 科技 / 探索，取代编辑判断式的 `importance`）。筛选/展示/排序共用，不在 JSON 或页面硬编码。
+  - **列表页**（`timeline.html` + `assets/js/pages/timeline.js`）：纵向时间轴卡片；搜索（title/titleEn/description/dateText）、纪元 chips + 分类 chips（二者可组合）、排序（时间顺序默认 / 分类 / 名称）、卡片内联展开（点击「展开」显示事件描述 → 关联剧情/势力/术语/地区 → 引用来源）。
+  - **详情页**：采用单页 `timeline.html?id=<eventId>`（D1 决策，不新增独立详情页），支持自动展开 + 高亮 + 计算式「上/下事件」导航（按全量时间顺序，不保存 prevId/nextId）；未知 id 优雅降级提示。
+  - **外键关联与降级**：`relatedStoryIds` / `relatedFactionIds` / `relatedTermIds` / `locationIds` 复用 `components.js` 的 `relChips` / `loadRelIndex` 渲染；目标缺失时灰态 chip 显示 id，绝不报错（`Locations` 模块尚未建成，`locationIds` 暂为空数组，详情区优雅显示【官方暂未说明】）。
+  - **搜索修复**：`core/search.js` 的 `hasDetail` 补登记 `timeline: true`，使站内搜索结果对时间线事件正确深链至 `timeline.html?id=<eventId>`（原仅链接列表页）。
+  - **双向互引回填**：在 `data/story.json` 的 9 条相关剧情中补登记 `timelineIds`（仅追加，不改 Schema），使剧情详情页「时间线」关联区可正常渲染（外键优雅降级）。
+  - **未知内容**：所有未说明字段渲染为【官方暂未说明】，未编造。
+  - **自测**：jsdom 无头自测新增 9 项 Timeline 用例（列表渲染/纪元筛选/分类筛选/展开/关联 chip/详情渲染/高亮/上下事件导航/未知 id 降级），全仓 52/52 PASS；自测过程中发现并修复 1 个真实渲染缺陷（`timeline.js` 未知 id 分支误将 `placeholderPage()` 的返回值（undefined）赋给 `innerHTML`，导致内容显示字面量 "undefined"，已改为直接调用）。
+  - 同步更新 `docs/json-schema.md`（§2.8 落定最终 Schema + 受控词表说明）、`docs/roadmap.md`（Timeline 标记 Released）、`README.md`（进度 + 数据表）。
+
 ## v0.6.0
 - Story Module
 - Code Review Completed

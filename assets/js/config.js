@@ -46,6 +46,27 @@ window.ZZZ = {
     { id: 'event',   label: '活动剧情' }
   ],
 
+  // 时间线纪元受控词表（单一数据源）：data/timeline.json 的 era 存此 id
+  // 筛选/展示/排序共用同一份，新增纪元只需改这里，不散落页面逻辑。
+  timelineEras: [
+    { id: 'old-civilization', label: '旧文明时代' },
+    { id: 'hollow-disaster',  label: '空洞灾害时期' },
+    { id: 'new-eridu',        label: '新艾利都时期' },
+    { id: 'present',          label: '当前时间线' }
+  ],
+
+  // 时间线分类受控词表（单一数据源）：data/timeline.json 的 category 存此 id
+  // 取消 importance（属编辑判断），改用更客观的分类词表（D3 决策）
+  timelineCategories: [
+    { id: 'disaster',     label: '灾害' },
+    { id: 'history',      label: '历史事件' },
+    { id: 'organization', label: '组织事件' },
+    { id: 'character',    label: '人物事件' },
+    { id: 'war',          label: '战争' },
+    { id: 'tech',         label: '科技' },
+    { id: 'exploration',  label: '探索' }
+  ],
+
   // 数据文件清单：逻辑名 -> data 目录下的文件名（不含 .json）
   dataFiles: {
     site: 'site',

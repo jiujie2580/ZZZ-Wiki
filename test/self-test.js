@@ -148,6 +148,44 @@ async function loadPage(pageFile, query) {
   assert(c6.errors.length === 0, '未知 id 无错误 ' + JSON.stringify(c6.errors));
   assert(/未找到指定条目/.test(c6.document.querySelector('#content').textContent), '未知 id 显示提示');
 
+  console.log('=== Timeline 列表页自测 ===');
+  const t = await loadPage('timeline.html');
+  assert(t.errors.length === 0, '列表页无运行时错误 ' + JSON.stringify(t.errors));
+  const tItems = t.document.querySelectorAll('#timeline-track .timeline-item');
+  assert(tItems.length === 16, '渲染 16 个事件，实际 ' + tItems.length);
+  assert(/共\s*16\s*个事件/.test(t.document.getElementById('timeline-count').textContent),
+    '计数文案正确：' + t.document.getElementById('timeline-count').textContent);
+  assert(t.document.querySelectorAll('#timeline-eras .tag').length === 5, '纪元 chips = 全部 + 4 纪元');
+  assert(t.document.querySelectorAll('#timeline-cats .tag').length === 8, '分类 chips = 全部 + 7 分类');
+  assert(/旧文明时代/.test(tItems[0].textContent), '默认时间顺序首事件为旧文明时代');
+  // 纪元筛选：空洞灾害时期 -> 2
+  t.document.querySelector('#timeline-eras .tag[data-era="hollow-disaster"]').click();
+  assert(t.document.querySelectorAll('#timeline-track .timeline-item').length === 2, '筛选空洞灾害时期后 2 个');
+  t.document.querySelector('#timeline-eras .tag[data-era="all"]').click();
+  // 分类筛选：组织事件 -> 6
+  t.document.querySelector('#timeline-cats .tag[data-cat="organization"]').click();
+  assert(t.document.querySelectorAll('#timeline-track .timeline-item').length === 6, '筛选组织事件后 6 个');
+  t.document.querySelector('#timeline-cats .tag[data-cat="all"]').click();
+  // 展开含关联的事件（序章 · 猫的失物招领）
+  const tToggle = t.document.querySelector('#timeline-track .timeline-item[data-id="prologue-cat"] .timeline-toggle');
+  tToggle.click();
+  assert(t.document.querySelector('#timeline-track .timeline-item.expanded'), '点击后出现 expanded');
+  assert(!t.document.querySelector('#timeline-track .timeline-item.expanded .timeline-detail').hasAttribute('hidden'), '展开后 detail 可见');
+  assert(t.document.querySelectorAll('#timeline-track .timeline-item.expanded .rel-chip').length >= 1, '展开后关联 chip 渲染');
+
+  console.log('=== Timeline 详情页自测（?id=prologue-cat）===');
+  const td = await loadPage('timeline.html', '?id=prologue-cat');
+  assert(td.errors.length === 0, '详情页无错误 ' + JSON.stringify(td.errors));
+  assert(/序章/.test(td.document.querySelector('#content h1').textContent), '详情标题正确');
+  assert(td.document.querySelector('#content .timeline-item.highlight'), '目标事件高亮');
+  assert(td.document.querySelector('#content .chapter-nav-link'), '存在上/下事件导航');
+  assert(td.document.querySelectorAll('#content .rel-chip').length >= 1, '关联 chip >= 1（狡兔屋/剧情）');
+
+  console.log('=== Timeline 详情页自测（未知 id 降级）===');
+  const td2 = await loadPage('timeline.html', '?id=does-not-exist');
+  assert(td2.errors.length === 0, '未知 id 无错误 ' + JSON.stringify(td2.errors));
+  assert(/未找到指定事件/.test(td2.document.querySelector('#content').textContent), '未知 id 提示');
+
   console.log('\n=== 结果：PASS=' + pass + '  FAIL=' + fail + ' ===');
   process.exit(fail === 0 ? 0 : 1);
 })().catch(function (e) {

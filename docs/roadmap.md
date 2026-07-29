@@ -23,7 +23,7 @@
 | 势力 / 组织 Factions | `factions.html` / `faction.html` | `factions.json` | ✅ Released（模块四 · v0.4.0） | 用 `category` 区分阵营/组织/机构/网络，不拆模块；分类词表在 `config.factionCategories` |
 | 角色 Characters | `characters.html` / `character.html` | `characters.json` | ✅ Released（模块五 · v0.5.0） | 56 名官方代理人（至 3.0）；属性/稀有度受控词表在 `config.js`；关联 storyIds/termIds/timelineIds |
 | 剧情 Story | `story.html` / `chapter.html` | `story.json` | ✅ Released（模块六 · v0.6.0） | 43 条官方剧情（至 3.0）；Story Type 受控词表在 `config.storyTypes`；关联 participantIds/factionIds/locationIds/termIds/timelineIds；剧透折叠 + 计算式导航 |
-| 时间线 Timeline | `timeline.html` | `timeline.json` | ⬜ 待开发 | 事件与剧情/势力/术语互引 |
+| 时间线 Timeline | `timeline.html` | `timeline.json` | ✅ Released（模块七 · v0.7.0） | 单页 `?id` 详情（自动展开/高亮 + 上/下事件导航）；era/category 受控词表在 `config.timelineEras`/`config.timelineCategories`；关联 story/factions/glossary/locations 外键降级 |
 | 地区 Locations | `locations.html` / `location.html` | `locations.json` | ⬜ 待开发 | `parentId` 自引用层级 |
 | 世界观 Worldview | `worldview.html` | `worldview.json`（**待补**） | ⬜ 待开发 | 壳与脚本已存在，但缺数据文件与 `config` 登记 |
 | 更新日志 Changelog | `changelog.html` | `version.json` | ⬜ 待开发 | 渲染 `version.json` 的 `versions` |
@@ -131,7 +131,7 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 | v0.4.0 | 势力 / 组织 Factions（已 Released） |
 | v0.5.0 | 角色 Characters（已 Released） |
 | v0.6.0 | 剧情 Story（已 Released） |
-| v0.7.0 | 时间线 Timeline（待开发） |
+| v0.7.0 | 时间线 Timeline（已 Released） |
 | v0.8.0 | 地区 Locations（待开发） |
 | v0.9.0 | 世界观 Worldview（待开发） |
 | v1.0.0 | 首个正式公开版 First Public Release |
