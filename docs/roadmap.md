@@ -18,8 +18,8 @@
 | 模块 | 页面 | 数据文件 | 状态 | 备注 |
 |---|---|---|---|---|
 | 项目初始化（骨架） | 全部占位页 | 空 JSON 骨架 | ✅ 完成（模块一） | 目录 / 布局 / 核心 JS / 占位页 / README |
-| 项目文档（Docs） | `docs/*` | — | ✅ 完成（模块二·本次） | architecture / roadmap / json-schema / development-guide |
-| 术语表 Glossary | `glossary.html` | `glossary.json` | ⬜ 待开发 | **首个填充内容的模块** |
+| 项目文档（Docs） | `docs/*` | — | ✅ 完成（模块二） | architecture / roadmap / json-schema / development-guide |
+| 术语表 Glossary | `glossary.html` / `term.html` | `glossary.json` | ✅ 完成（模块三） | 首个填充内容的模块；`term.html` 确立全站详情页模板规范 |
 | 势力 / 组织 Factions | `factions.html` / `faction.html` | `factions.json` | ⬜ 待开发 | 用 `category` 区分阵营/组织/机构/网络，不拆模块 |
 | 角色 Characters | `characters.html` / `character.html` | `characters.json` | ⬜ 待开发 | 字段最多，作复杂度标杆 |
 | 剧情 Story | `story.html` / `chapter.html` | `story.json` | ⬜ 待开发 | 含 `participantIds` / `factionIds` / `timelineIds` 交叉引用 |
@@ -51,6 +51,24 @@
 
 ---
 
+## 3.1 详情页模板规范（由模块三确立）
+
+`term.html` + `assets/js/pages/term.js` 作为**全站详情页的统一模板**，后续 角色 / 势力 / 地区 / 剧情章节 等详情页均遵循同一结构，便于复用与一致性维护：
+
+```
+detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
+  → detail-section（信息分节，使用 components.js 的 field / fieldList）
+  → 关联区（rel-chips：目标存在→可点击链接；不存在→灰态降级显示 id，绝不报错）
+  → 引用来源（结构化 source 渲染）
+```
+
+关键约定：
+- 外键解析原则：目标条目存在 → 可点击链接；不存在 → 灰态 chip 显示 id（优雅降级，不报错、不崩溃）。
+- 受控修改点仍集中在 `config.js`（页面注册）与 `core/search.js`（`MAP` / `hasDetail`），新增详情页时同步登记即可（见 `architecture.md` §8）。
+- 未知/缺失内容统一渲染为【官方暂未说明】（由 `components.js` 的 `field` / `isEmpty` / `UNKNOWN` 保证）。
+
+---
+
 ## 4. 模块完成标准（Definition of Done）
 
 一个模块视为完成，需同时满足：
@@ -70,9 +88,10 @@
 | 门 | 触发时机 | 工具 / 方式 | 当前可用性 |
 |---|---|---|---|
 | 本地自测 | 每次提交前 | `python -m http.server` 打开页面，确认无控制台报错、JSON 合法 | ✅ 可用 |
-| 性能审计 | 内容模块上线前 | Web Performance Audit（Core Web Vitals，依赖 Chrome DevTools MCP） | ⏳ 环境就绪后执行 |
-| 响应式检查 | 内容模块上线前 | Responsiveness Check（多视口截图） | ⏳ 环境就绪后执行 |
+| 无头自测 | 内容模块上线前 | jsdom 模拟浏览器加载真实页面脚本（自测脚本覆盖列表页/详情页/降级/搜索索引） | ✅ 模块三已跑通（23/23 PASS） |
+| 性能审计 | 内容模块上线前 | Web Performance Audit（Core Web Vitals，依赖 Chrome DevTools MCP） | ⏳ 待补跑（环境未配置 chrome-devtools MCP，已确认不可用） |
+| 响应式检查 | 内容模块上线前 | Responsiveness Check（多视口截图，依赖浏览器自动化） | ⏳ 待补跑（环境未配置浏览器连接器） |
 | 图片资源 | 需要背景图/角色立绘/图标时 | Image Well（12 个图库 API） | ✅ 按需调用 |
 | Git 规范 | 每次提交 | 见 [`development-guide.md`](development-guide.md) 提交规范 | ✅ 执行中 |
 
-> 性能审计与响应式检查需要浏览器/Chrome DevTools 类连接器；本仓库迁入时尚未连接对应 MCP，故作为“内容模块上线前强制检查”写入流程，待环境就绪后补跑。纯文档类提交（如本模块）不触发这两项。
+> 性能审计与响应式检查需要浏览器/Chrome DevTools 类连接器。本环境已确认未配置 `chrome-devtools` MCP（Web Performance Audit 技能启动即要求该连接器，不可用即停止）及浏览器自动化连接器，故作为“内容模块上线前强制检查”写入流程，**待环境就绪后补跑**。模块三已通过 jsdom 无头自测（列表页交互、详情页渲染、外键降级、全局搜索索引共 23 项全部 PASS）替代验证渲染正确性。纯文档类提交（如模块二）不触发这两项。

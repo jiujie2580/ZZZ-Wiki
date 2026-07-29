@@ -2,7 +2,7 @@
 // 暴露：window.ZZZSearch.init / buildIndex / renderResults / search
 (function () {
   let index = [];
-  const hasDetail = { character: true, faction: true, location: true, chapter: true };
+  const hasDetail = { character: true, faction: true, location: true, chapter: true, term: true };
 
   const TYPE_LABEL = {
     characters: '角色', factions: '势力', locations: '地区',
@@ -14,7 +14,7 @@
     characters: ['characters', 'character', ['name', 'nameEn'], ['summary']],
     factions:   ['factions',   'faction',   ['name', 'nameEn'], ['summary']],
     locations:  ['locations',  'location',  ['name', 'nameEn'], ['summary']],
-    glossary:   ['terms',      'glossary',  ['term', 'termEn'], ['definition']],
+    glossary:   ['terms',      'term',      ['name', 'nameEn'], ['summary']],
     story:      ['story',      'chapter',   ['title'],          ['summary']],
     timeline:   ['events',     'timeline',  ['title'],          ['description']],
     version:    ['versions',   'changelog', ['version', 'name'],['highlights']]

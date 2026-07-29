@@ -156,22 +156,62 @@
 ```
 
 ### 2.7 `glossary.json` — 列表字段 `terms`
+
+术语表采用“受控词表 + 结构化字段”设计。顶层除 `terms` 外新增 `meta`（分类/标签受控词表、Schema 版本与数据更新时间），所有下拉/筛选选项均数据驱动，禁止在 JS 中硬编码。
+
 ```jsonc
 {
+  "meta": {
+    "schemaVersion": "1.0",           // Schema 版本（向后兼容：优先新增字段，不删改既有字段）
+    "updatedAt": "2026-07-29",        // 数据整体更新日期 YYYY-MM-DD
+    "categories": [                   // 受控分类词表（id 用于数据，label 用于展示）
+      { "id": "concept",   "label": "核心概念" },
+      { "id": "being",     "label": "存在与生物" },
+      { "id": "identity",  "label": "身份与职业" },
+      { "id": "equipment", "label": "装备与道具" },
+      { "id": "place",     "label": "地点" }
+    ],
+    "tags": [                         // 受控标签词表（多选，列表页 AND 逻辑筛选）
+      { "id": "core",   "label": "核心设定" },
+      { "id": "hollow", "label": "空洞相关" },
+      { "id": "ether",  "label": "以太相关" },
+      { "id": "combat", "label": "战斗相关" },
+      { "id": "daily",  "label": "都市生活" }
+    ]
+  },
   "terms": [
     {
       "id": "example-term",
-      "term": null,
-      "termEn": null,
-      "category": null,          // 分类（如 概念/组织/地点名词…）
-      "aliases": [],             // 别名
-      "definition": null,        // 释义
-      "source": null,            // 出处
-      "relatedTermIds": []       // → terms.id（自引用）
+      "name": null,                   // 中文名（必填，列表/详情标题）
+      "nameEn": null,                 // 英文名
+      "nameJa": null,                 // 日文名（官方未公布则 null）
+      "aliases": [],                  // 别名数组
+      "category": null,               // → meta.categories[].id
+      "summary": null,                // 一句话简介（列表卡片展示）
+      "description": null,            // 官方定义（详情“官方定义”分节）
+      "introducedVersion": null,      // 首次出现版本号（如 "1.0"）
+      "introducedStoryId": null,      // → story.id（首次出现章节，可选）
+      "introducedTimelineId": null,   // → timeline(events).id（首次出现时间线，可选）
+      "relatedTermIds": [],           // → terms.id（自引用，网状关联）
+      "relatedCharacterIds": [],      // → characters.id
+      "relatedFactionIds": [],        // → factions.id
+      "relatedLocationIds": [],       // → locations.id
+      "source": {                     // 结构化引用来源（见 §2.10）
+        "type": "official",           // official | game | video | story
+        "title": null,                // 来源标题/名称
+        "url": null                   // 可选外链
+      },
+      "official": false,              // 是否官方设定（true/false）
+      "updatedAt": null,              // 本条更新日期 YYYY-MM-DD
+      "tags": []                      // → meta.tags[].id（多选）
     }
   ]
 }
 ```
+
+> ⚠️ Schema 一经确定尽量保持**向后兼容**：优先采用“新增字段”而非删改既有字段；旧数据缺字段时渲染层按 `null` 处理，不会报错。
+>
+> 完整字段（19 个）：`id, name, nameEn, nameJa, aliases, category, summary, description, introducedVersion, introducedStoryId, introducedTimelineId, relatedTermIds, relatedCharacterIds, relatedFactionIds, relatedLocationIds, source, official, updatedAt, tags`；外加顶层 `meta`（含 `schemaVersion / updatedAt / categories / tags`）。
 
 ### 2.8 `timeline.json` — 列表字段 `events`
 ```jsonc
@@ -202,6 +242,24 @@
 
 > 预留文件的具体字段在对应模块开发时定稿，并保持与本文“通用约定”一致。
 
+### 2.10 通用：`source` 结构化引用来源格式
+
+`glossary.json`（以及后续 characters/factions 等模块）统一使用**结构化** `source`，便于渲染层区分类型并支持外链；同时**向后兼容**旧版字符串格式（渲染层遇到字符串直接按纯文本展示）。
+
+| `type` | 含义 | 渲染行为 |
+|---|---|---|
+| `official` | 官方资料（世界观介绍/设定集/官网） | 显示“官方资料”徽标 + `title`；有 `url` 则附加外链 |
+| `game` | 游戏内正式文本 | 显示“游戏内文本”徽标 + `title` |
+| `video` | 官方视频/PV | 显示“官方视频”徽标 + `title` |
+| `story` | 某剧情章节 | 渲染为指向该章节详情页的链接（`id` → `story.id`） |
+
+```jsonc
+// 结构化（推荐）
+"source": { "type": "official", "title": "《绝区零》官方世界观介绍", "url": null }
+// 字符串（旧版兼容，不推荐新数据使用）
+"source": "《绝区零》官方世界观介绍"
+```
+
 ---
 
 ## 3. 外键关系图（Cross-References）
@@ -219,7 +277,12 @@ story.timelineIds         ──▶  timeline.events.id
 timeline.relatedStoryIds  ──▶  story.id
 timeline.relatedFactionIds──▶  factions.id
 timeline.relatedTermIds   ──▶  glossary.terms.id
-glossary.relatedTermIds   ──▶  glossary.terms.id       （自引用）
+glossary.introducedStoryId   ──▶  story.id
+glossary.introducedTimelineId─▶  timeline.events.id
+glossary.relatedTermIds      ──▶  glossary.terms.id    （自引用，网状关联）
+glossary.relatedCharacterIds─▶  characters.id
+glossary.relatedFactionIds  ──▶  factions.id
+glossary.relatedLocationIds ──▶  locations.id
 version.newCharacterIds   ──▶  characters.id
 version.newFactionIds     ──▶  factions.id
 version.newTermIds        ──▶  glossary.terms.id
@@ -247,20 +310,37 @@ version.newTermIds        ──▶  glossary.terms.id
 
 ## 5. 示例数据（占位模板，**非官方内容**）
 
-以 `glossary.json` 为例，新建模块时直接复制此模板并替换 `id`、补 `null` 为官方数据：
+以 `glossary.json` 为例，新建模块时直接复制此模板并替换 `id`、补 `null` 为官方数据（注意 `meta` 受控词表随分类/标签增减维护）：
 
 ```json
 {
+  "meta": {
+    "schemaVersion": "1.0",
+    "updatedAt": null,
+    "categories": [ { "id": "concept", "label": "核心概念" } ],
+    "tags": [ { "id": "core", "label": "核心设定" } ]
+  },
   "terms": [
     {
       "id": "example-term",
-      "term": null,
-      "termEn": null,
-      "category": null,
+      "name": null,
+      "nameEn": null,
+      "nameJa": null,
       "aliases": [],
-      "definition": null,
-      "source": null,
-      "relatedTermIds": []
+      "category": null,
+      "summary": null,
+      "description": null,
+      "introducedVersion": null,
+      "introducedStoryId": null,
+      "introducedTimelineId": null,
+      "relatedTermIds": [],
+      "relatedCharacterIds": [],
+      "relatedFactionIds": [],
+      "relatedLocationIds": [],
+      "source": { "type": "official", "title": null, "url": null },
+      "official": false,
+      "updatedAt": null,
+      "tags": []
     }
   ]
 }

@@ -39,6 +39,7 @@ window.ZZZ = {
     location: 'location.html',
     timeline: 'timeline.html',
     glossary: 'glossary.html',
+    term: 'term.html',
     changelog: 'changelog.html',
     search: 'search.html',
     about: 'about.html'

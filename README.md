@@ -48,7 +48,7 @@ zzz-wiki/
 | `characters.json` | 角色（代理人） | `characters` | character.html |
 | `factions.json` | 势力 + 组织/机构/网络（`category` 区分） | `factions` | faction.html |
 | `locations.json` | 地区（都市/空洞/地带） | `locations` | location.html |
-| `glossary.json` | 专有名词/术语 | `terms` | （列表内展开） |
+| `glossary.json` | 专有名词/术语 | `terms` | `term.html`（详情页） |
 | `timeline.json` | 时间线事件 | `events` | （列表内展开） |
 | `enemies.json` | 敌人/以骸（预留） | `enemies` | 暂无 |
 | `bangboo.json` | 邦布（预留） | `bangboos` | 暂无 |
@@ -122,7 +122,7 @@ npx serve zzz-wiki
 
 - [x] 模块一：项目初始化（目录 / 布局 / 核心 JS / 占位页 / 数据骨架 / README）
 - [x] 模块二：项目文档（`docs/`：architecture / roadmap / json-schema / development-guide）
-- [ ] 术语表（Glossary）— 第一个填充内容的模块
+- [x] 模块三：术语表（Glossary）— 首个填充内容的模块（`glossary.html` 列表 + `term.html` 详情页 + `glossary.json` 19 字段 Schema + 受控词表 meta）
 - [ ] 势力/组织 → 角色 → 剧情 → 时间线 → 地区 → 世界观 → 更新日志 → 搜索 → 关于/404
 
 > 规范文档见 [`docs/`](docs/)：[架构](docs/architecture.md) · [路线图](docs/roadmap.md) · [JSON Schema](docs/json-schema.md) · [开发指南](docs/development-guide.md)。
