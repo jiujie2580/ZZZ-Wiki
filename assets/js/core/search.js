@@ -2,11 +2,11 @@
 // 暴露：window.ZZZSearch.init / buildIndex / renderResults / search
 (function () {
   let index = [];
-  const hasDetail = { character: true, faction: true, location: true, chapter: true, term: true, timeline: true };
+  const hasDetail = { character: true, faction: true, location: true, chapter: true, term: true, timeline: true, worldview: true };
 
   const TYPE_LABEL = {
     characters: '角色', factions: '势力', locations: '地区',
-    glossary: '术语', story: '剧情', timeline: '时间线', version: '版本'
+    glossary: '术语', story: '剧情', timeline: '时间线', version: '版本', worldview: '世界观'
   };
 
   // 各数据文件 -> 列表字段名 / 页面逻辑名 / 标题字段 / 摘要字段
@@ -17,7 +17,8 @@
     glossary:   ['terms',      'term',      ['name', 'nameEn'], ['summary']],
     story:      ['story',      'chapter',   ['title', 'titleEn'], ['summary', 'chapter']],
     timeline:   ['events',     'timeline',  ['title'],          ['description']],
-    version:    ['versions',   'changelog', ['version', 'name'],['highlights']]
+    version:    ['versions',   'changelog', ['version', 'name'],['highlights']],
+    worldview:  ['entries',    'worldview', ['title', 'titleEn'], ['summary', 'aliases']]
   };
 
   async function buildIndex() {

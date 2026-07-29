@@ -329,3 +329,52 @@ a.rel-chip:hover { box-shadow: var(--glow-cyan); background: rgba(57, 240, 230, 
   .location-hero { flex-direction: column; align-items: flex-start; }
   .location-hero .term-hero-meta { justify-content: flex-start; }
 }
+
+/* ===================== Worldview 模块（模块九追加，仅新增不改动） ===================== */
+
+/* 列表网格 + 卡片（风格对齐 Locations 玻璃拟态卡片） */
+.worldview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-3); }
+.worldview-card { display: flex; flex-direction: column; gap: 6px; padding: var(--space-3) var(--space-3) var(--space-2);
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+  transition: transform .2s, border-color .2s, box-shadow .2s; text-decoration: none; color: inherit; }
+.worldview-card:hover { transform: translateY(-3px); border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+.worldview-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.worldview-card-title { margin: 0; font-size: 17px; color: var(--text-1); font-family: var(--font-head); }
+.worldview-card-badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; flex-shrink: 0; }
+.worldview-card-sub { margin: 0; color: var(--text-3); font-size: 12px; letter-spacing: .3px; }
+.worldview-card-summary { margin: 2px 0 0; color: var(--text-2); font-size: 13px; line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* 分类徽标（受控词表，单一映射避免硬编码） */
+.badge-wv-world        { color: #57e0ff; border-color: rgba(87, 224, 255, .5);  background: rgba(87, 224, 255, .08); }
+.badge-wv-disaster     { color: #ff6b6b; border-color: rgba(255, 107, 107, .5); background: rgba(255, 107, 107, .1); }
+.badge-wv-ether        { color: #c08bff; border-color: rgba(192, 139, 255, .5); background: rgba(192, 139, 255, .08); }
+.badge-wv-civilization { color: #8affc1; border-color: rgba(138, 255, 193, .5); background: rgba(138, 255, 193, .08); }
+.badge-wv-technology   { color: #ffd166; border-color: rgba(255, 209, 102, .5); background: rgba(255, 209, 102, .08); }
+.badge-wv-society      { color: #ff9de2; border-color: rgba(255, 157, 226, .5); background: rgba(255, 157, 226, .08); }
+
+/* 剧透徽标 + 折叠块（Story D5 模式） */
+.badge-spoiler { color: #ff8585; border-color: rgba(255, 133, 133, .5); background: rgba(255, 133, 133, .1); }
+.worldview-spoiler { margin: var(--space-2) 0; }
+.spoiler-toggle { display: inline-block; cursor: pointer; padding: 8px 16px; border-radius: var(--radius-sm);
+  border: 1px solid var(--neon-cyan); background: rgba(57, 240, 230, .06); color: var(--neon-cyan);
+  font-size: 13px; font-family: var(--font-head); transition: background .2s, box-shadow .2s; }
+.spoiler-toggle:hover { background: rgba(57, 240, 230, .14); box-shadow: var(--glow-cyan); }
+.spoiler-body { margin-top: var(--space-2); padding: var(--space-3); border-left: 3px solid var(--neon-magenta);
+  background: rgba(255, 77, 166, .04); border-radius: var(--radius-sm); }
+
+/* 详情 hero：复用 .detail-hero，纵向堆叠 + 顶部徽标行 */
+.worldview-hero { align-items: flex-start; }
+
+/* 无障碍：减少动效时关闭本模块动画（仅作用于新增类） */
+@media (prefers-reduced-motion: reduce) {
+  .worldview-card, .worldview-card:hover { transition: none; transform: none; }
+}
+
+/* 移动端适配（Worldview 专属） */
+@media (max-width: 768px) {
+  .worldview-grid { grid-template-columns: 1fr; }
+  .worldview-hero { flex-direction: column; align-items: flex-start; }
+  .worldview-hero .term-hero-meta { justify-content: flex-start; }
+}

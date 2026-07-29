@@ -25,7 +25,7 @@
 | 剧情 Story | `story.html` / `chapter.html` | `story.json` | ✅ Released（模块六 · v0.6.0） | 43 条官方剧情（至 3.0）；Story Type 受控词表在 `config.storyTypes`；关联 participantIds/factionIds/locationIds/termIds/timelineIds；剧透折叠 + 计算式导航 |
 | 时间线 Timeline | `timeline.html` | `timeline.json` | ✅ Released（模块七 · v0.7.0） | 单页 `?id` 详情（自动展开/高亮 + 上/下事件导航）；era/category 受控词表在 `config.timelineEras`/`config.timelineCategories`；关联 story/factions/glossary/locations 外键降级 |
 | 地区 Locations | `locations.html` / `location.html` | `locations.json` | ✅ Released（模块八 · v0.8.0） | `parentId` 自引用层级（城市→区域→建筑…）；6 类受控词表 `config.locationCategories`（city/district/building/facility/hollow/special）；详情父子导航 + 反向关联（扫描 story/timeline/factions/glossary 的外键）；列表卡片网格（默认）+ 层级树视图切换 |
-| 世界观 Worldview | `worldview.html` | `worldview.json`（**待补**） | ⬜ 待开发 | 壳与脚本已存在，但缺数据文件与 `config` 登记 |
+| 世界观 Worldview | `worldview.html` | `worldview.json` | ✅ Released（模块九 · v0.9.0） | 单页 `?id` 详情（对齐 Timeline）；6 类受控词表 `config.worldviewCategories`（world/disaster/ether/civilization/technology/society）；5 路 `related*Ids` 外键（零回填已发布模块）；列表搜索/分类/排序 + 详情设定正文（spoiler 折叠）+ 计算式上/下条目导航 |
 | 更新日志 Changelog | `changelog.html` | `version.json` | ⬜ 待开发 | 渲染 `version.json` 的 `versions` |
 | 搜索 Search | `search.html` | 聚合各模块 | ⬜ 待开发 | 随内容模块逐步丰富索引 |
 | 关于 About | `about.html` | — | ⬜ 待开发 | 站点说明 / 免责声明 |
@@ -89,13 +89,13 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 | 门 | 触发时机 | 工具 / 方式 | 当前可用性 |
 |---|---|---|---|
 | 本地自测 | 每次提交前 | `python -m http.server` 打开页面，确认无控制台报错、JSON 合法 | ✅ 可用 |
-| 无头自测 | 内容模块上线前 | jsdom 模拟浏览器加载真实页面脚本（自测脚本覆盖列表页/详情页/降级/搜索索引） | ✅ 已跑通（Story / Timeline / Locations 共 81/81 PASS） |
+| 无头自测 | 内容模块上线前 | jsdom 模拟浏览器加载真实页面脚本（自测脚本覆盖列表页/详情页/降级/搜索索引） | ✅ 已跑通（Story / Timeline / Locations / Worldview 共 113/113 PASS） |
 | 性能审计 | 内容模块上线前 | Web Performance Audit（Core Web Vitals，依赖 Chrome DevTools MCP） | ⏳ 待补跑（环境未配置 chrome-devtools MCP，已确认不可用） |
 | 响应式检查 | 内容模块上线前 | Responsiveness Check（多视口截图，依赖浏览器自动化） | ⏳ 待补跑（环境未配置浏览器连接器） |
 | 图片资源 | 需要背景图/角色立绘/图标时 | Image Well（12 个图库 API） | ✅ 按需调用 |
 | Git 规范 | 每次提交 | 见 [`development-guide.md`](development-guide.md) 提交规范 | ✅ 执行中 |
 
-> 性能审计与响应式检查需要浏览器/Chrome DevTools 类连接器。本环境已确认未配置 `chrome-devtools` MCP（Web Performance Audit 技能启动即要求该连接器，不可用即停止）及浏览器自动化连接器，故作为“内容模块上线前强制检查”写入流程，**待环境就绪后补跑**。当前已通过 jsdom 无头自测（Story / Timeline / Locations 列表页交互、详情页渲染、父子导航、外键反向关联降级、全局搜索索引共 81 项全部 PASS）替代验证渲染正确性。纯文档类提交（如模块二）不触发这两项。
+> 性能审计与响应式检查需要浏览器/Chrome DevTools 类连接器。本环境已确认未配置 `chrome-devtools` MCP（Web Performance Audit 技能启动即要求该连接器，不可用即停止）及浏览器自动化连接器，故作为“内容模块上线前强制检查”写入流程，**待环境就绪后补跑**。当前已通过 jsdom 无头自测（Story / Timeline / Locations / Worldview 列表页交互、详情页渲染、父子导航、外键反向关联降级、全局搜索索引共 113 项全部 PASS）替代验证渲染正确性。纯文档类提交（如模块二）不触发这两项。
 
 ---
 
@@ -133,7 +133,7 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 | v0.6.0 | 剧情 Story（已 Released） |
 | v0.7.0 | 时间线 Timeline（已 Released） |
 | v0.8.0 | 地区 Locations（已 Released） |
-| v0.9.0 | 世界观 Worldview（待开发） |
+| v0.9.0 | 世界观 Worldview（已 Released） |
 | v1.0.0 | 首个正式公开版 First Public Release |
 
 > 更新日志 / 搜索 / 关于 为支撑页，归入 `v1.0.0` 前的收尾阶段。

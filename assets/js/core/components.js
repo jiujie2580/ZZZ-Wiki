@@ -135,7 +135,8 @@
     characters: ['characters', 'characters', 'character', function (x) { return x.name; }],
     factions:   ['factions',   'factions',   'faction',   function (x) { return x.name; }],
     locations:  ['locations',  'locations',  'location',  function (x) { return x.name; }],
-    glossary:   ['glossary',   'terms',      'term',      function (x) { return x.name; }]
+    glossary:   ['glossary',   'terms',      'term',      function (x) { return x.name; }],
+    worldview:  ['worldview',  'entries',    'worldview', function (x) { return x.title; }]
   };
 
   // 加载某数据集并建 id -> 条目 索引；加载失败返回空 Map（降级，不报错）

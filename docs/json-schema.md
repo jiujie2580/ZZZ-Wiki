@@ -294,6 +294,49 @@
 
 > **列表页筛选/排序**：`timeline.html` 的筛选 chips = `timelineEras`（纪元）+ `timelineCategories`（分类），二者可组合；搜索匹配 `title` / `titleEn` / `description` / `dateText`；排序支持「时间顺序（默认）」「分类」「名称排序」。详情采用单页 `timeline.html?id=<eventId>`（自动展开 + 高亮 + 上/下事件导航），不新增独立详情页（D1 决策）。
 
+### 2.11 `worldview.json` — 列表字段 `entries`
+
+世界观为“主题式设定汇编 + 聚合”，与 Glossary（术语字典）职责分离：Glossary 解释“一个词是什么”，Worldview 串起“背景 / 体系 / 影响”。
+
+```jsonc
+{
+  "entries": [
+    {
+      "id": "example-entry",        // 全局唯一 kebab-case
+      "title": null,                // 中文标题（必填，列表/详情标题）
+      "titleEn": null,              // 英文标题
+      "aliases": [],                // 别名数组
+      "category": "world",          // 受控词表 id，词表见 config.worldviewCategories（6 类）
+      "summary": null,              // 一句话简介（列表卡片展示，不含剧透）
+      "description": null,          // 设定正文（spoiler=true 时默认折叠）
+      "spoiler": false,             // 是否含剧透（true 时设定正文默认折叠，用户主动展开）
+      "relatedTimelineIds": [],     // → timeline(events).id
+      "relatedFactionIds": [],      // → factions.id
+      "relatedLocationIds": [],     // → locations.id
+      "relatedTermIds": [],         // → glossary(terms).id
+      "relatedStoryIds": [],        // → story.id
+      "introducedVersion": null,    // 首次披露版本号（如 "1.0"）
+      "source": {                   // 结构化引用来源（§2.10）
+        "type": "official",
+        "title": null,
+        "url": null
+      },
+      "updatedAt": null             // 本条资料更新日期 YYYY-MM-DD
+    }
+  ]
+}
+```
+
+> **分类受控词表（单一数据源）**：`category` 的取值（`world` 世界格局 / `disaster` 空洞灾害 / `ether` 以太 / `civilization` 都市文明 / `technology` 科技体系 / `society` 社会与职业）统一维护在 `assets/js/config.js` 的 `window.ZZZ.worldviewCategories`（含 `id` 与展示 `label`）。筛选 chips、详情徽标、排序、列表页搜索均读取同一份词表；**否决 `history`（与 Timeline 重叠）/ `mystery`（易引发编造）/ `organization`（与 Factions 重叠）**。展示时 `label` 由该词表映射得到（徽标类 `badge-wv-*`）。
+
+> **外键策略（D2 决策）**：Worldview 仅存**正向** 5 路 `related*Ids`（时间线 / 势力 / 地区 / 术语 / 剧情）；**不回填**已发布的 story / timeline / locations / factions / glossary JSON（避免污染既有模块），反向关联（“被哪些世界观条目引用”）留待后续按索引扫描实现，不引入 Graph 结构（知识图谱不在 v0.9.0）。
+
+> **列表页筛选/排序**：`worldview.html` 搜索匹配 `title` / `titleEn` / `aliases` / `summary`；分类 chips = `worldviewCategories`（全部 + 6 类）；排序支持「分类顺序（默认，受控词表序 → 标题序）」「名称排序」「最近更新」。详情采用单页 `worldview.html?id=<entryId>`（hero → 基本信息 → 设定详情（spoiler 折叠）→ 5 路关联 → 引用来源 → 计算式上/下条目导航），不新增独立详情页（D3 决策）。
+
+> **剧透处理（复用 Story D5 模式）**：`spoiler=true` 时 `description` 默认折叠并显示「显示剧透内容」按钮，用户主动展开；`summary` 始终可见。基线官方 3.0 的 8 条条目均 `spoiler=false`。
+
+> **版本边界（D7 决策）**：仅录入截至官方 3.0 的设定；不含 3.1「漫长的告别」及任何粉丝推测；未知字段一律 `null` → 渲染【官方暂未说明】。
+
 ### 2.9 预留文件（空数组，开发对应模块时细化字段）
 | 文件 | 列表字段 | 建议字段（待定，开发时确认） |
 |---|---|---|
@@ -352,6 +395,11 @@ glossary.relatedTermIds      ──▶  glossary.terms.id    （自引用，网�
 glossary.relatedCharacterIds─▶  characters.id
 glossary.relatedFactionIds  ──▶  factions.id
 glossary.relatedLocationIds ──▶  locations.id
+worldview.relatedTimelineIds  ──▶ timeline.events.id
+worldview.relatedFactionIds   ──▶ factions.id
+worldview.relatedLocationIds  ──▶ locations.id
+worldview.relatedTermIds      ──▶ glossary.terms.id
+worldview.relatedStoryIds     ──▶ story.id
 version.newCharacterIds   ──▶  characters.id
 version.newFactionIds     ──▶  factions.id
 version.newTermIds        ──▶  glossary.terms.id

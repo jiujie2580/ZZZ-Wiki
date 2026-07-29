@@ -50,6 +50,7 @@ zzz-wiki/
 | `locations.json` | 地区（城市/区域/建筑/设施/空洞/特殊地点，`parentId` 自引用层级） | `locations` | location.html |
 | `glossary.json` | 专有名词/术语 | `terms` | `term.html`（详情页） |
 | `timeline.json` | 时间线事件（era/category 受控词表见 `config`） | `events` | `timeline.html?id=<eventId>` |
+| `worldview.json` | 世界观设定汇编（category 6 类受控词表见 `config.worldviewCategories`） | `entries` | `worldview.html?id=<entryId>` |
 | `enemies.json` | 敌人/以骸（预留） | `enemies` | 暂无 |
 | `bangboo.json` | 邦布（预留） | `bangboos` | 暂无 |
 | `w-engines.json` | 音擎（预留） | `wEngines` | 暂无 |
@@ -128,7 +129,7 @@ npx serve zzz-wiki
 - [x] 模块六：剧情 / 章节（Story）— 列表（`story.html`） + 详情（`chapter.html`） + `story.json` 43 条官方剧情（主线 20 / 特别篇 3 / 代理人剧情 17 / 活动剧情 3，均至 3.0）；Story Type 受控词表 `config.storyTypes`；剧透折叠（spoiler）+ 计算式上/下章导航 + 外键关联（角色/势力/地点/术语/时间线）优雅降级
 - [x] 模块七：时间线 Timeline（已 Released · v0.7.0）— 列表（`timeline.html`）+ `?id` 详情（自动展开/高亮 + 上/下事件导航）+ `timeline.json` 16 个官方事件（至 3.0）；纪元/分类受控词表 `config.timelineEras` / `config.timelineCategories`；关联剧情/势力/术语/地区（外键优雅降级）
 - [x] 模块八：地区 Locations（已 Released · v0.8.0）— 列表（`locations.html`）+ 详情（`location.html`）+ `locations.json` 7 个官方地区（新艾利都/六分街/光映广场/斯科特哨站/空洞/录像店/141便利店）；`parentId` 自引用层级 + 6 类受控词表 `config.locationCategories`（city/district/building/facility/hollow/special）；卡片网格（默认）+ 层级树视图；详情父子导航 + 反向关联（剧情/事件/势力/术语）优雅降级
-- [ ] 世界观 Worldview（v0.9.0）
+- [x] 模块九：世界观 Worldview（已 Released · v0.9.0）— 列表（`worldview.html`）+ `?id` 详情（设定正文 spoiler 折叠 + 关联时间线/势力/地区/术语/剧情 5 路外键降级 + 计算式上/下条目导航）+ `worldview.json` 8 个官方设定条目（基线官方 3.0）；6 类受控词表 `config.worldviewCategories`（world/disaster/ether/civilization/technology/society）；Worldview 仅正向外键、零回填已发布模块
 - [ ] 更新日志 Changelog / 搜索 Search / 关于 About（归入 v1.0.0 前收尾）
 - [ ] 404 兜底页（壳已完成）
 

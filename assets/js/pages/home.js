@@ -5,7 +5,7 @@
   }
 
   async function init() {
-    const names = ['characters', 'factions', 'locations', 'glossary', 'story', 'timeline', 'version'];
+    const names = ['characters', 'factions', 'locations', 'glossary', 'story', 'timeline', 'version', 'worldview'];
     const counts = {};
     for (let i = 0; i < names.length; i++) {
       const d = await window.ZZZData.loadJSON(names[i]);
@@ -23,7 +23,7 @@
       { page: 'story',      icon: 'story',     title: '剧情',       n: counts.story },
       { page: 'timeline',   icon: 'timeline',  title: '时间线',     n: counts.timeline },
       { page: 'changelog',  icon: 'update',    title: '更新日志',   n: counts.version },
-      { page: 'worldview',  icon: 'world',     title: '世界观',     n: null }
+      { page: 'worldview',  icon: 'world',     title: '世界观',     n: counts.worldview }
     ];
 
     const c = document.getElementById('content');

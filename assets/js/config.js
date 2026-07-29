@@ -79,6 +79,18 @@ window.ZZZ = {
     { id: 'special',   label: '特殊地点' }
   ],
 
+  // 世界观分类受控词表（单一数据源）：data/worldview.json 的 category 存此 id
+  // 筛选/展示/排序共用同一份，新增分类只需改这里，不散落页面逻辑。
+  // 6 类（D4 决策，否决 history/mystery/organization，避免与 Timeline/Factions 职责重叠及编辑判断）
+  worldviewCategories: [
+    { id: 'world',        label: '世界格局' },
+    { id: 'disaster',     label: '空洞灾害' },
+    { id: 'ether',        label: '以太' },
+    { id: 'civilization', label: '都市文明' },
+    { id: 'technology',   label: '科技体系' },
+    { id: 'society',      label: '社会与职业' }
+  ],
+
   // 数据文件清单：逻辑名 -> data 目录下的文件名（不含 .json）
   dataFiles: {
     site: 'site',
@@ -89,6 +101,7 @@ window.ZZZ = {
     locations: 'locations',
     glossary: 'glossary',
     timeline: 'timeline',
+    worldview: 'worldview',
     enemies: 'enemies',
     bangboo: 'bangboo',
     wEngines: 'w-engines',

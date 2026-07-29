@@ -7,6 +7,26 @@
 
 ---
 
+## v0.9.0
+- Worldview Module
+- Code Review Completed
+
+## [仓库] 模块九：世界观（Worldview）
+- `feat(worldview): implement worldview list & detail` — 第九个填充内容的模块（单页 `?id` 详情，对齐 Timeline 模板）：
+  - **数据 Schema 定稿**（`data/worldview.json`）：Design Review D1–D7 决策落地；16 字段 lore 条目模型（含 `category` 6 类受控词表 + 5 路 `related*Ids` 外键 + 结构化 `source` + `updatedAt`），**不含 `parentId` / `importance`**（D1）；首批录入 8 个官方世界观条目，严格基于官方正式设定（基线官方 3.0），无编造：
+    - 旧文明与旧都 / 空洞灾害 / 以太与以太产业 / 新艾利都 / 空洞治理与探索体系 / 绳匠与代理人体系 / 邦布体系 / 战斗装备技术。
+    - **边界（D7）**：仅录入截至官方 3.0 的设定；不含 3.1「漫长的告别」及任何粉丝推测；未知字段一律 `null` → 渲染【官方暂未说明】。
+  - **分类受控词表（单一数据源）**：`assets/js/config.js` 新增 `window.ZZZ.worldviewCategories`（world 世界格局 / disaster 空洞灾害 / ether 以太 / civilization 都市文明 / technology 科技体系 / society 社会与职业）；否决 `history`（与 Timeline 重叠）/ `mystery`（易引发编造）/ `organization`（与 Factions 重叠）。筛选/展示/排序共用，不在 JSON 或页面硬编码。
+  - **列表页**（`worldview.html` + `assets/js/pages/worldview.js`）：搜索（title/titleEn/aliases/summary）、分类 chips（全部 + 6 类）、排序（分类顺序默认 / 名称 / 最近更新）、卡片网格（玻璃拟态，对齐 Locations）；分类徽标 `badge-wv-*` 由受控词表映射。
+  - **详情页**：单页 `worldview.html?id=<entryId>`（D3 决策，不新增独立详情页），hero → 基本信息 → 设定详情（spoiler 折叠，复用 Story D5 模式）→ 关联时间线/势力/地区/术语/剧情（5 路 `relChips` 外键，目标缺失灰态降级）→ 引用来源 → 计算式上/下条目导航（按全量分类序 + 标题序，不存 prevId/nextId）；未知 id 优雅降级提示。
+  - **外键策略（D2）**：Worldview 仅存正向 5 路 `related*Ids`；**零回填**已发布 JSON（story/timeline/locations/factions/glossary），反向关联（未来“被哪些世界观条目引用”）留待后续按索引扫描实现；不引入 Graph 结构（D6 知识图谱不在 v0.9.0）。
+  - **搜索增强**：`core/search.js` 的 `MAP` 新增 `worldview`（标题 title/titleEn，文本 summary/aliases）、`TYPE_LABEL.worldview='世界观'`、`hasDetail.worldview=true`（结果深链至 `worldview.html?id=<entryId>`）。
+  - **组件复用**：`core/components.js` 的 `REL_SOURCES` 新增 `worldview`（供未来反向关联渲染）；`pages/worldview.js` 复用 `relChips` / `loadRelIndex` / `renderSource` / `section` / `field` / `fieldList` / `badge` / `breadcrumb` / `emptyState` / `errorState`。
+  - **首页集成**：`pages/home.js` 的模块卡片 `n` 由 `null` 改为读取 `counts.worldview`（8 条），与既有模块一致。
+  - **未知内容**：所有未说明字段渲染为【官方暂未说明】，未编造。
+  - **受控修改（仅新增不改动）**：`config.js`（注册 `worldviewCategories`）/`core/search.js`（worldview MAP）/`core/components.js`（REL_SOURCES.worldview）/`pages/home.js`（计数）/`assets/css/pages.css`（追加 Worldview 模块样式块）/`docs/json-schema.md`（§2.11）/`docs/roadmap.md`（状态标记 Released）/`README.md`（进度 + 数据表）。
+  - **自测**：jsdom 无头自测新增 Worldview 覆盖（列表渲染/分类筛选/搜索/排序/详情 5 路关联/剧透折叠路径/计算式导航/未知 id 降级共 32 项），全仓 **113/113 PASS**（Story 34 + Timeline 18 + Locations 29 + Worldview 32），无控制台错误。
+
 ## v0.8.0
 - Locations Module
 - Code Review Completed

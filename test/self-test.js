@@ -1,4 +1,4 @@
-// self-test.js —— Story / Timeline / Locations 模块无头自测（jsdom）
+// self-test.js —— Story / Timeline / Locations / Worldview 模块无头自测（jsdom）
 // 通过注入本地 fetch polyfill + 按 HTML 顺序注入脚本 + 手动触发 DOMContentLoaded，
 // 验证列表页渲染/筛选/排序、详情页渲染/关联/父-子导航/未知 id 降级无运行时错误。
 // 运行：node test/self-test.js（需 jsdom：npm i jsdom）
@@ -265,6 +265,76 @@ async function loadPage(pageFile, query) {
   const dx = await loadPage('location.html', '?id=does-not-exist');
   assert(dx.errors.length === 0, '未知 id 无错误 ' + JSON.stringify(dx.errors));
   assert(/未找到指定地区/.test(dx.document.querySelector('#content').textContent), '未知 id 显示提示');
+
+  console.log('=== Worldview 列表页自测 ===');
+  const wv = await loadPage('worldview.html');
+  assert(wv.errors.length === 0, '列表页无运行时错误 ' + JSON.stringify(wv.errors));
+  const wvCards = wv.document.querySelectorAll('#worldview-grid .worldview-card');
+  assert(wvCards.length === 8, '渲染 8 张卡片，实际 ' + wvCards.length);
+  assert(/共\s*8\s*个条目/.test(wv.document.getElementById('worldview-count').textContent),
+    '计数文案正确：' + wv.document.getElementById('worldview-count').textContent);
+  assert(wv.document.querySelectorAll('#worldview-cats .tag').length === 7, '分类 chips = 全部 + 6 类');
+  assert(wv.document.querySelectorAll('#worldview-sort .tag').length === 3, '排序 chips = 分类/名称/更新');
+  assert(/旧文明与旧都/.test(wvCards[0].textContent), '默认分类顺序首卡为「旧文明与旧都」');
+  // 分类筛选：society -> 2
+  wv.document.querySelector('#worldview-cats .tag[data-cat="society"]').click();
+  assert(wv.document.querySelectorAll('#worldview-grid .worldview-card').length === 2, '筛选 society 后 2 张');
+  // 分类筛选：technology -> 2
+  wv.document.querySelector('#worldview-cats .tag[data-cat="technology"]').click();
+  assert(wv.document.querySelectorAll('#worldview-grid .worldview-card').length === 2, '筛选 technology 后 2 张');
+  wv.document.querySelector('#worldview-cats .tag[data-cat="all"]').click();
+  // 搜索（唯一词）
+  const wq = wv.document.getElementById('worldview-q');
+  wq.value = '绳匠';
+  wq.dispatchEvent(new wv.window.Event('input'));
+  assert(wv.document.querySelectorAll('#worldview-grid .worldview-card').length === 1, '搜索「绳匠」命中 1 条');
+  wq.value = '';
+  wq.dispatchEvent(new wv.window.Event('input'));
+  // 排序：名称 -> 首卡不再是分类顺序首卡
+  wv.document.querySelector('#worldview-sort .tag[data-sort="name"]').click();
+  const nameFirst = wv.document.querySelector('#worldview-grid .worldview-card .worldview-card-title').textContent;
+  assert(nameFirst !== '旧文明与旧都', '名称排序后首卡改变（实际「' + nameFirst + '」）');
+  wv.document.querySelector('#worldview-sort .tag[data-sort="category"]').click();
+
+  console.log('=== Worldview 详情页自测（?id=proxy-and-agents，含 5 路关联）===');
+  const wd = await loadPage('worldview.html', '?id=proxy-and-agents');
+  assert(wd.errors.length === 0, '详情页无运行时错误 ' + JSON.stringify(wd.errors));
+  assert(/绳匠与代理人体系/.test(wd.document.querySelector('#content h1').textContent), '标题正确');
+  const wSecs = wd.document.querySelectorAll('#content .detail-section');
+  assert(wSecs.length >= 8, '分节数 >= 8（基本信息/设定详情/5关联/来源），实际 ' + wSecs.length);
+  assert(wd.document.getElementById('worldview-spoiler-toggle') === null, '非剧透条目（spoiler=false）无剧透折叠按钮');
+  // 各关联分节 chip 数（渲染顺序：关联时间线/势力/地区/术语/剧情）
+  assert(wSecs[2].querySelectorAll('.rel-chip').length === 2, '关联时间线 2 chip，实际 ' + wSecs[2].querySelectorAll('.rel-chip').length);
+  assert(wSecs[3].querySelectorAll('.rel-chip').length === 3, '关联势力 3 chip，实际 ' + wSecs[3].querySelectorAll('.rel-chip').length);
+  assert(wSecs[4].querySelectorAll('.rel-chip').length === 2, '关联地区 2 chip，实际 ' + wSecs[4].querySelectorAll('.rel-chip').length);
+  assert(wSecs[5].querySelectorAll('.rel-chip').length === 2, '关联术语 2 chip，实际 ' + wSecs[5].querySelectorAll('.rel-chip').length);
+  assert(wSecs[6].querySelectorAll('.rel-chip').length === 2, '关联剧情 2 chip，实际 ' + wSecs[6].querySelectorAll('.rel-chip').length);
+  assert(wd.document.querySelector('#content .chapter-nav-link.prev') &&
+    !wd.document.querySelector('#content .chapter-nav-link.next'), 'society 为末类，proxy-and-agents 有上一（空洞治理与探索体系）但无下一');
+  assert(wd.document.querySelector('#content .source-text'), '渲染引用来源区块');
+
+  console.log('=== Worldview 详情页自测（中间条目 ?id=combat-equipment-tech，上下均有）===');
+  const wc = await loadPage('worldview.html', '?id=combat-equipment-tech');
+  assert(wc.errors.length === 0, '中间条目无错误 ' + JSON.stringify(wc.errors));
+  assert(/战斗装备技术/.test(wc.document.querySelector('#content h1').textContent), '标题正确');
+  assert(wc.document.querySelector('#content .chapter-nav-link.prev') &&
+    wc.document.querySelector('#content .chapter-nav-link.next'), '存在上一/下一条目导航（technology 位于中间类）');
+  // 关联术语 3 chip（w-engine / drive-disc / ether）；其余 4 路为空 -> UNKNOWN
+  const wSecsC = wc.document.querySelectorAll('#content .detail-section');
+  assert(wSecsC[5].querySelectorAll('.rel-chip').length === 3, '关联术语 3 chip，实际 ' + wSecsC[5].querySelectorAll('.rel-chip').length);
+  assert(wSecsC[3].querySelector('.rel-empty'), '关联势力为空 -> 【官方暂未说明】');
+  assert(wSecsC[6].querySelector('.rel-empty'), '关联剧情为空 -> 【官方暂未说明】');
+
+  console.log('=== Worldview 详情页自测（分类顺序首条 ?id=old-civilization-and-eridu，无 prev）===');
+  const wf = await loadPage('worldview.html', '?id=old-civilization-and-eridu');
+  assert(wf.errors.length === 0, '首条详情无错误 ' + JSON.stringify(wf.errors));
+  assert(wf.document.querySelector('#content .chapter-nav-link.next'), '首条有「下一个条目」');
+  assert(!wf.document.querySelector('#content .chapter-nav-link.prev'), '首条无「上一个条目」');
+
+  console.log('=== Worldview 详情页自测（未知 id 降级）===');
+  const wx = await loadPage('worldview.html', '?id=does-not-exist');
+  assert(wx.errors.length === 0, '未知 id 无错误 ' + JSON.stringify(wx.errors));
+  assert(/未找到指定世界观条目/.test(wx.document.querySelector('#content').textContent), '未知 id 显示提示');
 
   console.log('\n=== 结果：PASS=' + pass + '  FAIL=' + fail + ' ===');
   process.exit(fail === 0 ? 0 : 1);
