@@ -96,3 +96,47 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 | Git 规范 | 每次提交 | 见 [`development-guide.md`](development-guide.md) 提交规范 | ✅ 执行中 |
 
 > 性能审计与响应式检查需要浏览器/Chrome DevTools 类连接器。本环境已确认未配置 `chrome-devtools` MCP（Web Performance Audit 技能启动即要求该连接器，不可用即停止）及浏览器自动化连接器，故作为“内容模块上线前强制检查”写入流程，**待环境就绪后补跑**。模块三已通过 jsdom 无头自测（列表页交互、详情页渲染、外键降级、全局搜索索引共 23 项全部 PASS）替代验证渲染正确性。纯文档类提交（如模块二）不触发这两项。
+
+---
+
+## 版本管理（Version Management）
+
+> 自 2026-07-29 起，**版本号由 AI 全权维护，无需每次向用户确认**（除非重大产品规划变化）。
+> 采用 Semantic Versioning，结合本项目的“一次一个模块”节奏。
+
+### 版本号规则
+- **Major**：重大重构 / 架构升级 / 首个正式公开版（`v1.0.0` First Public Release）。
+- **Minor**：完成一个完整模块 → Minor +1（如 `v0.3.0 → v0.4.0`）。
+- **Patch**：Bug 修复 / Code Review 修正 / 文档修正 / 样式修复 / 性能优化 / 小功能补充 → Patch +1（如 `v0.4.0 → v0.4.1`）。
+- 模块开发过程中的修复自动递增 Patch：`v0.4.0 → v0.4.1 → v0.4.2 …`。
+
+### 自动判定（不询问用户）
+- 新模块完成 → Minor +1
+- 仅修复 / 文档 / Review → Patch +1
+- 架构调整 / 正式发布 → Major +1
+
+### 固定 Release 流程（每完成一个模块自动执行，结束再进下一模块）
+1. 开发完成　2. 自测　3. Code Review　4. 修复 Review 问题　5. Git Commit
+6. 更新 `CHANGELOG.md`　7. 更新本 `roadmap.md`　8. 创建 Annotated Git Tag　9. Push 到 GitHub
+10. 创建 GitHub Release　11. 标记该模块 Released
+
+每次 Release 必做：更新 CHANGELOG、更新 roadmap、创建 Annotated Tag、Push Tag、创建 GitHub Release、验证本地≡GitHub、输出 Release Summary。
+
+### 权威版本里程碑（用户给定）
+| 版本 | 模块 / 里程碑 |
+|---|---|
+| v0.1.0 | 项目骨架（Skeleton） |
+| v0.2.0 | 项目文档（Documentation） |
+| v0.3.0 | 术语表 Glossary |
+| v0.4.0 | 势力 / 组织 Factions（已 Released） |
+| v0.5.0 | 角色 Characters（待开发） |
+| v0.6.0 | 剧情 Story（待开发） |
+| v0.7.0 | 时间线 Timeline（待开发） |
+| v0.8.0 | 地区 Locations（待开发） |
+| v0.9.0 | 世界观 Worldview（待开发） |
+| v1.0.0 | 首个正式公开版 First Public Release |
+
+> 更新日志 / 搜索 / 关于 为支撑页，归入 `v1.0.0` 前的收尾阶段。
+
+### ⚠️ GitHub Release 环境限制
+本环境当前无 `gh` CLI、无 `GITHUB_TOKEN`、GitHub connector 断开，**无法程序化创建 GitHub Release（网页端）**。Tag 与 commit 可正常 push；「创建 GitHub Release」一步须用户手动补建（命令与链接见各次 Release Summary）。一旦环境具备 token / connector，该步骤将自动执行。`v0.4.0` 即因此待手动 Release。
