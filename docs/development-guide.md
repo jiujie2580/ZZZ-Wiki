@@ -32,7 +32,7 @@
 
 ## 2. 新增游戏版本流程（仅改 JSON）
 
-1. 在 `data/version.json` 的 `versions` 数组**头部**追加 `{ "version": "3.2", "name": "...", ... }`。
+1. 在 `data/version.json` 的 `gameVersions` 数组**头部**追加 `{ "version": "3.2", "title": "...", "date": "YYYY-MM-DD" }`（标题/日期官方未公布可留 `null`）。
 2. 在对应数据文件追加新条目（角色→`characters.json`、势力→`factions.json`、术语→`glossary.json` …）。
 3. 更新 `data/site.json` 的 `site.gameVersion` 为 `"3.2"`（与 `config.gameVersion` 保持一致）。
 4. （可选）在新增条目的 `relatedTermIds` 等外键字段维护交叉引用。

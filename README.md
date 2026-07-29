@@ -43,7 +43,7 @@ zzz-wiki/
 | 文件 | 内容 | 列表字段 | 详情页 |
 |---|---|---|---|
 | `site.json` | 站点元信息 + 导航配置（真实可用） | — | — |
-| `version.json` | 版本更新日志 | `versions` | changelog.html |
+| `version.json` | 游戏版本 + 站点更新日志 | `gameVersions` / `siteVersions` | changelog.html |
 | `story.json` | 剧情章节（主线/特别篇/代理人剧情/活动剧情，Story Type 受控词表见 `config.storyTypes`） | `story` | chapter.html |
 | `characters.json` | 角色（代理人） | `characters` | character.html |
 | `factions.json` | 势力 + 组织/机构/网络（`category` 区分） | `factions` | faction.html |
@@ -65,7 +65,7 @@ zzz-wiki/
 3. **数据驱动**：内容只写在 `data/*.json`；新增内容 = 改 JSON，不碰 HTML/JS。
 4. **模块化**：每个功能模块 = 一组页面 `.html` + 一个 `pages/*.js` + 对应 `data/*.json`；一次只做一个模块，不重构已完成内容。
 5. **统一布局**：禁止在页面中重复写 Header/Footer；统一由 `core/layout.js` 注入。新增页面只需复制页面骨架并改 `data-page` 与脚本引用。
-6. **外键关联**：跨模块引用用 `*Id` / `*Ids`（如 `factionId`、`memberIds`、`relatedTermIds`）；JSON 键使用驼峰（camelCase），`id` 值使用小写连字符（kebab-case，唯一，如 `example-character`）。
+6. **外键关联**：跨模块引用用 `*Id` / `*Ids`（如 `factionId`、`memberIds`、`relatedTermIds`）；JSON 键使用驼峰（camelCase），`id` 值使用小写连字符（kebab-case，**模块内唯一**，如 `example-character`）。
 
 ---
 
@@ -103,7 +103,7 @@ npx serve zzz-wiki
 
 仅改 JSON，无需改动页面与脚本：
 
-1. 在 `data/version.json` 的 `versions` 数组**头部**追加一条 `{ "version": "3.2", "name": "...", ... }`。
+1. 在 `data/version.json` 的 `gameVersions` 数组**头部**追加一条 `{ "version": "3.2", "title": "...", "date": "YYYY-MM-DD" }`（标题/日期官方未公布可留 null）。
 2. 在对应数据文件追加新条目（新角色进 `characters.json`、新势力进 `factions.json`、新术语进 `glossary.json` …）。
 3. 更新 `data/site.json` 的 `site.gameVersion` 为 `"3.2"`。
 4. （可选）在新增条目的 `relatedTermIds` 等字段中维护交叉引用。
@@ -130,7 +130,10 @@ npx serve zzz-wiki
 - [x] 模块七：时间线 Timeline（已 Released · v0.7.0）— 列表（`timeline.html`）+ `?id` 详情（自动展开/高亮 + 上/下事件导航）+ `timeline.json` 16 个官方事件（至 3.0）；纪元/分类受控词表 `config.timelineEras` / `config.timelineCategories`；关联剧情/势力/术语/地区（外键优雅降级）
 - [x] 模块八：地区 Locations（已 Released · v0.8.0）— 列表（`locations.html`）+ 详情（`location.html`）+ `locations.json` 7 个官方地区（新艾利都/六分街/光映广场/斯科特哨站/空洞/录像店/141便利店）；`parentId` 自引用层级 + 6 类受控词表 `config.locationCategories`（city/district/building/facility/hollow/special）；卡片网格（默认）+ 层级树视图；详情父子导航 + 反向关联（剧情/事件/势力/术语）优雅降级
 - [x] 模块九：世界观 Worldview（已 Released · v0.9.0）— 列表（`worldview.html`）+ `?id` 详情（设定正文 spoiler 折叠 + 关联时间线/势力/地区/术语/剧情 5 路外键降级 + 计算式上/下条目导航）+ `worldview.json` 8 个官方设定条目（基线官方 3.0）；6 类受控词表 `config.worldviewCategories`（world/disaster/ether/civilization/technology/society）；Worldview 仅正向外键、零回填已发布模块
-- [ ] 更新日志 Changelog / 搜索 Search / 关于 About（归入 v1.0.0 前收尾）
-- [ ] 404 兜底页（壳已完成）
+- [x] 更新日志 Changelog（已 Released · v1.0.0）— 真实双区块渲染（`version.json` 的 `gameVersions` 18 条 + `siteVersions` 10 条），数据驱动，新增版本只改 JSON
+- [x] 搜索 Search（已 Released · v1.0.0）— 聚合各模块索引 + 版本；关键词高亮 + Ctrl/⌘K 聚焦 + 空结果模块引导
+- [x] 关于 About（已 Released · v1.0.0）— 站点信息（版本 / 游戏版本 / 数据基线 / 开源协议 / 仓库）+ 数据统计（7 模块共 160 条）+ 来源规范 + 免责声明
+- [x] 404 兜底页（已完善 · v1.0.0）— 返回首页 + 站内搜索 + 热门栏目网格（复用 `module-card` 样式）
+- [x] **v1.0.0 First Public Release** — 四大支撑页（更新日志 / 搜索 / 关于 / 404）产品化收尾；数据健康门禁（`data-validator`，零依赖静态校验）+ 无头自测（jsdom，151/151 PASS）双门禁；文档全面同步（README / roadmap / json-schema / development-guide）
 
 > 规范文档见 [`docs/`](docs/)：[架构](docs/architecture.md) · [路线图](docs/roadmap.md) · [JSON Schema](docs/json-schema.md) · [开发指南](docs/development-guide.md)。

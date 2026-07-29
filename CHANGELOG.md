@@ -7,6 +7,29 @@
 
 ---
 
+## v1.0.0
+- First Public Release（首个正式公开版）
+- 四大支撑页产品化收尾：更新日志 / 搜索 / 关于 / 404
+- 数据健康门禁 data-validator + 无头自测双门禁
+- Code Review Completed
+
+## [仓库] v1.0.0 — First Public Release（产品化收尾）
+- 收尾阶段对 4 个支撑页做产品化打磨（不做新内容，仅完善体验与一致性），并通过「数据健康门禁 + 无头自测」双门禁：
+  - **`test/data-validator.js`（新增，零依赖静态门禁）**：上线前静态校验全仓 13 个数据文件——JSON 解析 + 顶层结构、`id` 模块内唯一 + kebab-case、外键完整性、受控词表合法性、`source` 结构、日期格式、`version.json`（`gameVersions`/`siteVersions` 双数组）与 `site.json` 一致性；FAIL 直接阻断。结果 **114/114 PASS**。
+  - **`data/version.json` 结构重构**：`versions` 单数组 → `gameVersions`（18 条官方游戏版本大事记，1.0–3.0 标题均来自官方资料）+ `siteVersions`（10 条站点里程碑，v0.1.0–v1.0.0）双数组分离；`core/search.js` 索引同步适配，搜索结果统一深链 `changelog.html`。
+  - **更新日志 `changelog.js` 真实渲染**：双区块（游戏版本大事记 + 站点更新日志），读取 `gameVersions`/`siteVersions`；官方未公布字段渲染【官方暂未说明】。
+  - **关于页 `about.js` 增强（D2）**：并行加载 `site.json` + 各模块 JSON，计算 7 模块统计（共 160 条）；站点信息含版本 / 游戏版本 / 数据基线 / 开源协议（null → “暂未设置”，区别于官方内容未知）/ 代码仓库；新增「数据统计 / 数据来源与规范 / 免责声明」分节。
+  - **首页 `home.js` 升级（D4）**：`Promise.all` 并行加载 9 文件；hero 展示当前游戏版本（数据驱动自 `version.json`）+ 站点版本（自 `site.json`）+ 模块数 / 内容量元信息条；不展示“最近更新”。
+  - **搜索增强（D3）**：关键词命中 `<mark>` 高亮（零依赖）、`Ctrl/⌘K` 聚焦全局搜索框、`Esc` 收起建议、空结果给出模块导航引导；`recent searches` 顺延至 v1.1。
+  - **势力成员反向关联修复（D8）**：`faction.js` 由 `characters.factionId` 反向扫描计算成员（单一事实源，零回填 `factions.memberIds`）。
+  - **404 页完善（P1）**：返回首页按钮 + 站内搜索入口 + 热门栏目网格（复用 `module-card` 样式）。
+  - **`config.js`**：`timelineCategories` 补登记 `event`（剧情事件），修复 v0.7.0 数据已使用但词表漏登记的 4 条主线节点事件导致的 FK 校验告警。
+  - **`site.json`**：新增 `dataVersion: "3.0"`、`repository`（GitHub 链接）、`license: null`。
+  - **文档同步**：README / roadmap / json-schema（§2.2 双数组结构 + `id` 改为「模块内唯一」）/ development-guide 全面对齐；新增 `docs/release-checklist.md`（D9 固定 Release 流程清单）。
+  - **自测扩展**：`test/self-test.js` 新增首页 / 更新日志 / 关于 / 搜索 / 404 覆盖（含高亮、Ctrl+K、空结果引导、未知 id 降级），全仓 **151/151 PASS**（原 113 项 + 38 项新增），无控制台错误。
+
+---
+
 ## v0.9.0
 - Worldview Module
 - Code Review Completed

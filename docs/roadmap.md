@@ -26,10 +26,10 @@
 | 时间线 Timeline | `timeline.html` | `timeline.json` | ✅ Released（模块七 · v0.7.0） | 单页 `?id` 详情（自动展开/高亮 + 上/下事件导航）；era/category 受控词表在 `config.timelineEras`/`config.timelineCategories`；关联 story/factions/glossary/locations 外键降级 |
 | 地区 Locations | `locations.html` / `location.html` | `locations.json` | ✅ Released（模块八 · v0.8.0） | `parentId` 自引用层级（城市→区域→建筑…）；6 类受控词表 `config.locationCategories`（city/district/building/facility/hollow/special）；详情父子导航 + 反向关联（扫描 story/timeline/factions/glossary 的外键）；列表卡片网格（默认）+ 层级树视图切换 |
 | 世界观 Worldview | `worldview.html` | `worldview.json` | ✅ Released（模块九 · v0.9.0） | 单页 `?id` 详情（对齐 Timeline）；6 类受控词表 `config.worldviewCategories`（world/disaster/ether/civilization/technology/society）；5 路 `related*Ids` 外键（零回填已发布模块）；列表搜索/分类/排序 + 详情设定正文（spoiler 折叠）+ 计算式上/下条目导航 |
-| 更新日志 Changelog | `changelog.html` | `version.json` | ⬜ 待开发 | 渲染 `version.json` 的 `versions` |
-| 搜索 Search | `search.html` | 聚合各模块 | ⬜ 待开发 | 随内容模块逐步丰富索引 |
-| 关于 About | `about.html` | — | ⬜ 待开发 | 站点说明 / 免责声明 |
-| 404 | `404.html` | — | ✅ 壳完成 | 兜底页 |
+| 更新日志 Changelog | `changelog.html` | `version.json` | ✅ Released（v1.0.0） | 双区块渲染 `gameVersions`（18 条游戏版本大事记）+ `siteVersions`（10 条站点里程碑）；数据驱动，新增版本只改 JSON |
+| 搜索 Search | `search.html` | 聚合各模块 + `version.json` | ✅ Released（v1.0.0） | 聚合各模块索引 + 版本；关键词高亮 + Ctrl/⌘K 聚焦 + 空结果模块引导 |
+| 关于 About | `about.html` | `site.json` + 各模块 | ✅ Released（v1.0.0） | 站点信息（版本 / 游戏版本 / 数据基线 / 开源协议 / 仓库）+ 数据统计（7 模块共 160 条）+ 来源规范 + 免责声明 |
+| 404 | `404.html` | — | ✅ 完成（v1.0.0） | 返回首页 + 站内搜索 + 热门栏目网格 |
 
 预留数据文件（已建空数组，暂无页面）：`enemies.json` / `bangboo.json` / `w-engines.json` / `drive-discs.json`。
 
@@ -89,13 +89,14 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 | 门 | 触发时机 | 工具 / 方式 | 当前可用性 |
 |---|---|---|---|
 | 本地自测 | 每次提交前 | `python -m http.server` 打开页面，确认无控制台报错、JSON 合法 | ✅ 可用 |
-| 无头自测 | 内容模块上线前 | jsdom 模拟浏览器加载真实页面脚本（自测脚本覆盖列表页/详情页/降级/搜索索引） | ✅ 已跑通（Story / Timeline / Locations / Worldview 共 113/113 PASS） |
+| 数据健康门禁 | 每次提交前（静态，零依赖） | `node test/data-validator.js`：JSON 解析 + 顶层结构 + `id` 规范（模块内唯一 / kebab-case）+ 外键完整性 + 受控词表 + `source` 结构 + 日期格式 + `version.json`/`site.json` 一致性 | ✅ 已接入（114 项 PASS：13 个数据文件全量校验） |
+| 无头自测 | 内容模块上线前 | jsdom 模拟浏览器加载真实页面脚本（覆盖列表页/详情页/降级/搜索索引 + 首页 / 更新日志 / 关于 / 搜索 / 404） | ✅ 已跑通（151/151 PASS） |
 | 性能审计 | 内容模块上线前 | Web Performance Audit（Core Web Vitals，依赖 Chrome DevTools MCP） | ⏳ 待补跑（环境未配置 chrome-devtools MCP，已确认不可用） |
 | 响应式检查 | 内容模块上线前 | Responsiveness Check（多视口截图，依赖浏览器自动化） | ⏳ 待补跑（环境未配置浏览器连接器） |
 | 图片资源 | 需要背景图/角色立绘/图标时 | Image Well（12 个图库 API） | ✅ 按需调用 |
 | Git 规范 | 每次提交 | 见 [`development-guide.md`](development-guide.md) 提交规范 | ✅ 执行中 |
 
-> 性能审计与响应式检查需要浏览器/Chrome DevTools 类连接器。本环境已确认未配置 `chrome-devtools` MCP（Web Performance Audit 技能启动即要求该连接器，不可用即停止）及浏览器自动化连接器，故作为“内容模块上线前强制检查”写入流程，**待环境就绪后补跑**。当前已通过 jsdom 无头自测（Story / Timeline / Locations / Worldview 列表页交互、详情页渲染、父子导航、外键反向关联降级、全局搜索索引共 113 项全部 PASS）替代验证渲染正确性。纯文档类提交（如模块二）不触发这两项。
+> 性能审计与响应式检查需要浏览器/Chrome DevTools 类连接器。本环境已确认未配置 `chrome-devtools` MCP 及浏览器自动化连接器，故作为“内容模块上线前强制检查”写入流程，**待环境就绪后补跑**。当前已通过双门禁替代验证：① 数据健康门禁（`test/data-validator.js`，零依赖静态校验全仓 13 个数据文件，114 项 PASS）；② jsdom 无头自测（151/151 PASS，覆盖 Story / Timeline / Locations / Worldview 列表页交互、详情页渲染、父子导航、外键反向关联降级、全局搜索索引，以及首页 / 更新日志 / 关于 / 搜索 / 404 产品化页）。纯文档类提交不触发这两项。
 
 ---
 

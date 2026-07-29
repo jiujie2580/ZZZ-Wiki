@@ -82,7 +82,22 @@
     );
 
     // ---------- 关联区 ----------
-    html += UI.section('关联角色', UI.relChips(f.memberIds, 'characters', indexes.characters));
+    // 关联角色（v1.0.0 D8 修复）：成员 = memberIds ∪ 反向扫描 characters.factionId === f.id（去重）。
+    // 遵循 Locations D2「单向存储事实、多向展示靠计算」原则：不回填 factions.memberIds，
+    // characters.factionId 是唯一事实来源，展示层反向计算，新增角色零维护成本。
+    const memberIds = (f.memberIds || []).slice();
+    const memberSet = {};
+    memberIds.forEach(function (mid) { memberSet[mid] = true; });
+    const charData = await window.ZZZData.loadJSON('characters');
+    if (charData && !charData.__error) {
+      (charData.characters || []).forEach(function (ch) {
+        if (ch.factionId === f.id && !memberSet[ch.id]) {
+          memberSet[ch.id] = true;
+          memberIds.push(ch.id);
+        }
+      });
+    }
+    html += UI.section('关联角色', UI.relChips(memberIds, 'characters', indexes.characters));
     html += UI.section('关联势力', UI.relChips(f.relatedFactionIds, 'factions', indexes.factions));
     html += UI.section('关联地区', UI.relChips(f.relatedLocationIds, 'locations', indexes.locations));
     html += UI.section('关联术语', UI.relChips(f.relatedTermIds, 'glossary', indexes.glossary));

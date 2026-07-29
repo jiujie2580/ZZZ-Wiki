@@ -64,7 +64,8 @@ window.ZZZ = {
     { id: 'character',    label: '人物事件' },
     { id: 'war',          label: '战争' },
     { id: 'tech',         label: '科技' },
-    { id: 'exploration',  label: '探索' }
+    { id: 'exploration',  label: '探索' },
+    { id: 'event',        label: '剧情事件' }  // v1.0.0 修复：v0.7.0 数据已使用但词表漏登记（4 条主线节点事件）
   ],
 
   // 地区类型受控词表（单一数据源）：data/locations.json 的 category 存此 id

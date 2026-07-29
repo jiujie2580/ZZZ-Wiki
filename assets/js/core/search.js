@@ -17,7 +17,6 @@
     glossary:   ['terms',      'term',      ['name', 'nameEn'], ['summary']],
     story:      ['story',      'chapter',   ['title', 'titleEn'], ['summary', 'chapter']],
     timeline:   ['events',     'timeline',  ['title'],          ['description']],
-    version:    ['versions',   'changelog', ['version', 'name'],['highlights']],
     worldview:  ['entries',    'worldview', ['title', 'titleEn'], ['summary', 'aliases']]
   };
 
@@ -34,6 +33,24 @@
         entries.push({
           type: name, page: m[1], id: item.id,
           title: title, text: text
+        });
+      });
+    }
+    // version.json 采用 gameVersions/siteVersions 双数组结构（v1.0.0 D1），单独建索引
+    const vd = await window.ZZZData.loadJSON('version');
+    if (vd && !vd.__error) {
+      (vd.gameVersions || []).forEach(function (v) {
+        entries.push({
+          type: 'version', page: 'changelog', id: v.id,
+          title: 'v' + v.version + (v.title ? '「' + v.title + '」' : ''),
+          text: v.date || ''
+        });
+      });
+      (vd.siteVersions || []).forEach(function (v) {
+        entries.push({
+          type: 'version', page: 'changelog', id: v.id,
+          title: '站点 v' + v.version + (v.title ? ' ' + v.title : ''),
+          text: (v.highlights || []).join(' ')
         });
       });
     }
@@ -55,6 +72,15 @@
       : window.ZZZRouter.buildLink(r.page);
   }
 
+  // 关键词高亮（v1.0.0 D3）：先转义再包裹 <mark>，大小写不敏感，不引入任何库
+  function highlight(text, q) {
+    const escaped = window.ZZZUI.esc(text || '');
+    q = (q || '').trim();
+    if (!q) return escaped;
+    const escQ = window.ZZZUI.esc(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return escaped.replace(new RegExp('(' + escQ + ')', 'gi'), '<mark class="search-mark">$1</mark>');
+  }
+
   function init() {
     const input = document.getElementById('search-input');
     const box = document.getElementById('search-suggest');
@@ -70,7 +96,7 @@
         box.innerHTML = res.map(function (r) {
           return '<a class="suggest-item" href="' + hrefFor(r) + '">' +
             '<span class="suggest-type">' + (TYPE_LABEL[r.type] || r.type) + '</span>' +
-            '<span class="suggest-title">' + window.ZZZUI.esc(r.title) + '</span></a>';
+            '<span class="suggest-title">' + highlight(r.title, q) + '</span></a>';
         }).join('');
       }
       box.classList.add('show');
@@ -87,6 +113,18 @@
     document.addEventListener('click', function (e) {
       if (!box.contains(e.target) && e.target !== input) box.classList.remove('show');
     });
+
+    // Ctrl+K / Cmd+K 聚焦全局搜索框（v1.0.0 D3）；Esc 收起建议
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        input.focus();
+        input.select();
+      } else if (e.key === 'Escape') {
+        box.classList.remove('show');
+      }
+    });
+    input.setAttribute('placeholder', (input.getAttribute('placeholder') || '搜索') + '（Ctrl+K）');
   }
 
   async function renderResults() {
@@ -100,10 +138,25 @@
     let html = '<section class="page-hero"><h1>搜索</h1><p class="hero-sub">关键词：' +
       window.ZZZUI.esc(q) + '</p></section>';
 
+    // 空结果引导（v1.0.0 D3）：给出建议 + 各模块入口，数据驱动自 config.pages（不硬编码 URL）
+    function emptyGuide(msg) {
+      const mods = [
+        ['characters', '角色'], ['factions', '势力'], ['locations', '地区'], ['glossary', '术语'],
+        ['story', '剧情'], ['timeline', '时间线'], ['worldview', '世界观'], ['changelog', '更新日志']
+      ];
+      const links = mods.map(function (m) {
+        return '<a class="rel-chip" href="' + window.ZZZRouter.buildLink(m[0]) + '">' + m[1] + '</a>';
+      }).join('');
+      return window.ZZZUI.emptyState(msg) +
+        '<div class="search-empty-guide">' +
+        '<p class="term-desc">建议：尝试更短的关键词（如「空洞」「以太」）、角色代号或版本名；也可以直接浏览各模块：</p>' +
+        '<div class="rel-chips">' + links + '</div></div>';
+    }
+
     if (!q) {
-      html += window.ZZZUI.emptyState('请输入搜索关键词');
+      html += emptyGuide('请输入搜索关键词');
     } else if (!res.length) {
-      html += window.ZZZUI.emptyState('未找到与“' + window.ZZZUI.esc(q) + '”相关的内容');
+      html += emptyGuide('未找到与“' + window.ZZZUI.esc(q) + '”相关的内容');
     } else {
       const grouped = {};
       res.forEach(function (r) {
@@ -113,9 +166,10 @@
       Object.keys(grouped).forEach(function (t) {
         html += '<h2 class="result-group">' + (TYPE_LABEL[t] || t) + '</h2><div class="result-list">';
         grouped[t].forEach(function (r) {
+          // 高亮命中关键词（先截断原文再转义+高亮，避免截断 HTML 标签）
           html += '<a class="result-item" href="' + hrefFor(r) + '">' +
-            '<span class="result-title">' + window.ZZZUI.esc(r.title) + '</span>' +
-            '<span class="result-text">' + window.ZZZUI.esc(r.text).slice(0, 80) + '</span></a>';
+            '<span class="result-title">' + highlight(r.title, q) + '</span>' +
+            '<span class="result-text">' + highlight((r.text || '').slice(0, 80), q) + '</span></a>';
         });
         html += '</div>';
       });

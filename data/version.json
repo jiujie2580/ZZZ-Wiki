@@ -1,13 +1,34 @@
 {
-  "versions": [
-    {
-      "version": null,
-      "name": null,
-      "releaseDate": null,
-      "highlights": [],
-      "newCharacterIds": [],
-      "newFactionIds": [],
-      "newTermIds": []
-    }
+  "gameVersions": [
+    { "id": "game-3.0", "version": "3.0", "title": "某个梦游者的自白", "date": "2026-06-17" },
+    { "id": "game-2.8", "version": "2.8", "title": "新·艾利都日落时", "date": "2026-05-06" },
+    { "id": "game-2.7", "version": "2.7", "title": "英雄不死于往昔", "date": "2026-03-24" },
+    { "id": "game-2.6", "version": "2.6", "title": "旧梦的安可曲", "date": "2026-02-06" },
+    { "id": "game-2.5", "version": "2.5", "title": "微光引灯时", "date": "2025-12-30" },
+    { "id": "game-2.4", "version": "2.4", "title": "将临未抵的深渊", "date": "2025-11-26" },
+    { "id": "game-2.3", "version": "2.3", "title": "可曾记得梦", "date": "2025-10-15" },
+    { "id": "game-2.2", "version": "2.2", "title": "不要温和地走入那良夜", "date": "2025-09-04" },
+    { "id": "game-2.1", "version": "2.1", "title": "迟吟的浪涌", "date": "2025-07-16" },
+    { "id": "game-2.0", "version": "2.0", "title": "云霞同归处", "date": "2025-06-06" },
+    { "id": "game-1.7", "version": "1.7", "title": "将眼泪与过往一同埋葬", "date": "2025-04-23" },
+    { "id": "game-1.6", "version": "1.6", "title": "在被遗忘的废墟之上", "date": "2025-03-12" },
+    { "id": "game-1.5", "version": "1.5", "title": "闪耀的此刻", "date": "2025-01-22" },
+    { "id": "game-1.4", "version": "1.4", "title": "星流霆击", "date": "2024-12-18" },
+    { "id": "game-1.3", "version": "1.3", "title": "虚拟杀机", "date": "2024-11-06" },
+    { "id": "game-1.2", "version": "1.2", "title": "火狱骑行", "date": "2024-09-25" },
+    { "id": "game-1.1", "version": "1.1", "title": "卧底蓝调", "date": "2024-08-14" },
+    { "id": "game-1.0", "version": "1.0", "title": "欢迎来到新艾利都", "date": "2024-07-04" }
+  ],
+  "siteVersions": [
+    { "id": "site-v1.0.0", "version": "1.0.0", "title": "First Public Release（首个正式公开版）", "date": "2026-07-29", "highlights": ["数据健康门禁 data-validator", "更新日志 / 关于页 / 首页 / 搜索产品化收尾", "势力成员反向关联修复", "文档全面同步"] },
+    { "id": "site-v0.9.0", "version": "0.9.0", "title": "Worldview 世界观模块", "date": "2026-07-29", "highlights": ["8 条世界观条目（6 分类）", "5 路正向关联", "剧透折叠"] },
+    { "id": "site-v0.8.0", "version": "0.8.0", "title": "Locations 地区模块", "date": "2026-07-29", "highlights": ["7 个地区（parentId 层级）", "卡片 / 层级树双视图", "反向关联计算"] },
+    { "id": "site-v0.7.0", "version": "0.7.0", "title": "Timeline 时间线模块", "date": "2026-07-29", "highlights": ["16 个事件（4 纪元 × 7 分类）", "单页详情高亮 + 上/下事件导航"] },
+    { "id": "site-v0.6.0", "version": "0.6.0", "title": "Story 剧情模块", "date": "2026-07-29", "highlights": ["43 章剧情（主线/特别篇/代理人/活动）", "计算式上/下章导航", "剧透折叠"] },
+    { "id": "site-v0.5.0", "version": "0.5.0", "title": "Characters 角色模块", "date": "2026-07-29", "highlights": ["56 名角色（属性/稀有度筛选）", "角色详情与势力关联"] },
+    { "id": "site-v0.4.0", "version": "0.4.0", "title": "Factions 势力模块", "date": "2026-07-29", "highlights": ["21 个势力（4 分类）", "势力详情与多路关联"] },
+    { "id": "site-v0.3.0", "version": "0.3.0", "title": "Glossary 术语表模块", "date": "2026-07-29", "highlights": ["专有名词术语表（受控分类 + 标签）", "术语详情页"] },
+    { "id": "site-v0.2.0", "version": "0.2.0", "title": "项目文档体系", "date": "2026-07-29", "highlights": ["architecture / json-schema / roadmap 文档"] },
+    { "id": "site-v0.1.0", "version": "0.1.0", "title": "站点骨架", "date": "2026-07-29", "highlights": ["页面骨架 / 全局配置 / 数据加载器 / 路由 / 布局组件"] }
   ]
 }

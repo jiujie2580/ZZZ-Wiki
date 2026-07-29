@@ -42,6 +42,21 @@ function assert(cond, msg) {
   else { fail++; console.log('  FAIL ' + msg); }
 }
 
+// 等待 #content 渲染出内容（兼容异步 buildIndex / Promise.all 加载），最长 timeout
+function waitForContent(window, timeout) {
+  return new Promise(function (resolve) {
+    const start = Date.now();
+    (function poll() {
+      const c = window.document.getElementById('content');
+      if ((c && c.innerHTML.trim().length > 0) || Date.now() - start > (timeout || 2000)) {
+        resolve();
+      } else {
+        setTimeout(poll, 30);
+      }
+    })();
+  });
+}
+
 async function loadPage(pageFile, query) {
   const html = fs.readFileSync(path.join(ROOT, pageFile), 'utf-8');
   const errors = [];
@@ -57,14 +72,52 @@ async function loadPage(pageFile, query) {
   window.fetch = makeFetch();
   window.addEventListener('error', function (e) { errors.push('window.error: ' + (e.error && e.error.message || e.message)); });
 
-  const pageScript = pageFile.replace('.html', '.js');
+  const pageScript = pageFile === 'index.html' ? 'home.js' : pageFile.replace('.html', '.js');
   const all = CORE_SCRIPTS.concat(['pages/' + pageScript]);
   for (const s of all) {
     try { window.eval(readScript(s)); }
     catch (e) { errors.push('eval ' + s + ': ' + e.message); }
   }
   window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
-  await new Promise(function (r) { setTimeout(r, 200); }); // 等待异步 init 完成
+  await waitForContent(window, 2000); // 等待异步 init 完成
+  return { window: window, document: window.document, errors: errors };
+}
+
+// 提取 HTML 中「无 src 的」内联 <script>（用于页面逻辑写在 HTML 内的场景，如 404.html）
+function extractInlineScripts(html) {
+  const re = /<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g;
+  const out = [];
+  let m;
+  while ((m = re.exec(html)) !== null) out.push(m[1]);
+  return out;
+}
+
+// 加载逻辑内联在 HTML 中的页面（如 404.html，无独立 pages/*.js）
+async function loadInlinePage(pageFile, query) {
+  const html = fs.readFileSync(path.join(ROOT, pageFile), 'utf-8');
+  const errors = [];
+  const vc = new VirtualConsole();
+  vc.on('jsdomError', function (e) { errors.push('jsdomError: ' + (e && e.message)); });
+  const dom = new JSDOM(html, {
+    url: 'https://localhost/' + pageFile + (query || ''),
+    runScripts: 'outside-only',
+    pretendToBeVisual: true,
+    virtualConsole: vc
+  });
+  const { window } = dom;
+  window.fetch = makeFetch();
+  window.addEventListener('error', function (e) { errors.push('window.error: ' + (e.error && e.error.message || e.message)); });
+  for (const s of CORE_SCRIPTS) {
+    try { window.eval(readScript(s)); }
+    catch (e) { errors.push('eval ' + s + ': ' + e.message); }
+  }
+  const inline = extractInlineScripts(html);
+  for (const code of inline) {
+    try { window.eval(code); }
+    catch (e) { errors.push('eval inline: ' + e.message); }
+  }
+  window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
+  await waitForContent(window, 2000);
   return { window: window, document: window.document, errors: errors };
 }
 
@@ -156,7 +209,7 @@ async function loadPage(pageFile, query) {
   assert(/共\s*16\s*个事件/.test(t.document.getElementById('timeline-count').textContent),
     '计数文案正确：' + t.document.getElementById('timeline-count').textContent);
   assert(t.document.querySelectorAll('#timeline-eras .tag').length === 5, '纪元 chips = 全部 + 4 纪元');
-  assert(t.document.querySelectorAll('#timeline-cats .tag').length === 8, '分类 chips = 全部 + 7 分类');
+  assert(t.document.querySelectorAll('#timeline-cats .tag').length === 9, '分类 chips = 全部 + 8 分类（v1.0.0 补登记 event 剧情事件）');
   assert(/旧文明时代/.test(tItems[0].textContent), '默认时间顺序首事件为旧文明时代');
   // 纪元筛选：空洞灾害时期 -> 2
   t.document.querySelector('#timeline-eras .tag[data-era="hollow-disaster"]').click();
@@ -335,6 +388,88 @@ async function loadPage(pageFile, query) {
   const wx = await loadPage('worldview.html', '?id=does-not-exist');
   assert(wx.errors.length === 0, '未知 id 无错误 ' + JSON.stringify(wx.errors));
   assert(/未找到指定世界观条目/.test(wx.document.querySelector('#content').textContent), '未知 id 显示提示');
+
+  console.log('=== 首页自测（v1.0.0 D4：版本信息 + 统计 + 并行加载）===');
+  const h = await loadPage('index.html');
+  assert(h.errors.length === 0, '首页无运行时错误 ' + JSON.stringify(h.errors));
+  assert(h.document.querySelectorAll('.module-grid .module-card').length === 8, '模块卡片 8 张，实际 ' +
+    h.document.querySelectorAll('.module-grid .module-card').length);
+  const gameMeta = h.document.querySelector('.home-meta .badge-ver-game');
+  assert(gameMeta && /游戏 3\.0/.test(gameMeta.textContent), '游戏版本徽标显示 3.0，实际 ' +
+    (gameMeta ? gameMeta.textContent : 'NA'));
+  const totalMeta = h.document.querySelector('.home-meta .home-meta-total');
+  assert(totalMeta && /160 条内容/.test(totalMeta.textContent) && /8 个模块/.test(totalMeta.textContent),
+    '元信息显示 8 模块 · 160 条内容，实际 ' + (totalMeta ? totalMeta.textContent : 'NA'));
+  assert(h.document.querySelector('.module-grid .module-card[href="characters.html"]'), '含角色卡片');
+  assert(h.document.querySelector('.module-grid .module-card[href="changelog.html"]'), '含更新日志卡片');
+
+  console.log('=== 更新日志自测（v1.0.0 真实渲染，双区块）===');
+  const cl = await loadPage('changelog.html');
+  assert(cl.errors.length === 0, '更新日志无运行时错误 ' + JSON.stringify(cl.errors));
+  const clLists = cl.document.querySelectorAll('.changelog-list');
+  assert(clLists.length === 2, '双区块各一个列表，实际 ' + clLists.length);
+  assert(clLists[0].querySelectorAll('.changelog-item').length === 18, '游戏版本 18 条，实际 ' +
+    (clLists[0] ? clLists[0].querySelectorAll('.changelog-item').length : 'NA'));
+  assert(clLists[1].querySelectorAll('.changelog-item').length === 10, '站点版本 10 条，实际 ' +
+    (clLists[1] ? clLists[1].querySelectorAll('.changelog-item').length : 'NA'));
+  assert(cl.document.querySelectorAll('.badge-ver-game').length === 18, '游戏徽标 18 个');
+  assert(cl.document.querySelectorAll('.badge-ver-site').length === 10, '站点徽标 10 个');
+  assert(cl.document.querySelectorAll('.cl-highlights li').length >= 1, '至少 1 条站点版本含亮点列表');
+
+  console.log('=== 关于本站自测（v1.0.0 D2：站点信息 + 统计）===');
+  const ab = await loadPage('about.html');
+  assert(ab.errors.length === 0, '关于页无运行时错误 ' + JSON.stringify(ab.errors));
+  assert(ab.document.querySelectorAll('#content .detail-section').length === 4, '分节数 = 4（站点信息/统计/来源/免责），实际 ' +
+    ab.document.querySelectorAll('#content .detail-section').length);
+  assert(ab.document.querySelectorAll('.stat-grid .stat-card').length === 7, '统计卡片 7 个，实际 ' +
+    ab.document.querySelectorAll('.stat-grid .stat-card').length);
+  assert(ab.document.querySelectorAll('.stat-num').length === 7, 'stat-num 7 个');
+  const licField = Array.prototype.find.call(ab.document.querySelectorAll('#content .field'),
+    function (f) { return /开源协议/.test(f.querySelector('.field-label').textContent); });
+  assert(licField && /暂未设置/.test(licField.textContent) && !/【官方暂未说明】/.test(licField.textContent),
+    '开源协议 null 显示「暂未设置」而非【官方暂未说明】');
+  const repoField = Array.prototype.find.call(ab.document.querySelectorAll('#content .field'),
+    function (f) { return /代码仓库/.test(f.querySelector('.field-label').textContent); });
+  assert(repoField && repoField.querySelector('a.source-link') &&
+    /github\.com/.test(repoField.querySelector('a.source-link').getAttribute('href')), '代码仓库链接到 GitHub');
+  assert(/160 条数据/.test(ab.document.querySelector('#content').textContent), '统计文案含 160 条数据');
+
+  console.log('=== 搜索页自测（v1.0.0 D3：高亮 + 空结果引导 + Ctrl/⌘K）===');
+  const srNo = await loadPage('search.html');
+  assert(srNo.errors.length === 0, '搜索页无运行时错误 ' + JSON.stringify(srNo.errors));
+  const guideNo = srNo.document.querySelector('.search-empty-guide');
+  assert(guideNo, '无关键词时显示空结果引导');
+  assert(guideNo && guideNo.querySelectorAll('.rel-chips .rel-chip').length === 8, '引导含 8 个模块入口，实际 ' +
+    (guideNo ? guideNo.querySelectorAll('.rel-chips .rel-chip').length : 'NA'));
+  const ph = srNo.document.getElementById('search-input');
+  assert(ph && /（Ctrl\+K）/.test(ph.getAttribute('placeholder')), '搜索框 placeholder 含 Ctrl+K 提示');
+  const srHit = await loadPage('search.html', '?q=空洞');
+  assert(srHit.errors.length === 0, '有命中搜索无错误 ' + JSON.stringify(srHit.errors));
+  assert(srHit.document.querySelectorAll('.search-results .result-item').length >= 1, '「空洞」命中 >= 1 条');
+  assert(srHit.document.querySelectorAll('.result-item .search-mark').length >= 1, '命中结果关键词被 <mark> 高亮');
+  const srMiss = await loadPage('search.html', '?q=zzznomatchkeyword123');
+  assert(srMiss.errors.length === 0, '无命中搜索无错误 ' + JSON.stringify(srMiss.errors));
+  const guideMiss = srMiss.document.querySelector('.search-empty-guide');
+  assert(guideMiss, '无命中显示空结果引导');
+  const missState = srMiss.document.querySelector('.empty-state');
+  assert(missState && /未找到/.test(missState.textContent), '无命中提示含「未找到」');
+  // Ctrl+K 聚焦
+  srNo.window.document.dispatchEvent(new srNo.window.KeyboardEvent('keydown',
+    { key: 'k', ctrlKey: true, bubbles: true, cancelable: true }));
+  assert(srNo.window.document.activeElement === srNo.window.document.getElementById('search-input'), 'Ctrl+K 聚焦搜索框');
+
+  console.log('=== 404 页自测（v1.0.0 完善：返回首页 + 热门栏目）===');
+  const nf = await loadInlinePage('404.html');
+  assert(nf.errors.length === 0, '404 页无运行时错误 ' + JSON.stringify(nf.errors));
+  assert(nf.document.querySelector('.nf-code') && /404/.test(nf.document.querySelector('.nf-code').textContent), '渲染 404 大字号代码');
+  const homeBtn = nf.document.querySelector('.nf-btn-primary');
+  assert(homeBtn && /返回首页/.test(homeBtn.textContent) && homeBtn.getAttribute('href') === 'index.html',
+    '返回首页按钮链接 index.html');
+  assert(nf.document.querySelector('.nf-btn[href="search.html"]'), '含站内搜索链接');
+  assert(nf.document.querySelectorAll('.module-grid .module-card').length === 8, '热门栏目 8 张卡片，实际 ' +
+    nf.document.querySelectorAll('.module-grid .module-card').length);
+  assert(nf.document.querySelector('.module-grid .module-card[href="characters.html"]'), '含角色卡片');
+  assert(nf.document.querySelector('.module-grid .module-card[href="changelog.html"]'), '含更新日志卡片');
 
   console.log('\n=== 结果：PASS=' + pass + '  FAIL=' + fail + ' ===');
   process.exit(fail === 0 ? 0 : 1);

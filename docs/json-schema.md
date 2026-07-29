@@ -9,7 +9,7 @@
 ## 1. 通用约定
 
 - **文件结构**：除 `site.json` 外，每个数据文件顶层为对象，数据置于“列表字段”中，如 `{ "characters": [ ... ] }`。
-- **唯一标识**：每个条目必须有全局唯一 `id`（小写连字符 kebab-case，如 `example-character`）。
+- **唯一标识**：每个条目必须有**模块内唯一** `id`（小写连字符 kebab-case，如 `example-character`）。不同数据文件（模块）之间允许 `id` 重名（如 `story` 与 `timeline` 可各有一个 `s1-prologue`），外键关联始终在同一模块内解析；跨模块引用通过条目内的 `*Id(s)` 字段完成。
 - **字段缺失**：未说明 → `null`；未说明的数组 → `[]`。
 - **命名**：
   - 文件名：小写连字符（kebab-case），如 `w-engines.json`、`drive-discs.json`。
@@ -42,22 +42,36 @@
 }
 ```
 
-### 2.2 `version.json` — 列表字段 `versions`
+### 2.2 `version.json` — 双数组 `gameVersions` / `siteVersions`
+> 游戏版本大事记与站点（仓库）更新日志**分离存储**，互不干扰。
+> `changelog.html` 同时渲染两个区块；`core/search.js` 将两者都编入搜索索引（结果统一深链至 `changelog.html`）。
+
 ```jsonc
 {
-  "versions": [
+  "gameVersions": [
     {
-      "version": "3.0",          // 游戏版本号（字符串）
-      "name": null,              // 版本名称
-      "releaseDate": null,       // YYYY-MM-DD
-      "highlights": [],          // 亮点摘要（字符串数组）
-      "newCharacterIds": [],     // → characters.id
-      "newFactionIds": [],       // → factions.id
-      "newTermIds": []           // → glossary(terms).id
+      "id": "game-3.0",          // 模块内唯一 kebab-case（允许含 "."，如 game-3.0）
+      "version": "3.0",          // 游戏版本号（字符串，必填）
+      "title": "某个梦游者的自白", // 官方版本名（null → 渲染【官方暂未说明】）
+      "date": "2026-06-17"       // YYYY-MM-DD（null 允许）
+    }
+  ],
+  "siteVersions": [
+    {
+      "id": "site-v1.0.0",       // 模块内唯一 kebab-case
+      "version": "1.0.0",         // 站点（仓库）版本号，建议与 SemVer 一致
+      "title": "First Public Release（首个正式公开版）",
+      "date": "2026-07-29",       // YYYY-MM-DD
+      "highlights": [             // 亮点摘要（字符串数组，可选）
+        "数据健康门禁 data-validator",
+        "更新日志 / 关于页 / 首页 / 搜索产品化收尾"
+      ]
     }
   ]
 }
 ```
+> **新增游戏版本**：仅在 `gameVersions` 数组**头部**追加一条；
+> **新增站点里程碑**：仅在 `siteVersions` 数组**头部**追加一条（`highlights` 可选用）。两者均无需改动页面 / 脚本。
 
 ### 2.3 `story.json` — 列表字段 `story`
 ```jsonc
@@ -302,7 +316,7 @@
 {
   "entries": [
     {
-      "id": "example-entry",        // 全局唯一 kebab-case
+      "id": "example-entry",        // 模块内唯一 kebab-case
       "title": null,                // 中文标题（必填，列表/详情标题）
       "titleEn": null,              // 英文标题
       "aliases": [],                // 别名数组
@@ -418,7 +432,7 @@ version.newTermIds        ──▶  glossary.terms.id
 |---|---|---|
 | 文件名 | kebab-case | `w-engines.json`、`drive-discs.json` |
 | JSON 键 | camelCase | `memberIds`、`releaseVersion`、`relatedTermIds` |
-| `id` 值 | kebab-case，唯一 | `example-character`、`example-term` |
+| `id` 值 | kebab-case，**模块内唯一** | `example-character`、`example-term`（不同模块可重名） |
 | 日期 | `YYYY-MM-DD` | `"2026-07-29"` |
 | 版本号 | 字符串 | `"3.0"` |
 | 布尔 | `true`/`false` | `"spoiler": false` |

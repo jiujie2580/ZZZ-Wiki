@@ -378,3 +378,88 @@ a.rel-chip:hover { box-shadow: var(--glow-cyan); background: rgba(57, 240, 230, 
   .worldview-hero { flex-direction: column; align-items: flex-start; }
   .worldview-hero .term-hero-meta { justify-content: flex-start; }
 }
+
+/* ===================== Changelog 模块（v1.0.0 追加，仅新增不改动） ===================== */
+
+/* 分节标题内的计数 */
+.detail-section h2 .section-count { margin-left: 10px; font-size: 12px; color: var(--text-3);
+  font-family: var(--font-body); font-weight: normal; letter-spacing: .5px; }
+
+/* 版本列表 */
+.changelog-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.changelog-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); }
+.changelog-item-site { flex-direction: column; align-items: stretch; gap: 6px; }
+.cl-row { display: flex; align-items: center; gap: 12px; }
+
+/* 版本号徽标：游戏版本（青）/ 站点版本（品红），区分双区块语义 */
+.cl-ver { flex-shrink: 0; padding: 2px 10px; border-radius: var(--radius-sm); font-size: 13px;
+  font-family: var(--font-head); letter-spacing: .5px; border: 1px solid; }
+.badge-ver-game { color: var(--neon-cyan); border-color: rgba(57, 240, 230, .5); background: rgba(57, 240, 230, .07); }
+.badge-ver-site { color: var(--neon-magenta); border-color: rgba(255, 77, 166, .5); background: rgba(255, 77, 166, .08); }
+
+.cl-title { color: var(--text-1); font-size: 14px; }
+.cl-title.unknown, .cl-date.unknown { color: var(--text-3); font-style: normal; }
+.cl-date { margin-left: auto; color: var(--text-3); font-size: 12px; letter-spacing: .5px; flex-shrink: 0; }
+
+/* 站点版本亮点列表 */
+.cl-highlights { list-style: none; margin: 0; padding: 0 0 2px 4px; display: flex; flex-direction: column; gap: 4px; }
+.cl-highlights li { position: relative; padding-left: 16px; color: var(--text-2); font-size: 13px; line-height: 1.6; }
+.cl-highlights li::before { content: ''; position: absolute; left: 2px; top: .62em; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--neon-magenta); opacity: .6; }
+
+/* 移动端适配（Changelog 专属） */
+@media (max-width: 768px) {
+  .changelog-item, .cl-row { flex-wrap: wrap; }
+  .cl-date { margin-left: 0; width: 100%; }
+}
+
+/* ===================== About / 数据统计（v1.0.0 追加，首页与关于页共用） ===================== */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-2); margin-top: var(--space-2); }
+.stat-card { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 10px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+  text-decoration: none; transition: transform .2s, border-color .2s, box-shadow .2s; }
+.stat-card:hover { transform: translateY(-2px); border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+.stat-num { font-size: 26px; font-family: var(--font-head); color: var(--neon-cyan); line-height: 1.2; }
+.stat-label { font-size: 12px; color: var(--text-3); letter-spacing: .5px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-card, .stat-card:hover { transition: none; transform: none; }
+}
+@media (max-width: 768px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ===================== 首页版本信息条（v1.0.0 追加） ===================== */
+.home-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.home-meta-item { padding: 3px 12px; border-radius: var(--radius-sm); font-size: 13px;
+  font-family: var(--font-head); letter-spacing: .5px; border: 1px solid; }
+.home-meta-total { color: var(--text-2); border-color: var(--glass-border); background: var(--glass-bg); }
+
+/* ===================== 搜索增强（v1.0.0 追加：高亮 + 空结果引导） ===================== */
+.search-mark { background: rgba(57, 240, 230, .22); color: var(--neon-cyan); padding: 0 2px;
+  border-radius: 2px; font-weight: inherit; }
+.search-empty-guide { margin-top: var(--space-2); padding: var(--space-3);
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); }
+.search-empty-guide .rel-chips { margin-top: 8px; }
+
+/* ===================== 404 页（v1.0.0 完善：返回首页 + 热门栏目） ===================== */
+.nf-hero { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.nf-code { font-family: var(--font-head); font-size: 72px; font-weight: 700; line-height: 1;
+  color: var(--neon-cyan); text-shadow: var(--glow-cyan); margin-bottom: var(--space-2); }
+.nf-hero h1 { margin: 0 0 var(--space-2); }
+.nf-hero .hero-sub { margin: 0 0 var(--space-4); color: var(--text-2); }
+.nf-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.nf-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px;
+  border-radius: var(--radius-sm); border: 1px solid var(--glass-border);
+  background: var(--glass-bg); color: var(--text-1); text-decoration: none;
+  font-family: var(--font-head); letter-spacing: .5px; transition: .2s; }
+.nf-btn:hover { transform: translateY(-2px); border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+.nf-btn-primary { background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+  color: #04121a; border-color: transparent; }
+.nf-btn-primary:hover { color: #04121a; }
+@media (max-width: 480px) {
+  .nf-code { font-size: 56px; }
+}

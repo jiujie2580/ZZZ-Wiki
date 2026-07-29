@@ -5,7 +5,10 @@
     "version": "1.0.0",
     "gameVersion": "3.0",
     "description": "基于官方正式剧情与设定的《绝区零》百科",
-    "updatedAt": "2026-07-29"
+    "updatedAt": "2026-07-29",
+    "dataVersion": "3.0",
+    "license": null,
+    "repository": "https://github.com/jiujie2580/ZZZ-Wiki"
   },
   "nav": [
     { "label": "首页",   "href": "index.html",     "icon": "home" },
