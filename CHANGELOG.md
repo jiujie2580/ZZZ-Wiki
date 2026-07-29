@@ -7,6 +7,12 @@
 
 ---
 
+## v0.3.0
+- Project Skeleton
+- Project Documentation
+- Glossary Module
+- Code Review Completed
+
 ## [仓库] 模块三：术语表（Glossary）
 - `feat: implement glossary module` — 首个填充内容的模块：
   - **数据 Schema 定稿**（`data/glossary.json`）：19 字段 + 顶层 `meta`（受控分类词表 `categories`、受控标签词表 `tags`、`schemaVersion`、`updatedAt`）；`source` 采用结构化格式（官方设定/游戏内文本/官方视频/剧情章节），向后兼容旧字符串格式。
