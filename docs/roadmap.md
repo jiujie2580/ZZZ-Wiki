@@ -20,7 +20,7 @@
 | 项目初始化（骨架） | 全部占位页 | 空 JSON 骨架 | ✅ 完成（模块一） | 目录 / 布局 / 核心 JS / 占位页 / README |
 | 项目文档（Docs） | `docs/*` | — | ✅ 完成（模块二） | architecture / roadmap / json-schema / development-guide |
 | 术语表 Glossary | `glossary.html` / `term.html` | `glossary.json` | ✅ Released（模块三 · v0.3.0） | 首个填充内容的模块；`term.html` 确立全站详情页模板规范 |
-| 势力 / 组织 Factions | `factions.html` / `faction.html` | `factions.json` | ⬜ 待开发 | 用 `category` 区分阵营/组织/机构/网络，不拆模块 |
+| 势力 / 组织 Factions | `factions.html` / `faction.html` | `factions.json` | ✅ Released（模块四 · v0.4.0） | 用 `category` 区分阵营/组织/机构/网络，不拆模块；分类词表在 `config.factionCategories` |
 | 角色 Characters | `characters.html` / `character.html` | `characters.json` | ⬜ 待开发 | 字段最多，作复杂度标杆 |
 | 剧情 Story | `story.html` / `chapter.html` | `story.json` | ⬜ 待开发 | 含 `participantIds` / `factionIds` / `timelineIds` 交叉引用 |
 | 时间线 Timeline | `timeline.html` | `timeline.json` | ⬜ 待开发 | 事件与剧情/势力/术语互引 |
@@ -65,6 +65,7 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 关键约定：
 - 外键解析原则：目标条目存在 → 可点击链接；不存在 → 灰态 chip 显示 id（优雅降级，不报错、不崩溃）。
 - 受控修改点仍集中在 `config.js`（页面注册）与 `core/search.js`（`MAP` / `hasDetail`），新增详情页时同步登记即可（见 `architecture.md` §8）。
+- 详情页关联渲染原语（`relChips` / `loadRelIndex` / `renderSource` / `section`）已抽取为 `components.js` 的 `window.ZZZUI` 共享方法（模块四完成）；`term.js`、`faction.js` 均复用，后续角色/地区/剧情章节详情页直接调用，避免重复实现。
 - 未知/缺失内容统一渲染为【官方暂未说明】（由 `components.js` 的 `field` / `isEmpty` / `UNKNOWN` 保证）。
 
 ---

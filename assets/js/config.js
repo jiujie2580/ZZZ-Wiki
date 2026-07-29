@@ -9,6 +9,15 @@ window.ZZZ = {
   // 当前游戏版本（更新新版本时改这里 + 对应 JSON）
   gameVersion: '3.0',
 
+  // 势力分类受控词表（单一数据源）：data/factions.json 的 category 存此 id，label 用于展示
+  // 筛选/排序/渲染共用同一份，新增分类只需改这里，不散落页面逻辑。
+  factionCategories: [
+    { id: 'faction',     label: '阵营' },
+    { id: 'organization', label: '组织' },
+    { id: 'institution', label: '机构' },
+    { id: 'network',     label: '网络' }
+  ],
+
   // 数据文件清单：逻辑名 -> data 目录下的文件名（不含 .json）
   dataFiles: {
     site: 'site',

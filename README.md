@@ -123,6 +123,7 @@ npx serve zzz-wiki
 - [x] 模块一：项目初始化（目录 / 布局 / 核心 JS / 占位页 / 数据骨架 / README）
 - [x] 模块二：项目文档（`docs/`：architecture / roadmap / json-schema / development-guide）
 - [x] 模块三：术语表（Glossary）— 首个填充内容的模块（`glossary.html` 列表 + `term.html` 详情页 + `glossary.json` 19 字段 Schema + 受控词表 meta）
-- [ ] 势力/组织 → 角色 → 剧情 → 时间线 → 地区 → 世界观 → 更新日志 → 搜索 → 关于/404
+- [x] 模块四：势力 / 组织（Factions）— 列表（`factions.html`） + 详情（`faction.html`） + `factions.json` 21 条官方势力 + 分类受控词表 `config.factionCategories`；关联渲染原语抽取至 `core/components.js` 供详情页复用
+- [ ] 角色 → 剧情 → 时间线 → 地区 → 世界观 → 更新日志 → 搜索 → 关于/404
 
 > 规范文档见 [`docs/`](docs/)：[架构](docs/architecture.md) · [路线图](docs/roadmap.md) · [JSON Schema](docs/json-schema.md) · [开发指南](docs/development-guide.md)。

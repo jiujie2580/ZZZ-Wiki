@@ -118,22 +118,30 @@
       "id": "example-faction",
       "name": null,
       "nameEn": null,
-      "category": "阵营",        // 阵营 / 组织 / 机构 / 网络（合并设计，不拆模块）
-      "alias": [],               // 别名数组
-      "type": null,              // 细分类型
+      "category": "organization", // 受控词表 id（阵营/组织/机构/网络），词表见 config.factionCategories
+      "alias": [],                // 别名数组
+      "type": null,               // 细分类型（如 委托商社 / 治安机构 / 工业集团）
       "leader": null,
       "headquarters": null,
       "established": null,
-      "icon": null,              // 图标路径
+      "icon": null,               // 图标路径
       "banner": null,
-      "summary": null,
-      "description": null,
-      "memberIds": [],           // → characters.id（双向引用）
-      "relatedFactionIds": []    // → factions.id（自引用）
+      "summary": null,            // 一句话简介（列表卡片展示）
+      "description": null,        // 官方描述（详情「简介」分节）
+      "memberIds": [],            // → characters.id（双向引用）
+      "relatedFactionIds": [],    // → factions.id（自引用）
+      "relatedLocationIds": [],   // → locations.id
+      "relatedTermIds": [],       // → glossary(terms).id
+      "source": { "type": "official", "title": null, "url": null }, // 结构化引用来源（见 §2.10）
+      "updatedAt": null           // 本条资料更新日期 YYYY-MM-DD
     }
   ]
 }
 ```
+
+> **分类受控词表（单一数据源）**：`category` 的取值（`faction` / `organization` / `institution` / `network`）统一维护在 `assets/js/config.js` 的 `window.ZZZ.factionCategories`（含 `id` 与展示 `label`）。筛选 chips、详情徽标、搜索均读取同一份词表；新增分类只需改 `config.js`，**不在 JSON 或页面硬编码**。展示时 `label` 由该词表映射得到。
+
+> **列表页筛选**：`factions.html` 的分类筛选 chips 来自 `window.ZZZ.factionCategories`；搜索匹配 `name` / `nameEn` / `alias` / `summary` / `type`；排序支持「名称序」与「最近更新」（`updatedAt`）。
 
 ### 2.6 `locations.json` — 列表字段 `locations`
 ```jsonc
@@ -268,6 +276,9 @@
 characters.factionId      ──▶  factions.id
 factions.memberIds        ──▶  characters.id          （与 factionId 双向）
 factions.relatedFactionIds──▶  factions.id            （自引用）
+factions.relatedLocationIds─▶  locations.id
+factions.relatedTermIds  ──▶  glossary.terms.id
+factions.source          ──▶  结构化引用来源（§2.10：official/game/video/story）
 locations.parentId        ──▶  locations.id           （自引用层级）
 locations.relatedFactionIds─▶  factions.id
 locations.relatedTermIds  ──▶  glossary.terms.id

@@ -7,6 +7,25 @@
 
 ---
 
+## v0.4.0
+- Factions Module
+- Shared Relation Primitives Extracted
+- Code Review Completed
+
+## [仓库] 模块四：势力 / 组织（Factions）
+- `feat(factions): implement factions list & detail` — 第二个填充内容的模块（对齐 Glossary 模板）：
+  - **数据 Schema 定稿**（`data/factions.json`）：21 个官方势力/组织/机构/网络；字段对齐 §2.5 并新增 `relatedLocationIds`、`relatedTermIds`、`source`（结构化，§2.10）、`updatedAt`；`category` 改为受控词表 id（`faction`/`organization`/`institution`/`network`）。
+  - **分类受控词表单一数据源**：`assets/js/config.js` 新增 `window.ZZZ.factionCategories`（id + label），筛选/展示/搜索共用，不在 JSON 或页面硬编码。
+  - **列表页**（`factions.html` + `assets/js/pages/factions.js`）：搜索（name/nameEn/alias/summary/type）、分类筛选 chips（来自 `factionCategories`）、排序（名称序/最近更新）、卡片网格，全部数据驱动。
+  - **详情页**（`faction.html` + `assets/js/pages/faction.js`）：对齐 `term.html` 详情页模板（hero → 基本信息 → 简介 → 关联角色/势力/地区/术语 → 引用来源）；外键缺失灰态降级，绝不报错。
+  - **共享关联原语抽取**：将 `relChips` / `loadRelIndex` / `renderSource` / `section` 从 `term.js` 抽取至 `core/components.js` 的 `window.ZZZUI`（受控、文档化改动）；`term.js` 改用共享版（输出不变），后续角色/地区/章节详情页统一复用，避免重复约 50 行。
+  - **搜索增强**：`core/search.js` 的 `MAP` 文本字段构造改为遍历数组（通用），`factions` 的摘要字段扩为 `['summary','alias']`，别名可搜。
+  - **未知内容**：所有未说明字段渲染为【官方暂未说明】。
+  - **受控修改**：`config.js`（注册 `factionCategories`）、`core/search.js`（`MAP` 文本通用化 + factions 别名可搜）；`site.json` 导航与 `config` 页面注册在模块一已就位，无需改动。
+  - **首批录入**：21 条官方势力（狡兔屋/维多利亚家政/白祇重工/卡吕冬之子/法厄同/对空六课/刑侦特勤组/云岿山/反舌鸟/怪啖屋/天琴座/妄想天使/空域巡戍局/外务筹策局/都市秩序部/坎卜斯黑枝/防卫军·白银小队/奥波勒斯小队/绳网/叛军 等），未知字段留 `null`，未编造。
+  - **自测**：jsdom 无头自测 20/20 PASS（列表交互/分类筛选/搜索/空态/排序、详情渲染/外键降级/面包屑、term 回归、全局搜索索引、无控制台错误）。
+  - 同步更新 `docs/json-schema.md`（§2.5 category→id + 新增字段 + §3 外键）、`docs/roadmap.md`（状态 + 详情页模板规范 + 共享原语）、`README.md`（进度 + 数据表）。
+
 ## v0.3.0
 - Project Skeleton
 - Project Documentation

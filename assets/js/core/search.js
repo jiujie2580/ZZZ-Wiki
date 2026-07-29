@@ -12,7 +12,7 @@
   // 各数据文件 -> 列表字段名 / 页面逻辑名 / 标题字段 / 摘要字段
   const MAP = {
     characters: ['characters', 'character', ['name', 'nameEn'], ['summary']],
-    factions:   ['factions',   'faction',   ['name', 'nameEn'], ['summary']],
+    factions:   ['factions',   'faction',   ['name', 'nameEn'], ['summary', 'alias']],
     locations:  ['locations',  'location',  ['name', 'nameEn'], ['summary']],
     glossary:   ['terms',      'term',      ['name', 'nameEn'], ['summary']],
     story:      ['story',      'chapter',   ['title'],          ['summary']],
@@ -29,7 +29,7 @@
       const list = d[m[0]] || [];
       list.forEach(function (item) {
         const title = item[m[2][0]] || item[m[2][1]] || (item.term) || '未命名';
-        const text = [item[m[3][0]] || ''].join(' ');
+        const text = (m[3] || []).map(function (k) { return item[k] || ''; }).join(' ');
         entries.push({
           type: name, page: m[1], id: item.id,
           title: title, text: text
