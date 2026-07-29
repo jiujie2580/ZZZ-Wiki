@@ -1,6 +1,6 @@
-// self-test.js —— Story 模块无头自测（jsdom）
+// self-test.js —— Story / Timeline / Locations 模块无头自测（jsdom）
 // 通过注入本地 fetch polyfill + 按 HTML 顺序注入脚本 + 手动触发 DOMContentLoaded，
-// 验证列表页渲染/筛选/排序、详情页渲染/关联/上一章下一章/剧透折叠无运行时错误。
+// 验证列表页渲染/筛选/排序、详情页渲染/关联/父-子导航/未知 id 降级无运行时错误。
 // 运行：node test/self-test.js（需 jsdom：npm i jsdom）
 const { JSDOM, VirtualConsole } = require('C:/Users/Administrator/.workbuddy/binaries/node/workspace/node_modules/jsdom');
 const fs = require('fs');
@@ -185,6 +185,86 @@ async function loadPage(pageFile, query) {
   const td2 = await loadPage('timeline.html', '?id=does-not-exist');
   assert(td2.errors.length === 0, '未知 id 无错误 ' + JSON.stringify(td2.errors));
   assert(/未找到指定事件/.test(td2.document.querySelector('#content').textContent), '未知 id 提示');
+
+  console.log('=== Locations 列表页自测 ===');
+  const ls = await loadPage('locations.html');
+  assert(ls.errors.length === 0, '列表页无运行时错误 ' + JSON.stringify(ls.errors));
+  const locCards = ls.document.querySelectorAll('#location-grid .location-card');
+  assert(locCards.length === 7, '渲染 7 张卡片，实际 ' + locCards.length);
+  assert(/共\s*7\s*个地区/.test(ls.document.getElementById('location-count').textContent),
+    '计数文案正确：' + ls.document.getElementById('location-count').textContent);
+  assert(ls.document.querySelectorAll('#location-cats .tag').length === 7, '类型 chips = 全部 + 6 类');
+  // 搜索（用唯一词，避免摘要中复用名称造成多命中）
+  const lq = ls.document.getElementById('location-q');
+  lq.value = '斯科特哨站';
+  lq.dispatchEvent(new ls.window.Event('input'));
+  assert(ls.document.querySelectorAll('#location-grid .location-card').length === 1, '搜索「斯科特哨站」命中 1 条');
+  lq.value = '';
+  lq.dispatchEvent(new ls.window.Event('input'));
+  // 类型筛选：building -> 2
+  ls.document.querySelector('#location-cats .tag[data-cat="building"]').click();
+  assert(ls.document.querySelectorAll('#location-grid .location-card').length === 2, '筛选 building 后 2 张');
+  ls.document.querySelector('#location-cats .tag[data-cat="all"]').click();
+  // 排序：按类型 -> 首卡应为 city（新艾利都）
+  ls.document.querySelector('#location-sort .tag[data-sort="category"]').click();
+  assert(/新艾利都/.test(ls.document.querySelector('#location-grid .location-card .location-card-name').textContent),
+    '按类型排序后首卡为城市「新艾利都」');
+  ls.document.querySelector('#location-sort .tag[data-sort="name"]').click();
+  // 视图切换：层级
+  ls.document.querySelector('#location-view .tag[data-view="tree"]').click();
+  assert(ls.document.querySelectorAll('#location-grid .location-tree-node').length === 7, '层级视图渲染 7 个节点');
+  ls.document.querySelector('#location-view .tag[data-view="grid"]').click();
+  assert(ls.document.querySelectorAll('#location-grid .location-card').length === 7, '切回卡片视图恢复 7 张');
+
+  console.log('=== Location 详情页自测（?id=random-play，父-子+反向关联）===');
+  const dl = await loadPage('location.html', '?id=random-play');
+  assert(dl.errors.length === 0, '详情页无运行时错误 ' + JSON.stringify(dl.errors));
+  assert(/录像店/.test(dl.document.querySelector('#content h1').textContent), '标题正确');
+  assert(dl.document.querySelectorAll('#content .detail-section').length >= 8, '分节数 >= 8，实际 ' +
+    dl.document.querySelectorAll('#content .detail-section').length);
+  // 父地区（D6）：六分街
+  const parentChip = Array.prototype.find.call(dl.document.querySelectorAll('#content .rel-chip'),
+    function (c) { return c.textContent.trim() === '六分街'; });
+  assert(parentChip, '父地区「六分街」渲染为可点击 chip');
+  // 子地区（D6）：random-play 无子地区 -> UNKNOWN
+  const childSec = dl.document.querySelectorAll('#content .detail-section')[2];
+  assert(childSec && /子地区/.test(childSec.querySelector('h2').textContent), '存在「子地区」分节');
+  assert(childSec.querySelector('.rel-empty'), '子地区为空 -> 【官方暂未说明】');
+  // 关联剧情（sec 3）：1 / 关联事件（sec 4）：3 / 关联势力（sec 5）：2 / 关联术语（sec 6）：空
+  const secStory = dl.document.querySelectorAll('#content .detail-section')[3];
+  const secTime = dl.document.querySelectorAll('#content .detail-section')[4];
+  const secFac = dl.document.querySelectorAll('#content .detail-section')[5];
+  const secTerm = dl.document.querySelectorAll('#content .detail-section')[6];
+  assert(secStory.querySelectorAll('.rel-chip').length === 1, '关联剧情 1 个 chip，实际 ' + secStory.querySelectorAll('.rel-chip').length);
+  assert(secTime.querySelectorAll('.rel-chip').length === 3, '关联事件 3 个 chip，实际 ' + secTime.querySelectorAll('.rel-chip').length);
+  assert(secFac.querySelectorAll('.rel-chip').length === 2, '关联势力 2 个 chip，实际 ' + secFac.querySelectorAll('.rel-chip').length);
+  assert(secTerm.querySelector('.rel-empty'), '关联术语为空 -> 【官方暂未说明】');
+  // 来源
+  assert(dl.document.querySelector('#content .source-text'), '渲染引用来源区块');
+
+  console.log('=== Location 详情页自测（?id=new-eridu，根节点父-子）===');
+  const dn = await loadPage('location.html', '?id=new-eridu');
+  assert(dn.errors.length === 0, '详情页无运行时错误 ' + JSON.stringify(dn.errors));
+  assert(/新艾利都/.test(dn.document.querySelector('#content h1').textContent), '标题正确');
+  // 父地区：根节点 -> UNKNOWN
+  const parentField = Array.prototype.find.call(dn.document.querySelectorAll('#content .field'),
+    function (f) { return /所属上级/.test(f.querySelector('.field-label').textContent); });
+  assert(parentField && parentField.querySelector('.unknown'), '根节点父地区 -> 【官方暂未说明】');
+  // 子地区：4 个
+  const childSecN = Array.prototype.find.call(dn.document.querySelectorAll('#content .detail-section'),
+    function (s) { return /子地区/.test(s.querySelector('h2').textContent); });
+  assert(childSecN && childSecN.querySelectorAll('.rel-chip').length === 4, '子地区 4 个 chip，实际 ' +
+    (childSecN ? childSecN.querySelectorAll('.rel-chip').length : 'NA'));
+  // 关联事件 2 / 关联势力 4 / 关联术语 2
+  const secsN = dn.document.querySelectorAll('#content .detail-section');
+  assert(secsN[4].querySelectorAll('.rel-chip').length === 2, '关联事件 2 个 chip，实际 ' + secsN[4].querySelectorAll('.rel-chip').length);
+  assert(secsN[5].querySelectorAll('.rel-chip').length === 4, '关联势力 4 个 chip，实际 ' + secsN[5].querySelectorAll('.rel-chip').length);
+  assert(secsN[6].querySelectorAll('.rel-chip').length === 2, '关联术语 2 个 chip，实际 ' + secsN[6].querySelectorAll('.rel-chip').length);
+
+  console.log('=== Location 详情页自测（未知 id 降级）===');
+  const dx = await loadPage('location.html', '?id=does-not-exist');
+  assert(dx.errors.length === 0, '未知 id 无错误 ' + JSON.stringify(dx.errors));
+  assert(/未找到指定地区/.test(dx.document.querySelector('#content').textContent), '未知 id 显示提示');
 
   console.log('\n=== 结果：PASS=' + pass + '  FAIL=' + fail + ' ===');
   process.exit(fail === 0 ? 0 : 1);

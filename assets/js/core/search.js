@@ -13,7 +13,7 @@
   const MAP = {
     characters: ['characters', 'character', ['name', 'nameEn', 'codename'], ['summary', 'specialty', 'attribute', 'rarity']],
     factions:   ['factions',   'faction',   ['name', 'nameEn'], ['summary', 'alias']],
-    locations:  ['locations',  'location',  ['name', 'nameEn'], ['summary']],
+    locations:  ['locations',  'location',  ['name', 'nameEn'], ['summary', 'aliases']],
     glossary:   ['terms',      'term',      ['name', 'nameEn'], ['summary']],
     story:      ['story',      'chapter',   ['title', 'titleEn'], ['summary', 'chapter']],
     timeline:   ['events',     'timeline',  ['title'],          ['description']],

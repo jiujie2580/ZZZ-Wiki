@@ -60,7 +60,7 @@
       "relatedStoryIds": [],
       "relatedFactionIds": [],
       "relatedTermIds": ["new-eridu", "hollow"],
-      "locationIds": [],
+      "locationIds": ["new-eridu"],
       "source": { "type": "official", "title": "《绝区零》世界观设定（官方）", "url": null },
       "updatedAt": "2026-07-29"
     },
@@ -76,7 +76,7 @@
       "relatedStoryIds": [],
       "relatedFactionIds": [],
       "relatedTermIds": [],
-      "locationIds": [],
+      "locationIds": ["new-eridu"],
       "source": { "type": "official", "title": "《绝区零》世界观设定（官方）", "url": null },
       "updatedAt": "2026-07-29"
     },
@@ -108,7 +108,7 @@
       "relatedStoryIds": ["agent-proxy"],
       "relatedFactionIds": ["phaethon"],
       "relatedTermIds": [],
-      "locationIds": [],
+      "locationIds": ["random-play"],
       "source": { "type": "official", "title": "《绝区零》官方剧情（代理人秘闻）", "url": null },
       "updatedAt": "2026-07-29"
     },
@@ -124,7 +124,7 @@
       "relatedStoryIds": ["s1-prologue", "s1-ch1"],
       "relatedFactionIds": ["cunning-hares"],
       "relatedTermIds": [],
-      "locationIds": [],
+      "locationIds": ["sixth-street", "random-play"],
       "source": { "type": "story", "id": "s1-prologue" },
       "updatedAt": "2026-07-29"
     },
@@ -188,7 +188,7 @@
       "relatedStoryIds": ["s1-prologue", "s1-ch1"],
       "relatedFactionIds": ["cunning-hares"],
       "relatedTermIds": [],
-      "locationIds": [],
+      "locationIds": ["sixth-street", "random-play"],
       "source": { "type": "story", "id": "s1-prologue" },
       "updatedAt": "2026-07-29"
     },

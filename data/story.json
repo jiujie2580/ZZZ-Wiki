@@ -14,7 +14,7 @@
       "synopsis": null,
       "participantIds": ["nekomata", "billy", "nicole", "anby"],
       "factionIds": ["cunning-hares"],
-      "locationIds": [],
+      "locationIds": ["sixth-street", "random-play"],
       "termIds": [],
       "timelineIds": ["prologue-cat", "random-play"],
       "spoiler": false,

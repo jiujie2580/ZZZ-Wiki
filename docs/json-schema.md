@@ -177,19 +177,34 @@
   "locations": [
     {
       "id": "example-location",
-      "name": null,
-      "nameEn": null,
-      "category": null,          // 都市 / 空洞 / 地带…
-      "parentId": null,          // → locations.id（自引用层级）
-      "summary": null,
-      "description": null,
-      "banner": null,
-      "relatedFactionIds": [],   // → factions.id
-      "relatedTermIds": []       // → glossary(terms).id
+      "name": null,              // 中文名（必填，列表/详情标题）
+      "nameEn": null,            // 英文名
+      "aliases": [],             // 别名数组
+      "category": null,          // 受控词表 id，词表见 config.locationCategories
+      "parentId": null,          // → locations.id（自引用层级；根节点为 null）
+      "summary": null,           // 一句话简介（列表卡片展示）
+      "description": null,       // 官方描述（详情「简介」分节）
+      "banner": null,            // 横幅图路径
+      "source": {                // 结构化引用来源（见 §2.10）
+        "type": "official",
+        "title": null,
+        "url": null
+      },
+      "updatedAt": null          // 本条资料更新日期 YYYY-MM-DD
     }
   ]
 }
 ```
+
+> **类型受控词表（单一数据源）**：`category` 的取值（`city` 城市 / `district` 区域 / `building` 建筑 / `facility` 设施 / `hollow` 空洞 / `special` 特殊地点）统一维护在 `assets/js/config.js` 的 `window.ZZZ.locationCategories`（含 `id` 与展示 `label`）。筛选 chips、详情徽标、搜索均读取同一份词表；新增类型只需改 `config.js`，**不在 JSON 或页面硬编码**。展示时 `label` 由该词表映射得到。（D4 决策：6 类，不单列 `street`，避免分类边界混乱。）
+
+> **层级（D1 决策）**：`parentId` 自引用表达空间层级（城市 → 区域 → 建筑…），**不存储 `childIds`**；子节点由渲染层按 `parentId` 反查计算。根节点（如 `new-eridu`）`parentId: null`。
+
+> **关联采用反向计算（D2 混合方案）**：`locations.json` **不存储** `relatedFactionIds` / `relatedTermIds` / `relatedStoryIds` 等外向外键；详情页「关联剧情 / 关联事件 / 关联势力 / 关联术语」由渲染层扫描消费方索引（story.locationIds、timeline.locationIds、factions.relatedLocationIds、glossary.relatedLocationIds）中指向本 `id` 的条目反向得出。设计上**保留 `relationIndex` 方向**（消费方 → 地区）以便未来扩展，不删除设计空间。
+
+> **列表页视图（D3 决策）**：`locations.html` 默认「卡片网格」（与角色 / 势力一致），可切换「层级树」视图；搜索匹配 `name` / `nameEn` / `aliases` / `summary`，排序支持「名称序」与「按类型」。
+
+> **详情页父子导航（D6 决策）**：详情页「基本信息」展示「所属上级」（→ 父地区），并单列「子地区」分节（→ 直接子地区 `relChips`），是 Locations 模块的核心价值；缺失时优雅显示【官方暂未说明】。
 
 ### 2.7 `glossary.json` — 列表字段 `terms`
 
@@ -321,9 +336,7 @@ factions.relatedFactionIds──▶  factions.id            （自引用）
 factions.relatedLocationIds─▶  locations.id
 factions.relatedTermIds  ──▶  glossary.terms.id
 factions.source          ──▶  结构化引用来源（§2.10：official/game/video/story）
-locations.parentId        ──▶  locations.id           （自引用层级）
-locations.relatedFactionIds─▶  factions.id
-locations.relatedTermIds  ──▶  glossary.terms.id
+locations.parentId        ──▶  locations.id           （自引用层级；子节点由 parentId 反查计算，不存 childIds）
 story.participantIds      ──▶  characters.id
 story.factionIds          ──▶  factions.id
 story.locationIds         ──▶  locations.id

@@ -7,6 +7,26 @@
 
 ---
 
+## v0.8.0
+- Locations Module
+- Code Review Completed
+
+## [仓库] 模块八：地区（Locations）
+- `feat(locations): implement locations list & detail` — 第六个填充内容的模块（对齐 Characters / Factions / Glossary / Story / Timeline 模板）：
+  - **数据 Schema 定稿**（`data/locations.json`）：Design Review D1–D6 决策落地；采用 `parentId` 自引用层级（不存 `childIds`）+ `category` 6 类受控词表（city/district/building/facility/hollow/special，D4 决策不单列 street）；首批录入 7 个官方地区，严格基于官方正式设定，无编造：
+    - 新艾利都（city）→ 六分街（district）→ 录像店 / 141便利店（building）；新艾利都直接辖光映广场（district）/ 斯科特哨站（facility）/ 空洞（hollow）。
+    - **边界**：缺失字段（`description` / `banner` / `updatedAt` 等）一律 `null` → 渲染【官方暂未说明】，未编造。
+  - **受控词表（单一数据源）**：`assets/js/config.js` 新增 `window.ZZZ.locationCategories`（城市 / 区域 / 建筑 / 设施 / 空洞 / 特殊地点）。筛选/展示/排序共用，不在 JSON 或页面硬编码。
+  - **列表页**（`locations.html` + `assets/js/pages/locations.js`）：卡片网格（默认，与角色/势力一致，D3）+ 可切换层级树视图；搜索（name/nameEn/aliases/summary）、类型 chips（全部 + 6 类）、排序（名称序默认 / 按类型）。
+  - **详情页**（`location.html` + `assets/js/pages/location.js`）：对齐详情页模板（hero → 基本信息 → 简介 → 子地区 → 关联剧情/事件/势力/术语 → 引用来源）；
+    - **父子导航（D6）**：「基本信息」展示「所属上级」（→ 父地区），单列「子地区」分节（→ 直接子地区 `relChips`），为 Locations 核心价值。
+    - **关联反向计算（D2 混合方案）**：不存储 `relatedFactionIds` / `relatedTermIds`；「关联剧情 / 事件 / 势力 / 术语」由渲染层扫描消费方索引（story.locationIds / timeline.locationIds / factions.relatedLocationIds / glossary.relatedLocationIds）反向得出；保留 `relationIndex` 方向以便扩展。
+  - **外键回填（受控修改，仅追加）**：在 `story.json`（s1-prologue→[sixth-street,random-play]）、`timeline.json`（4 条事件补 locationIds）、`factions.json`（6 个势力补 relatedLocationIds）、`glossary.json`（4 个术语补 relatedLocationIds）回填地区外键，使本模块与既有模块双向互引；目标缺失时灰态 chip 显示 id，绝不报错。
+  - **搜索增强**：`core/search.js` 的 `locations` MAP 文本字段增 `aliases`（已登记 `hasDetail.location=true`）。
+  - **未知内容**：所有未说明字段渲染为【官方暂未说明】，未编造。
+  - **受控修改**：`config.js`（注册 `locationCategories`）、`core/search.js`（locations MAP）、`assets/css/pages.css`（追加 Locations 模块样式块，仅新增不改动既有规则）、`docs/json-schema.md`（§2.6 落定最终 Schema + 6 类受控词表说明）、`docs/roadmap.md`（状态标记 Released）、`README.md`（进度 + 数据表）。
+  - **自测**：jsdom 无头自测新增 Locations 覆盖（列表/筛选/排序/网格-树切换/详情父子导航/反向关联/未知 id 降级共 29 项），全仓 **81/81 PASS**（Story 34 + Timeline 18 + Locations 29），无控制台错误。
+
 ## v0.7.0
 - Timeline Module
 - Code Review Completed

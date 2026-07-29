@@ -67,6 +67,18 @@ window.ZZZ = {
     { id: 'exploration',  label: '探索' }
   ],
 
+  // 地区类型受控词表（单一数据源）：data/locations.json 的 category 存此 id
+  // 筛选/展示/排序共用同一份，新增类型只需改这里，不散落页面逻辑。
+  // 6 类（D4 决策，不单列 street，避免分类边界混乱）：city/district/building/facility/hollow/special
+  locationCategories: [
+    { id: 'city',      label: '城市' },
+    { id: 'district',  label: '区域' },
+    { id: 'building',  label: '建筑' },
+    { id: 'facility',  label: '设施' },
+    { id: 'hollow',    label: '空洞' },
+    { id: 'special',   label: '特殊地点' }
+  ],
+
   // 数据文件清单：逻辑名 -> data 目录下的文件名（不含 .json）
   dataFiles: {
     site: 'site',

@@ -47,7 +47,7 @@ zzz-wiki/
 | `story.json` | 剧情章节（主线/特别篇/代理人剧情/活动剧情，Story Type 受控词表见 `config.storyTypes`） | `story` | chapter.html |
 | `characters.json` | 角色（代理人） | `characters` | character.html |
 | `factions.json` | 势力 + 组织/机构/网络（`category` 区分） | `factions` | faction.html |
-| `locations.json` | 地区（都市/空洞/地带） | `locations` | location.html |
+| `locations.json` | 地区（城市/区域/建筑/设施/空洞/特殊地点，`parentId` 自引用层级） | `locations` | location.html |
 | `glossary.json` | 专有名词/术语 | `terms` | `term.html`（详情页） |
 | `timeline.json` | 时间线事件（era/category 受控词表见 `config`） | `events` | `timeline.html?id=<eventId>` |
 | `enemies.json` | 敌人/以骸（预留） | `enemies` | 暂无 |
@@ -127,7 +127,7 @@ npx serve zzz-wiki
 - [x] 模块五：角色 Characters（已 Released · v0.5.0）— 56 名官方代理人（至 3.0）；属性/稀有度受控词表在 `config.js`；关联 storyIds/termIds/timelineIds
 - [x] 模块六：剧情 / 章节（Story）— 列表（`story.html`） + 详情（`chapter.html`） + `story.json` 43 条官方剧情（主线 20 / 特别篇 3 / 代理人剧情 17 / 活动剧情 3，均至 3.0）；Story Type 受控词表 `config.storyTypes`；剧透折叠（spoiler）+ 计算式上/下章导航 + 外键关联（角色/势力/地点/术语/时间线）优雅降级
 - [x] 模块七：时间线 Timeline（已 Released · v0.7.0）— 列表（`timeline.html`）+ `?id` 详情（自动展开/高亮 + 上/下事件导航）+ `timeline.json` 16 个官方事件（至 3.0）；纪元/分类受控词表 `config.timelineEras` / `config.timelineCategories`；关联剧情/势力/术语/地区（外键优雅降级）
-- [ ] 地区 Locations（v0.8.0）
+- [x] 模块八：地区 Locations（已 Released · v0.8.0）— 列表（`locations.html`）+ 详情（`location.html`）+ `locations.json` 7 个官方地区（新艾利都/六分街/光映广场/斯科特哨站/空洞/录像店/141便利店）；`parentId` 自引用层级 + 6 类受控词表 `config.locationCategories`（city/district/building/facility/hollow/special）；卡片网格（默认）+ 层级树视图；详情父子导航 + 反向关联（剧情/事件/势力/术语）优雅降级
 - [ ] 世界观 Worldview（v0.9.0）
 - [ ] 更新日志 Changelog / 搜索 Search / 关于 About（归入 v1.0.0 前收尾）
 - [ ] 404 兜底页（壳已完成）

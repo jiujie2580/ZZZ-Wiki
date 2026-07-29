@@ -1,16 +1,95 @@
 {
   "locations": [
     {
-      "id": "example-location",
-      "name": null,
-      "nameEn": null,
-      "category": null,
+      "id": "new-eridu",
+      "name": "新艾利都",
+      "nameEn": "New Eridu",
+      "aliases": [],
+      "category": "city",
       "parentId": null,
+      "summary": "空洞灾害后幸存并繁荣发展的现代都市，掌握与空洞共存的技术，是《绝区零》故事的主要舞台。",
+      "description": null,
+      "banner": null,
+      "source": { "type": "official", "title": null, "url": null },
+      "updatedAt": null
+    },
+    {
+      "id": "sixth-street",
+      "name": "六分街",
+      "nameEn": "Sixth Street",
+      "aliases": [],
+      "category": "district",
+      "parentId": "new-eridu",
+      "summary": "新艾利都中知名的老街区，录像店（Random Play）所在地，绳匠与代理人活动频繁。",
+      "description": null,
+      "banner": null,
+      "source": { "type": "official", "title": null, "url": null },
+      "updatedAt": null
+    },
+    {
+      "id": "lumina-square",
+      "name": "光映广场",
+      "nameEn": "Lumina Square",
+      "aliases": [],
+      "category": "district",
+      "parentId": "new-eridu",
       "summary": null,
       "description": null,
       "banner": null,
-      "relatedFactionIds": [],
-      "relatedTermIds": []
+      "source": { "type": "official", "title": null, "url": null },
+      "updatedAt": null
+    },
+    {
+      "id": "scott-outpost",
+      "name": "斯科特哨站",
+      "nameEn": "Scott Outpost",
+      "aliases": [],
+      "category": "facility",
+      "parentId": "new-eridu",
+      "summary": null,
+      "description": null,
+      "banner": null,
+      "source": { "type": "official", "title": null, "url": null },
+      "updatedAt": null
+    },
+    {
+      "id": "hollow",
+      "name": "空洞",
+      "nameEn": "Hollow",
+      "aliases": [],
+      "category": "hollow",
+      "parentId": "new-eridu",
+      "summary": "吞噬城市空间的球状异常领域，内部充满以太，并孕育出以骸等敌对怪物。",
+      "description": null,
+      "banner": null,
+      "source": { "type": "official", "title": null, "url": null },
+      "updatedAt": null
+    },
+    {
+      "id": "random-play",
+      "name": "录像店",
+      "nameEn": "Random Play",
+      "aliases": [],
+      "category": "building",
+      "parentId": "sixth-street",
+      "summary": "位于六分街的录像店，主角法厄同的居所与委托接洽点。",
+      "description": null,
+      "banner": null,
+      "source": { "type": "official", "title": null, "url": null },
+      "updatedAt": null
+    },
+    {
+      "id": "conv-store-141",
+      "name": "141便利店",
+      "nameEn": "141 Convenience Store",
+      "aliases": [],
+      "category": "building",
+      "parentId": "sixth-street",
+      "summary": "六分街上的便利店。",
+      "description": null,
+      "banner": null,
+      "source": { "type": "official", "title": null, "url": null },
+      "updatedAt": null
     }
   ]
 }

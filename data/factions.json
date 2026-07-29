@@ -79,7 +79,7 @@
       "description": "表面是坐落于六分街的录像店 Random Play，实为绳网下属的绳匠组织之一，以极高的委托完成率著称。游戏主角哲与铃即为其核心成员。",
       "memberIds": [],
       "relatedFactionIds": ["cunning-hares"],
-      "relatedLocationIds": [],
+      "relatedLocationIds": ["sixth-street", "random-play"],
       "relatedTermIds": ["proxy"],
       "source": { "type": "official", "title": "《绝区零》官方角色设定档案", "url": null },
       "updatedAt": "2026-07-29"
@@ -100,7 +100,7 @@
       "description": null,
       "memberIds": [],
       "relatedFactionIds": [],
-      "relatedLocationIds": [],
+      "relatedLocationIds": ["new-eridu"],
       "relatedTermIds": [],
       "source": { "type": "official", "title": "《绝区零》官方网站 角色 / 阵营 页", "url": "https://zenless.hoyoverse.com/zh-cn/" },
       "updatedAt": "2026-07-29"
@@ -268,7 +268,7 @@
       "description": "对空洞事务特别行动部（H.A.N.D. 直属武装力量）专职应对空洞灾害。第六课是新近成立的前线执行部队之一，由星见雅带领，以特立独行著称。",
       "memberIds": [],
       "relatedFactionIds": [],
-      "relatedLocationIds": [],
+      "relatedLocationIds": ["new-eridu"],
       "relatedTermIds": ["hollow", "ethereal"],
       "source": { "type": "official", "title": "《绝区零》官方设定档案", "url": null },
       "updatedAt": "2026-07-29"
@@ -352,7 +352,7 @@
       "description": "维多利亚家政以高标准服务与宽广业务范围著称，团队成员服务形象贴近旧文明老派家政业者，时常发生「用力过猛」的意外，但并不缺乏客户。",
       "memberIds": [],
       "relatedFactionIds": [],
-      "relatedLocationIds": [],
+      "relatedLocationIds": ["new-eridu"],
       "relatedTermIds": [],
       "source": { "type": "official", "title": "《绝区零》官方角色设定档案", "url": null },
       "updatedAt": "2026-07-29"
@@ -394,7 +394,7 @@
       "description": "新艾利都的万能事务所，由妮可创建，原注册名为「温柔之家」（Gentle House），因其作风狡黠被道上称为「狡兔屋」，团队遂以此为名。人数虽少但成员实力出众，是绳匠兄妹的得力帮手，也在关键时刻推动剧情发展。",
       "memberIds": [],
       "relatedFactionIds": ["phaethon"],
-      "relatedLocationIds": [],
+      "relatedLocationIds": ["sixth-street", "random-play"],
       "relatedTermIds": ["proxy", "hollow"],
       "source": { "type": "official", "title": "《绝区零》官方角色设定档案", "url": null },
       "updatedAt": "2026-07-29"
@@ -415,7 +415,7 @@
       "description": null,
       "memberIds": [],
       "relatedFactionIds": [],
-      "relatedLocationIds": [],
+      "relatedLocationIds": ["new-eridu"],
       "relatedTermIds": ["proxy"],
       "source": { "type": "official", "title": "《绝区零》官方设定档案", "url": null },
       "updatedAt": "2026-07-29"
