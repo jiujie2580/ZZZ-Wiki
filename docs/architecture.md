@@ -34,8 +34,8 @@
   worldview.html  story.html characters.html factions.html locations.html timeline.html
    (世界观·占位)   │        │            │            │            │
                  ▼        ▼            ▼            ▼            │
-            chapter.html character.html faction.html  location.html   glossary.html
-            (章节详情)   (角色详情)    (势力详情)   (地区详情)    (术语·列表内展开)
+            chapter.html character.html faction.html  location.html   glossary.html term.html
+            (章节详情)   (角色详情)    (势力详情)   (地区详情)    (术语·列表)   (术语·详情)
 
   任意页面 Header 搜索框 ──▶ search.html?q=xxx (聚合各模块结果，按类型分组)
   详情页面包屑 ──▶ 列表页 ──▶ 首页
@@ -43,7 +43,7 @@
 ```
 
 **跳转规则**
-- 列表页 → 详情页：通过 `character.html?id=xxx` / `faction.html?id=xxx` / `location.html?id=xxx` / `chapter.html?id=xxx`（查询参数 `id`）。
+- 列表页 → 详情页：通过 `character.html?id=xxx` / `faction.html?id=xxx` / `location.html?id=xxx` / `chapter.html?id=xxx` / `term.html?id=xxx`（查询参数 `id`）。
 - 详情页 → 列表页 / 首页：由 `ZZZUI.breadcrumb()` 自动生成面包屑。
 - 搜索：Header 搜索框（见 `layout.js`）提交到 `search.html?q=关键词`；建议下拉在 Header 内即时显示。
 - 导航：Header（logo / 搜索 / 版本号）+ Sidebar（来自 `site.json` 的 `nav`），所有链接均引用 `config.pages` 的逻辑名，不直接写死路径。

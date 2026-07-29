@@ -20,14 +20,6 @@
   left: calc(-1 * var(--space-5) + 2px); top: var(--space-4); width: 14px; height: 14px;
   border-radius: 50%; background: var(--neon-cyan); box-shadow: var(--glow-cyan); }
 
-/* 术语手风琴 */
-.glossary-item { border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
-  margin-bottom: 8px; background: var(--glass-bg); }
-.glossary-q { padding: 12px 14px; cursor: pointer; display: flex; justify-content: space-between;
-  align-items: center; color: var(--text-1); }
-.glossary-a { padding: 0 14px 14px; color: var(--text-2); display: none; }
-.glossary-item.open .glossary-a { display: block; }
-
 /* 网格列表 + 筛选条（后续模块渲染列表时使用） */
 .grid-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-3); }
 .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--space-3); }
