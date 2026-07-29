@@ -1,0 +1,22 @@
+{
+  "site": {
+    "title": "绝区零 Wiki",
+    "subtitle": "Zenless Zone Zero 剧情百科",
+    "version": "1.0.0",
+    "gameVersion": "3.0",
+    "description": "基于官方正式剧情与设定的《绝区零》百科",
+    "updatedAt": "2026-07-29"
+  },
+  "nav": [
+    { "label": "首页",   "href": "index.html",     "icon": "home" },
+    { "label": "世界观", "href": "worldview.html", "icon": "world" },
+    { "label": "剧情",   "href": "story.html",     "icon": "story" },
+    { "label": "角色",   "href": "characters.html","icon": "character" },
+    { "label": "势力",   "href": "factions.html",  "icon": "faction" },
+    { "label": "地区",   "href": "locations.html", "icon": "region" },
+    { "label": "时间线", "href": "timeline.html",  "icon": "timeline" },
+    { "label": "术语",   "href": "glossary.html",  "icon": "glossary" },
+    { "label": "更新",   "href": "changelog.html", "icon": "update" },
+    { "label": "关于",   "href": "about.html",     "icon": "info" }
+  ]
+}

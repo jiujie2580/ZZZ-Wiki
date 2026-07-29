@@ -1,0 +1,41 @@
+/* base.css —— reset + 基础排版 */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-1);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(155, 107, 255, .18), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(57, 240, 230, .12), transparent 55%),
+    var(--bg-0);
+  background-attachment: fixed;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { margin: 0; padding: 0; list-style: none; }
+button { font-family: inherit; cursor: pointer; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  letter-spacing: .5px;
+  font-weight: 700;
+  margin: 0 0 var(--space-2);
+}
+
+::selection { background: var(--neon-cyan); color: #04121a; }
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-1); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--neon-cyan), var(--neon-purple));
+  border-radius: 8px;
+}
+
+/* 图标基础尺寸（配合 sprite.svg 的 use） */
+.icon { width: 20px; height: 20px; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }

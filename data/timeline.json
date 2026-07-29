@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "id": "example-event",
+      "title": null,
+      "date": null,
+      "era": null,
+      "importance": null,
+      "description": null,
+      "relatedStoryIds": [],
+      "relatedFactionIds": [],
+      "relatedTermIds": []
+    }
+  ]
+}

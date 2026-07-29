@@ -1,0 +1,14 @@
+{
+  "terms": [
+    {
+      "id": "example-term",
+      "term": null,
+      "termEn": null,
+      "category": null,
+      "aliases": [],
+      "definition": null,
+      "source": null,
+      "relatedTermIds": []
+    }
+  ]
+}

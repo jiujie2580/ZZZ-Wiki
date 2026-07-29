@@ -1,0 +1,21 @@
+{
+  "factions": [
+    {
+      "id": "example-faction",
+      "name": null,
+      "nameEn": null,
+      "category": "阵营",
+      "alias": [],
+      "type": null,
+      "leader": null,
+      "headquarters": null,
+      "established": null,
+      "icon": null,
+      "banner": null,
+      "summary": null,
+      "description": null,
+      "memberIds": [],
+      "relatedFactionIds": []
+    }
+  ]
+}

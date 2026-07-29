@@ -1,0 +1,35 @@
+/* pages.css —— 各页面特有样式（预留，后续模块实现详情渲染时使用） */
+
+/* 详情页 hero */
+.detail-hero { display: flex; gap: var(--space-4); align-items: center; padding: var(--space-4);
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  border-radius: var(--radius); margin-bottom: var(--space-4); }
+.detail-hero .avatar { width: 96px; height: 96px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple)); flex-shrink: 0; }
+.detail-hero h1 { margin: 0; }
+.detail-section { background: var(--glass-bg); border: 1px solid var(--glass-border);
+  border-radius: var(--radius); padding: var(--space-4); margin-bottom: var(--space-3); }
+.detail-section h2 { margin-top: 0; color: var(--neon-cyan); font-size: 18px; }
+
+/* 时间线 */
+.timeline-track { position: relative; padding-left: var(--space-5); }
+.timeline-track::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(var(--neon-cyan), var(--neon-purple)); }
+.timeline-item { position: relative; padding: var(--space-3) 0; }
+.timeline-item::before { content: ''; position: absolute;
+  left: calc(-1 * var(--space-5) + 2px); top: var(--space-4); width: 14px; height: 14px;
+  border-radius: 50%; background: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+
+/* 术语手风琴 */
+.glossary-item { border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
+  margin-bottom: 8px; background: var(--glass-bg); }
+.glossary-q { padding: 12px 14px; cursor: pointer; display: flex; justify-content: space-between;
+  align-items: center; color: var(--text-1); }
+.glossary-a { padding: 0 14px 14px; color: var(--text-2); display: none; }
+.glossary-item.open .glossary-a { display: block; }
+
+/* 网格列表 + 筛选条（后续模块渲染列表时使用） */
+.grid-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-3); }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--space-3); }
+.filter-bar .tag { cursor: pointer; }
+.filter-bar .tag.active { background: var(--neon-cyan); color: #04121a; border-color: var(--neon-cyan); }

@@ -1,0 +1,23 @@
+{
+  "characters": [
+    {
+      "id": "example-character",
+      "name": null,
+      "nameEn": null,
+      "codename": null,
+      "factionId": null,
+      "rarity": null,
+      "attribute": null,
+      "specialty": null,
+      "species": null,
+      "birthday": null,
+      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "releaseVersion": null,
+      "thumbnail": null,
+      "banner": null,
+      "summary": null,
+      "description": null,
+      "source": null
+    }
+  ]
+}

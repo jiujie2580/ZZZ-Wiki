@@ -1,0 +1,33 @@
+/* responsive.css —— 响应式断点（移动端折叠 Sidebar 为抽屉） */
+
+@media (max-width: 768px) {
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .header-search { max-width: none; }
+  .header-version { display: none; }
+
+  .layout { display: block; }
+
+  .app-sidebar {
+    position: fixed; top: var(--header-h); bottom: 0; left: 0;
+    width: 78%; max-width: 300px; z-index: 45;
+    background: var(--bg-1); border-right: 1px solid var(--glass-border);
+    transform: translateX(-100%); transition: transform .25s; overflow-y: auto;
+    padding-top: var(--space-4);
+  }
+  body.sidebar-open .app-sidebar { transform: translateX(0); }
+  .sidebar-inner { position: static; }
+
+  .sidebar-overlay { position: fixed; inset: var(--header-h) 0 0 0; background: rgba(0, 0, 0, .5);
+    z-index: 44; display: none; }
+  body.sidebar-open .sidebar-overlay { display: block; }
+
+  .app-main { padding: var(--space-3); }
+  .page-hero h1 { font-size: 24px; }
+  .module-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .module-grid { grid-template-columns: 1fr 1fr; }
+  .field { flex-direction: column; gap: 2px; }
+  .header-inner { padding: 0 var(--space-3); }
+}

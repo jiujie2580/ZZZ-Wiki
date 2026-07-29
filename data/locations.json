@@ -1,0 +1,16 @@
+{
+  "locations": [
+    {
+      "id": "example-location",
+      "name": null,
+      "nameEn": null,
+      "category": null,
+      "parentId": null,
+      "summary": null,
+      "description": null,
+      "banner": null,
+      "relatedFactionIds": [],
+      "relatedTermIds": []
+    }
+  ]
+}

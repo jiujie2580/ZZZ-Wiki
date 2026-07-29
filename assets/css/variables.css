@@ -1,0 +1,51 @@
+/* variables.css —— 设计变量（改这里即可全局换肤） */
+:root {
+  /* 背景层 */
+  --bg-0: #0a0a12;
+  --bg-1: #12121f;
+  --bg-2: #171728;
+  --surface: rgba(255, 255, 255, .04);
+
+  /* 霓虹强调色 */
+  --neon-cyan: #39f0e6;
+  --neon-magenta: #ff3d9a;
+  --neon-purple: #9b6bff;
+
+  /* 文本 */
+  --text-1: #eef1ff;
+  --text-2: #9aa3c7;
+  --text-3: #6b7299;
+
+  /* 玻璃拟态 */
+  --glass-bg: rgba(255, 255, 255, .05);
+  --glass-border: rgba(255, 255, 255, .12);
+  --glass-blur: 14px;
+
+  /* 辉光 */
+  --glow-cyan: 0 0 24px rgba(57, 240, 230, .35);
+  --glow-magenta: 0 0 24px rgba(255, 61, 154, .30);
+
+  /* 圆角 */
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  /* 间距尺度 */
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+
+  /* 字体 */
+  --font-head: "Orbitron", "Rajdhani", "Segoe UI", system-ui, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+
+  /* 布局尺寸 */
+  --header-h: 60px;
+  --sidebar-w: 240px;
+  --maxw: 1200px;
+
+  /* 渐变 */
+  --c-gradient: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+}

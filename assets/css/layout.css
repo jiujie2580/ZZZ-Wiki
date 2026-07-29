@@ -1,0 +1,104 @@
+/* layout.css —— Header / Sidebar / Main / Footer 统一布局 */
+
+#app { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* ---------- Header ---------- */
+.app-header {
+  position: sticky; top: 0; z-index: 40; height: var(--header-h);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+}
+.header-inner {
+  max-width: var(--maxw); margin: 0 auto; height: 100%;
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: 0 var(--space-4);
+}
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-head);
+  font-weight: 700; font-size: 18px; color: var(--text-1); white-space: nowrap; }
+.brand .icon { width: 26px; height: 26px; color: var(--neon-cyan); }
+
+.header-search { flex: 1; max-width: 420px; position: relative; }
+.header-search form { position: relative; display: flex; align-items: center; }
+.search-icon { position: absolute; left: 12px; color: var(--text-3);
+  width: 18px; height: 18px; pointer-events: none; }
+#search-input {
+  width: 100%; padding: 9px 12px 9px 38px; border-radius: 999px;
+  border: 1px solid var(--glass-border); background: rgba(0, 0, 0, .25);
+  color: var(--text-1); outline: none; font-size: 14px;
+}
+#search-input:focus { border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+.search-suggest {
+  position: absolute; top: 46px; left: 0; right: 0;
+  background: var(--bg-2); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm); overflow: hidden; display: none; z-index: 50;
+}
+.search-suggest.show { display: block; }
+.suggest-item { display: flex; gap: 8px; align-items: center; padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, .06); }
+.suggest-item:hover { background: rgba(57, 240, 230, .08); }
+.suggest-type { font-size: 11px; color: var(--neon-cyan); border: 1px solid var(--glass-border);
+  border-radius: 6px; padding: 1px 6px; height: fit-content; white-space: nowrap; }
+.suggest-title { color: var(--text-1); }
+.suggest-empty { padding: 12px; color: var(--text-3); }
+
+.header-version { font-family: var(--font-head); color: var(--neon-magenta);
+  font-size: 13px; white-space: nowrap; }
+
+.menu-toggle { display: none; background: none; border: 1px solid var(--glass-border);
+  border-radius: 8px; color: var(--text-1); padding: 6px; width: 38px; height: 38px;
+  align-items: center; justify-content: center; }
+.menu-toggle .icon { width: 20px; height: 20px; }
+
+/* ---------- Body 布局：Sidebar + Main ---------- */
+.layout { flex: 1; display: flex; max-width: var(--maxw); margin: 0 auto; width: 100%; }
+
+.app-sidebar { width: var(--sidebar-w); flex-shrink: 0; padding: var(--space-4) var(--space-3); }
+.sidebar-inner { position: sticky; top: calc(var(--header-h) + var(--space-3)); }
+.side-nav { display: flex; flex-direction: column; gap: 4px; }
+.side-link {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border-radius: var(--radius-sm); color: var(--text-2);
+  border: 1px solid transparent; transition: .2s;
+}
+.side-link .icon { width: 20px; height: 20px; color: var(--text-3); }
+.side-link:hover { background: var(--glass-bg); color: var(--text-1); }
+.side-link.active {
+  background: linear-gradient(90deg, rgba(57, 240, 230, .16), transparent);
+  color: var(--text-1); border-color: var(--glass-border);
+  box-shadow: inset 3px 0 0 var(--neon-cyan);
+}
+.side-link.active .icon { color: var(--neon-cyan); }
+
+.app-main { flex: 1; min-width: 0; padding: var(--space-4); }
+
+/* ---------- 面包屑 ---------- */
+#breadcrumb { margin-bottom: var(--space-3); font-size: 13px; color: var(--text-3); }
+.crumb { color: var(--text-2); }
+.crumb:hover { color: var(--neon-cyan); }
+.crumb.current { color: var(--text-1); }
+.crumb-sep { margin: 0 8px; color: var(--text-3); }
+
+/* ---------- 页头 ---------- */
+.page-hero {
+  padding: var(--space-5) 0 var(--space-4);
+  border-bottom: 1px solid var(--glass-border);
+  margin-bottom: var(--space-4);
+}
+.page-hero h1 {
+  font-size: 30px; margin: 0 0 8px;
+  background: var(--c-gradient);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub { color: var(--text-2); margin: 0; }
+
+/* ---------- Footer ---------- */
+.app-footer { border-top: 1px solid var(--glass-border); background: var(--glass-bg); margin-top: var(--space-6); }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; padding: var(--space-4);
+  color: var(--text-3); font-size: 13px; }
+.footer-brand { color: var(--text-1); font-family: var(--font-head); margin-bottom: 6px; }
+.footer-note { margin-top: 8px; opacity: .8; }
+
+/* 移动端遮罩（默认隐藏，由 responsive.css 在窄屏启用） */
+.sidebar-overlay { display: none; }
