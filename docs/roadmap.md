@@ -21,7 +21,7 @@
 | 项目文档（Docs） | `docs/*` | — | ✅ 完成（模块二） | architecture / roadmap / json-schema / development-guide |
 | 术语表 Glossary | `glossary.html` / `term.html` | `glossary.json` | ✅ Released（模块三 · v0.3.0） | 首个填充内容的模块；`term.html` 确立全站详情页模板规范 |
 | 势力 / 组织 Factions | `factions.html` / `faction.html` | `factions.json` | ✅ Released（模块四 · v0.4.0） | 用 `category` 区分阵营/组织/机构/网络，不拆模块；分类词表在 `config.factionCategories` |
-| 角色 Characters | `characters.html` / `character.html` | `characters.json` | ⬜ 待开发 | 字段最多，作复杂度标杆 |
+| 角色 Characters | `characters.html` / `character.html` | `characters.json` | ✅ Released（模块五 · v0.5.0） | 56 名官方代理人（至 3.0）；属性/稀有度受控词表在 `config.js`；关联 storyIds/termIds/timelineIds |
 | 剧情 Story | `story.html` / `chapter.html` | `story.json` | ⬜ 待开发 | 含 `participantIds` / `factionIds` / `timelineIds` 交叉引用 |
 | 时间线 Timeline | `timeline.html` | `timeline.json` | ⬜ 待开发 | 事件与剧情/势力/术语互引 |
 | 地区 Locations | `locations.html` / `location.html` | `locations.json` | ⬜ 待开发 | `parentId` 自引用层级 |
@@ -129,7 +129,7 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 | v0.2.0 | 项目文档（Documentation） |
 | v0.3.0 | 术语表 Glossary |
 | v0.4.0 | 势力 / 组织 Factions（已 Released） |
-| v0.5.0 | 角色 Characters（待开发） |
+| v0.5.0 | 角色 Characters（已 Released） |
 | v0.6.0 | 剧情 Story（待开发） |
 | v0.7.0 | 时间线 Timeline（待开发） |
 | v0.8.0 | 地区 Locations（待开发） |

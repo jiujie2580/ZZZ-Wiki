@@ -7,6 +7,23 @@
 
 ---
 
+## v0.5.0
+- Characters Module
+- Code Review Completed
+
+## [仓库] 模块五：角色 / 代理人（Characters）
+- `feat(characters): implement characters list & detail` — 第三个填充内容的模块（对齐 Glossary/Factions 模板）：
+  - **数据 Schema 定稿**（`data/characters.json`）：56 名官方代理人（至 3.0）；字段对齐 §2.4，新增三项可选关联 `storyIds` / `termIds` / `timelineIds`（Design Review 确认，保留既有 `factionId`）；`source` 采用结构化格式（§2.10）。
+  - **属性 / 稀有度受控词表单一数据源**：`assets/js/config.js` 新增 `window.ZZZ.characterAttributes`（8 项：物理/火/冰/电/以太/风/玄墨/凛刃）与 `window.ZZZ.characterRarities`（S/A）；筛选/展示/搜索共用，不在 JSON 或页面硬编码。
+  - **列表页**（`characters.html` + `assets/js/pages/characters.js`）：搜索（name/nameEn/codename/summary/specialty/属性名）、双维度筛选 chips（属性 + 稀有度，来自受控词表，可组合）、排序（名称序/上线版本倒序）、卡片网格（卡片显示阵营名，读取 factions.json 建索引，缺失优雅降级），全部数据驱动。
+  - **详情页**（`character.html` + `assets/js/pages/character.js`）：对齐详情页模板（hero → 基本信息 → 简介 → 关联剧情/术语/时间线 → 引用来源）；阵营以可点击外键呈现；外键缺失灰态降级，绝不报错。
+  - **搜索增强**：`core/search.js` 的 `characters` MAP 标题字段增 `codename`、文本字段增 `specialty`/`attribute`/`rarity`，职业可搜。
+  - **未知内容**：所有未说明字段渲染为【官方暂未说明】（简介/摘要/声优/生日等留 `null`，未编造）。
+  - **受控修改**：`config.js`（注册 `characterAttributes`/`characterRarities`）、`core/search.js`（characters MAP）、`docs/json-schema.md`（§2.4 新增三项 + 受控词表说明 + §3 外键）、`docs/roadmap.md`（状态标记 Released）。
+  - **首批录入**：56 条官方代理人（猫宫又奈/比利/妮可/安比/法厄同 等，覆盖狡兔屋/维多利亚家政/白祇重工/卡吕冬之子/奥波勒斯小队/对空六课/刑侦特勤组/天琴座/反舌鸟/云岿山/怪啖屋/坎卜斯黑枝/妄想天使/空域巡戍局/外务筹策局/都市秩序部 等 21 个势力），`factionId` 全部有效，未知字段留 `null`，未编造。
+  - **自测**：jsdom 无头自测 28/28 PASS（列表交互/属性筛选/稀有度筛选/组合筛选/搜索/空态/排序、详情渲染/外键降级/面包屑、全局搜索索引、无控制台错误）。
+  - 同步更新 `docs/json-schema.md`、`docs/roadmap.md`（Characters 标记 Released）。
+
 ## v0.4.0
 - Factions Module
 - Shared Relation Primitives Extracted

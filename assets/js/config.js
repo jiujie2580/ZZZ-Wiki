@@ -18,6 +18,25 @@ window.ZZZ = {
     { id: 'network',     label: '网络' }
   ],
 
+  // 角色属性受控词表（单一数据源）：data/characters.json 的 attribute 存此 id，label 用于展示/筛选
+  // 含 3.0 新增「风」与 2.0 新增「玄墨 / 凛刃」；发布新属性只需改这里。
+  characterAttributes: [
+    { id: 'physical',   label: '物理' },
+    { id: 'fire',       label: '火' },
+    { id: 'ice',        label: '冰' },
+    { id: 'electric',   label: '电' },
+    { id: 'ether',      label: '以太' },
+    { id: 'wind',       label: '风' },
+    { id: 'auric-ink',  label: '玄墨' },
+    { id: 'honed-edge', label: '凛刃' }
+  ],
+
+  // 角色稀有度受控词表（单一数据源）
+  characterRarities: [
+    { id: 'S', label: 'S 级' },
+    { id: 'A', label: 'A 级' }
+  ],
+
   // 数据文件清单：逻辑名 -> data 目录下的文件名（不含 .json）
   dataFiles: {
     site: 'site',

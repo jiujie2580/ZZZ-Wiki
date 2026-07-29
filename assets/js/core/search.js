@@ -11,7 +11,7 @@
 
   // 各数据文件 -> 列表字段名 / 页面逻辑名 / 标题字段 / 摘要字段
   const MAP = {
-    characters: ['characters', 'character', ['name', 'nameEn'], ['summary']],
+    characters: ['characters', 'character', ['name', 'nameEn', 'codename'], ['summary', 'specialty', 'attribute', 'rarity']],
     factions:   ['factions',   'faction',   ['name', 'nameEn'], ['summary', 'alias']],
     locations:  ['locations',  'location',  ['name', 'nameEn'], ['summary']],
     glossary:   ['terms',      'term',      ['name', 'nameEn'], ['summary']],

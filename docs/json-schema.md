@@ -104,11 +104,20 @@
       "banner": null,            // 横幅图路径
       "summary": null,
       "description": null,
+      "storyIds": [],            // → story.id（关联剧情章节）
+      "termIds": [],             // → glossary(terms).id（关联术语）
+      "timelineIds": [],         // → timeline(events).id（关联时间线事件）
       "source": null             // 资料出处（官方页面/公告）
     }
   ]
 }
 ```
+
+> **属性 / 稀有度受控词表（单一数据源）**：`attribute` 的取值（`physical` / `fire` / `ice` / `electric` / `ether` / `wind` / `auric-ink` / `honed-edge`）与 `rarity` 的取值（`S` / `A`）统一维护在 `assets/js/config.js` 的 `window.ZZZ.characterAttributes` / `window.ZZZ.characterRarities`（各含 `id` 与展示 `label`）。列表页筛选 chips、详情徽标、搜索均读取同一份词表；新增属性 / 稀有度只需改 `config.js`，**不在 JSON 或页面硬编码**。展示时 `label` 由该词表映射得到。
+
+> **列表页筛选**：`characters.html` 的筛选 chips 来自 `window.ZZZ.characterAttributes`（属性）与 `window.ZZZ.characterRarities`（稀有度），两组**可组合**；搜索匹配 `name` / `nameEn` / `codename` / `summary` / `specialty` / 属性名；排序支持「名称序」与「上线版本倒序」（`releaseVersion`）。
+
+> **关联字段（Design Review 确认）**：在既有 `factionId`（→ `factions.id`）之外，新增三项可选关联 `storyIds` / `termIds` / `timelineIds`，均为空数组时详情页关联区显示【官方暂未说明】；目标条目不存在时优雅降级为灰态 chip（显示 id），不报错。
 
 ### 2.5 `factions.json` — 列表字段 `factions`
 ```jsonc
@@ -274,6 +283,9 @@
 
 ```
 characters.factionId      ──▶  factions.id
+characters.storyIds        ──▶  story.id
+characters.termIds         ──▶  glossary.terms.id
+characters.timelineIds     ──▶  timeline.events.id
 factions.memberIds        ──▶  characters.id          （与 factionId 双向）
 factions.relatedFactionIds──▶  factions.id            （自引用）
 factions.relatedLocationIds─▶  locations.id
