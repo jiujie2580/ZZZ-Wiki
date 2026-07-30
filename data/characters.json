@@ -11,16 +11,30 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-prologue",
+        "s1-ch1",
+        "s1-ch1-interlude",
+        "agent-nekomata"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "billy",
@@ -33,13 +47,23 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/billy/thumb.webp",
       "banner": "assets/images/characters/billy/banner.webp",
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-prologue",
+        "s1-ch1",
+        "s1-ch1-interlude",
+        "special-undercover-blues"
+      ],
       "termIds": [],
       "timelineIds": [],
       "images": {
@@ -49,11 +73,18 @@
             "full": null,
             "caption": "比利角色立绘",
             "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
+            "source": {
+              "type": "official",
+              "title": "官方角色资料"
+            }
           }
         ]
       },
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "nicole",
@@ -66,13 +97,23 @@
       "specialty": "支援",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/nicole/thumb.webp",
       "banner": "assets/images/characters/nicole/banner.webp",
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-prologue",
+        "s1-ch1",
+        "s1-ch1-interlude",
+        "special-undercover-blues"
+      ],
       "termIds": [],
       "timelineIds": [],
       "images": {
@@ -82,11 +123,18 @@
             "full": null,
             "caption": "妮可角色立绘",
             "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
+            "source": {
+              "type": "official",
+              "title": "官方角色资料"
+            }
           }
         ]
       },
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "anby",
@@ -99,13 +147,23 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/anby/thumb.webp",
       "banner": "assets/images/characters/anby/banner.webp",
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-prologue",
+        "s1-ch1",
+        "s1-ch1-interlude",
+        "special-undercover-blues"
+      ],
       "termIds": [],
       "timelineIds": [],
       "images": {
@@ -115,11 +173,18 @@
             "full": null,
             "caption": "安比角色立绘",
             "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
+            "source": {
+              "type": "official",
+              "title": "官方角色资料"
+            }
           }
         ]
       },
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "starlight-billy",
@@ -132,7 +197,12 @@
       "specialty": "命破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.8",
       "thumbnail": null,
       "banner": null,
@@ -141,7 +211,11 @@
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "ellen",
@@ -154,13 +228,21 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/ellen/thumb.webp",
       "banner": "assets/images/characters/ellen/banner.webp",
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch3",
+        "agent-ellen"
+      ],
       "termIds": [],
       "timelineIds": [],
       "images": {
@@ -170,11 +252,18 @@
             "full": null,
             "caption": "艾莲角色立绘",
             "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
+            "source": {
+              "type": "official",
+              "title": "官方角色资料"
+            }
           }
         ]
       },
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "lycaon",
@@ -187,16 +276,28 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch3",
+        "agent-lycaon"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "rina",
@@ -209,16 +310,28 @@
       "specialty": "支援",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch3",
+        "agent-rina"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "corin",
@@ -231,16 +344,27 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch3"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "grace",
@@ -253,16 +377,29 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch2",
+        "s1-ch2-interlude",
+        "agent-grace"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "koleda",
@@ -275,16 +412,29 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch2",
+        "s1-ch2-interlude",
+        "agent-koleda"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "anton",
@@ -297,16 +447,28 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch2",
+        "s1-ch2-interlude"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "ben",
@@ -319,16 +481,28 @@
       "specialty": "防御",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch2",
+        "s1-ch2-interlude"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "lighter",
@@ -341,16 +515,27 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.3",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "agent-lighter"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "burnice",
@@ -363,16 +548,27 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.2",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "agent-burnice"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "caesar",
@@ -385,7 +581,12 @@
       "specialty": "防御",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.2",
       "thumbnail": null,
       "banner": null,
@@ -394,7 +595,11 @@
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "pulchra",
@@ -407,7 +612,12 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.6",
       "thumbnail": null,
       "banner": null,
@@ -416,7 +626,11 @@
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "lucy",
@@ -429,7 +643,12 @@
       "specialty": "支援",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
@@ -438,7 +657,11 @@
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "piper",
@@ -451,7 +674,12 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
@@ -460,7 +688,11 @@
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "orphie-magus",
@@ -473,16 +705,27 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.2",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch3"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "seed",
@@ -495,16 +738,28 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.2",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch3",
+        "agent-seed"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "trigger",
@@ -517,16 +772,28 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.6",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch3",
+        "agent-trigger"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "soldier-0-anby",
@@ -539,16 +806,28 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.6",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch3",
+        "agent-soldier-0-anby"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "soldier-11",
@@ -561,13 +840,21 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/soldier-11/thumb.webp",
       "banner": "assets/images/characters/soldier-11/banner.webp",
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch3",
+        "agent-soldier-11"
+      ],
       "termIds": [],
       "timelineIds": [],
       "images": {
@@ -577,11 +864,18 @@
             "full": null,
             "caption": "11号角色立绘",
             "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
+            "source": {
+              "type": "official",
+              "title": "官方角色资料"
+            }
           }
         ]
       },
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "miyabi",
@@ -594,16 +888,28 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.4",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch5",
+        "special-virtual-crisis"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "harumasa",
@@ -616,16 +922,29 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.4",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch5",
+        "special-virtual-crisis",
+        "agent-harumasa"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "yanagi",
@@ -638,16 +957,28 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.3",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch5",
+        "special-virtual-crisis"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "soukaku",
@@ -660,16 +991,28 @@
       "specialty": "支援",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch5",
+        "special-virtual-crisis"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "jane",
@@ -682,16 +1025,27 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.1",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch4"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "qingyi",
@@ -704,13 +1058,21 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.1",
       "thumbnail": "assets/images/characters/qingyi/thumb.webp",
       "banner": "assets/images/characters/qingyi/banner.webp",
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch4",
+        "agent-qingyi"
+      ],
       "termIds": [],
       "timelineIds": [],
       "images": {
@@ -720,11 +1082,18 @@
             "full": null,
             "caption": "青衣角色立绘",
             "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
+            "source": {
+              "type": "official",
+              "title": "官方角色资料"
+            }
           }
         ]
       },
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "zhu-yuan",
@@ -737,13 +1106,20 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/zhu-yuan/thumb.webp",
       "banner": "assets/images/characters/zhu-yuan/banner.webp",
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch4"
+      ],
       "termIds": [],
       "timelineIds": [],
       "images": {
@@ -753,11 +1129,18 @@
             "full": null,
             "caption": "朱鸢角色立绘",
             "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
+            "source": {
+              "type": "official",
+              "title": "官方角色资料"
+            }
           }
         ]
       },
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "seth",
@@ -770,16 +1153,27 @@
       "specialty": "防御",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.1",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-ch4"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "evelyn",
@@ -792,16 +1186,27 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.5",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "special-shining-moment"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "astra-yao",
@@ -814,16 +1219,27 @@
       "specialty": "支援",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.5",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "special-shining-moment"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "hugo",
@@ -836,16 +1252,28 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.7",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-finale-1",
+        "s1-finale-2"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "vivian",
@@ -858,16 +1286,28 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "1.7",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s1-finale-1",
+        "s1-finale-2"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "ye-shunguang",
@@ -880,16 +1320,28 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.5",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch1",
+        "s2-ch6"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "ju-fufu",
@@ -902,16 +1354,28 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch1",
+        "agent-ju-fufu"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "yixuan",
@@ -924,16 +1388,27 @@
       "specialty": "命破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch1"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "pan-yinhu",
@@ -946,16 +1421,27 @@
       "specialty": "防御",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch1"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "yidhari",
@@ -968,16 +1454,27 @@
       "specialty": "命破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.3",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch4"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "lucia",
@@ -990,16 +1487,28 @@
       "specialty": "支援",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.3",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch4",
+        "agent-lucia"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "alice",
@@ -1012,16 +1521,28 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.1",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch2",
+        "s2-ch4"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "yuzuha",
@@ -1034,16 +1555,28 @@
       "specialty": "支援",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.1",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch2",
+        "s2-ch4"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "manato",
@@ -1056,16 +1589,27 @@
       "specialty": "命破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.3",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch4"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "promeia",
@@ -1078,7 +1622,12 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.8",
       "thumbnail": null,
       "banner": null,
@@ -1087,7 +1636,11 @@
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "zhao",
@@ -1100,16 +1653,28 @@
       "specialty": "防御",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.5",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch5",
+        "s2-ch6"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "banyue",
@@ -1122,16 +1687,27 @@
       "specialty": "命破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.4",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch5"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "dialyn",
@@ -1144,16 +1720,27 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.4",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-ch5"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "nangong-yu",
@@ -1166,16 +1753,29 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.7",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-interlude",
+        "s2-finale-1",
+        "s2-finale-2"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "aria",
@@ -1188,16 +1788,27 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.6",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-interlude"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "sunna",
@@ -1210,16 +1821,27 @@
       "specialty": "支援",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.6",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-interlude"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "cissia",
@@ -1232,16 +1854,28 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "2.7",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s2-finale-1",
+        "s2-finale-2"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》官方角色资料",
+        "url": null
+      }
     },
     {
       "id": "velina",
@@ -1254,16 +1888,27 @@
       "specialty": "异常",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "3.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s3-ch1"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》3.0 前瞻官方公布", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》3.0 前瞻官方公布",
+        "url": null
+      }
     },
     {
       "id": "norma",
@@ -1276,16 +1921,27 @@
       "specialty": "击破",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "3.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s3-ch1"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》3.0 前瞻官方公布", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》3.0 前瞻官方公布",
+        "url": null
+      }
     },
     {
       "id": "pyrois",
@@ -1298,16 +1954,27 @@
       "specialty": "强攻",
       "species": null,
       "birthday": null,
-      "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
+      "voiceActors": {
+        "zh": null,
+        "ja": null,
+        "en": null,
+        "ko": null
+      },
       "releaseVersion": "3.0",
       "thumbnail": null,
       "banner": null,
       "summary": null,
       "description": null,
-      "storyIds": [],
+      "storyIds": [
+        "s3-ch1"
+      ],
       "termIds": [],
       "timelineIds": [],
-      "source": { "type": "official", "title": "《绝区零》3.0 主线剧情奖励（绳匠战斗形态）", "url": null }
+      "source": {
+        "type": "official",
+        "title": "《绝区零》3.0 主线剧情奖励（绳匠战斗形态）",
+        "url": null
+      }
     }
   ]
 }
