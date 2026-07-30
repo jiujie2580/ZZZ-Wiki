@@ -20,6 +20,7 @@
     { "id": "game-1.0", "version": "1.0", "title": "欢迎来到新艾利都", "date": "2024-07-04" }
   ],
   "siteVersions": [
+    { "id": "site-v1.1.3", "version": "1.1.3", "title": "Character Content Enhancement（角色资料增强）", "date": "2026-07-30", "highlights": ["56 名角色补全 summary/description/aliases/nicknames", "aliases 仅官方正式称呼", "nicknames 仅社区称呼、仅搜索", "manato rarity 依官方修正 S→A", "历史乱码清洗"] },
     { "id": "site-v1.1.2", "version": "1.1.2", "title": "数据与门禁修复（Data & Gate Fixes）", "date": "2026-07-30", "highlights": ["修复猫又/赛斯错误引用他人图片", "门禁新增图片路径与目录一致性校验", "站点版本信息三方一致性校验", "顶栏搜索建议索引预热修复", "新增 release 前版本同步脚本"] },
     { "id": "site-v1.1.1", "version": "1.1.1", "title": "Image Content Phase 1（图片内容录入一期）", "date": "2026-07-30", "highlights": ["7 名热门角色官方图片素材录入（21 张 webp）", "全部来自官方 CDN，来源标注完整", "零代码变更，纯数据层建设"] },
     { "id": "site-v1.1.0", "version": "1.1.0", "title": "Image System（图片系统）", "date": "2026-07-30", "highlights": ["数据驱动图片系统 ZZZImage（懒加载/画廊/灯箱）", "images.gallery 数据结构与受控词表", "?no-images=true 全局关闭模式", "图片规范文档 image-guidelines"] },

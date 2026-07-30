@@ -411,10 +411,10 @@ async function loadInlinePage(pageFile, query) {
   assert(clLists.length === 2, '双区块各一个列表，实际 ' + clLists.length);
   assert(clLists[0].querySelectorAll('.changelog-item').length === 18, '游戏版本 18 条，实际 ' +
     (clLists[0] ? clLists[0].querySelectorAll('.changelog-item').length : 'NA'));
-  assert(clLists[1].querySelectorAll('.changelog-item').length === 13, '站点版本 13 条（v1.1.2 补录 1.1.0/1.1.1/1.1.2），实际 ' +
+  assert(clLists[1].querySelectorAll('.changelog-item').length === 14, '站点版本 14 条（v1.1.2 补录 1.1.0/1.1.1/1.1.2，v1.1.3 角色资料增强），实际 ' +
     (clLists[1] ? clLists[1].querySelectorAll('.changelog-item').length : 'NA'));
   assert(cl.document.querySelectorAll('.badge-ver-game').length === 18, '游戏徽标 18 个');
-  assert(cl.document.querySelectorAll('.badge-ver-site').length === 13, '站点徽标 13 个');
+  assert(cl.document.querySelectorAll('.badge-ver-site').length === 14, '站点徽标 14 个');
   assert(cl.document.querySelectorAll('.cl-highlights li').length >= 1, '至少 1 条站点版本含亮点列表');
 
   console.log('=== 关于本站自测（v1.0.0 D2：站点信息 + 统计）===');

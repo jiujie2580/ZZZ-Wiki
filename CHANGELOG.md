@@ -7,6 +7,20 @@
 
 ---
 
+## v1.1.3
+- 角色内容增强（Character Content Enhancement）：56 名角色补全 aliases / summary / description / nicknames / codename 字段
+- Code Review Completed
+
+## [仓库] 内容：角色资料增强（Character Content Enhancement，56/56）
+- `feat(data): enhance all 56 characters with summary/description/aliases/nicknames` — 基于官方角色档案逐人录入，纯数据层建设、零代码变更：
+  - **summary**（50–100 中文字）：角色一句话定位；**description**（200–500 中文字）：基于官方设定重新概括，不复制长文本、不补剧情猜测。
+  - **aliases**：仅官方正式称呼 / 全名（如「星徽·比利·奇德」「诺姆·霍洛韦尔」「维琳娜·艾嘉德」「伊德海莉·墨菲」「卢西娅·艾洛温」），无则 `[]`。
+  - **nicknames**：仅社区广泛称呼（如「章鱼妹」「夜魔使者」「银发魔女」「嗯呢」），仅用于搜索，绝不进入正文。
+  - **codename**：官方明确才填，本批全部 `null`；来源 `source` 同步为官方角色档案 URL。
+  - 按版本分批（P2 batch5 + P3 batch1–10）录入，每批经 WebSearch 官方核验 → 长度门禁 → 乱码全量扫描 → `data-validator` + `self-test` 双门禁（均 PASS=121 / 166，零 FAIL 零 WARN）。
+- `fix(data): correct manato rarity S→A` — 狛野真斗依官方 2.3 更新说明明确为 A 级，修正数据文件历史 S 偏差。
+- `fix(data): scrub mojibake from legacy entries` — 修复 P2 批次残留乱码（trigger「暴击转」/ harumasa「体质渐衰」）。
+
 ## v1.1.2
 - 数据与门禁修复（Data & Gate Fixes）：修复错误图片引用 + 版本信息漂移 + 搜索索引预热 + 门禁强化
 - Code Review Completed

@@ -140,13 +140,14 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 | v1.1.0 | 图片系统 Image System（Characters 首批接入；Factions / Locations 待 v1.1.1） |
 | v1.1.1 | 图片内容录入 Phase 1（7/56 角色：ellen/zhu-yuan/qingyi/soldier-11/anby/billy/nicole） |
 | v1.1.2 | 数据与门禁修复（nekomata/seth 错误图片引用、版本信息漂移、搜索索引预热；validator 新增图片路径/目录一致/版本三方一致校验；`scripts/sync-version.js`） |
+| v1.1.3 | 角色内容增强（56 名角色 aliases/summary/description/nicknames/codename 补全；manato rarity 修正 S→A；历史乱码清洗） |
 
 > 更新日志 / 搜索 / 关于 为支撑页，归入 `v1.0.0` 前的收尾阶段。
 
 ### 已确认的后续版本规划（2026-07-30 用户裁决，v1.2.0 Design Review D1–D13）
 | 版本 | 范围 |
 |---|---|
-| v1.1.3 | 角色内容增强：aliases（官方称呼）/ nicknames（社区称呼，仅搜索）/ summary / description / codename / 基础关联数据，目标 56 名角色资料完整；搜索索引扩展（name > aliases > nicknames > description） |
+| v1.1.3 | 角色内容增强：aliases（官方称呼）/ nicknames（社区称呼，仅搜索）/ summary / description / codename / 基础关联数据，目标 56 名角色资料完整；搜索索引扩展（name > aliases > nicknames > description） → **✅ 已完成（2026-07-30）** |
 | v1.1.4 | 角色图片补全：剩余 49 名角色（约 147 张 webp，官方来源） |
 | v1.2.0 | UI/UX 产品化升级：首页重构 + About 六板块重构 + 优势模块（共享组件）+ Design System 语义 token 分层（渐进迁移，新增>替换）+ `motion.js` 动效系统（transform/opacity only，reduced-motion + `?no-motion=true`）+ 搜索体验优化。目标：从「开发者工具感」到「商业游戏 Wiki 产品感」，禁止过度霓虹 |
 | 延后 | 可视化四件套（关系图/时间线/势力网络/地图，等关联数据填充后）；全站主题切换（token 分层副产品） |
