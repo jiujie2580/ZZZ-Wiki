@@ -156,8 +156,8 @@
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/anby/thumb.webp",
       "banner": "assets/images/characters/anby/banner.webp",
-      "summary": null,
-      "description": null,
+      "summary": "狡兔屋成立最初的雇员，电属性击破代理人。没有过去、年龄成谜的少女，战斗风格高效干练。",
+      "description": "安比·德玛拉是狡兔屋最早的成员，被妮可在旧都废墟中带回并赋予「德玛拉」之姓。她没有过去的记忆，却精通战斗，是组织最强战力之一。作为电属性击破代理人，她以电能长刀施展迅捷斩击，兼具爆发与抗打断能力。安比性格冷静寡言、缺乏生活常识，酷爱电影，常把剧情当真，最钟爱的食物是汉堡。",
       "storyIds": [
         "s1-prologue",
         "s1-ch1",
@@ -182,9 +182,14 @@
       },
       "source": {
         "type": "official",
-        "title": "《绝区零》官方角色资料",
+        "title": "《绝区零》官方角色档案（安比·德玛拉）",
         "url": null
-      }
+      },
+      "aliases": [],
+      "nicknames": [
+        "斩电怪客",
+        "电影汉堡女"
+      ]
     },
     {
       "id": "starlight-billy",
@@ -237,8 +242,8 @@
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/ellen/thumb.webp",
       "banner": "assets/images/characters/ellen/banner.webp",
-      "summary": null,
-      "description": null,
+      "summary": "维多利亚家政的鲨鱼希人管家，表面是在校学生，实为高效能冰属性强攻代理人。",
+      "description": "艾莲·乔是维多利亚家政的成员，种族为鲨鱼希人。平日以新艾利都某高校学生的身份生活，实际却是家政团队中效率极高、战力出众的管家，擅长安全管理与园艺维护。作为冰属性强攻代理人，她可在【巡游】状态下快速位移并积攒急冻充能，强化输出。性格慵懒嗜睡，执行委托时却格外可靠。",
       "storyIds": [
         "s1-ch3",
         "agent-ellen"
@@ -261,9 +266,14 @@
       },
       "source": {
         "type": "official",
-        "title": "《绝区零》官方角色资料",
+        "title": "《绝区零》官方角色档案（艾莲·乔）",
         "url": null
-      }
+      },
+      "aliases": [],
+      "nicknames": [
+        "圆鲨鲨",
+        "鲨鱼妹"
+      ]
     },
     {
       "id": "lycaon",
@@ -1115,8 +1125,8 @@
       "releaseVersion": "1.0",
       "thumbnail": "assets/images/characters/zhu-yuan/thumb.webp",
       "banner": "assets/images/characters/zhu-yuan/banner.webp",
-      "summary": null,
-      "description": null,
+      "summary": "新艾利都治安局刑侦特勤组组长，以太属性强攻代理人。严谨认真的精锐治安官，被认为有望接任治安局长。",
+      "description": "朱鸢任职于新艾利都治安局雅努斯分局都市秩序部刑侦特勤组，是目前组内最资深的成员之一，被视作未来治安局长的重点培养对象。作为以太属性强攻代理人，她依靠「强化霰弹」在短时间内造成大量以太伤害，进入压制模式后输出进一步提升，对失衡状态下的敌人有额外增伤。她律己甚严、追求完美，却也因此值得信赖。",
       "storyIds": [
         "s1-ch4"
       ],
@@ -1138,9 +1148,11 @@
       },
       "source": {
         "type": "official",
-        "title": "《绝区零》官方角色资料",
+        "title": "《绝区零》官方角色档案（朱鸢）",
         "url": null
-      }
+      },
+      "aliases": [],
+      "nicknames": []
     },
     {
       "id": "seth",
