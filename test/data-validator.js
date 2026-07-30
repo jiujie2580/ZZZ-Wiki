@@ -173,6 +173,53 @@ function checkAliasTypes(entries, label) {
   });
   check(problems.length === 0, label + '.aliases/nicknames 类型合法（存在时为非空字符串数组）' +
     (problems.length ? '（违规：' + problems.join('；') + '）' : ''));
+
+  // v1.1.3 增强（WARN 级，不阻断 Release）：
+  //   1) aliases / nicknames 各自内部去重
+  //   2) aliases 与 nicknames 互斥（同一条目不应既是官方别名又是社区称呼）
+  entries.forEach(function (e) {
+    ['aliases', 'nicknames'].forEach(function (f) {
+      const v = e[f];
+      if (!Array.isArray(v) || !v.length) return;
+      const seen = new Set();
+      const dups = [];
+      v.forEach(function (s) {
+        const k = String(s).trim();
+        if (seen.has(k)) dups.push(k); else seen.add(k);
+      });
+      if (dups.length) note(e.id + '.' + f + ' 内部重复：' + dups.join(', '));
+    });
+    const a = Array.isArray(e.aliases) ? e.aliases.map(function (s) { return String(s).trim(); }) : [];
+    const n = Array.isArray(e.nicknames) ? e.nicknames.map(function (s) { return String(s).trim(); }) : [];
+    const inter = a.filter(function (s) { return n.indexOf(s) !== -1; });
+    if (inter.length) note(e.id + '：aliases 与 nicknames 重复（同一条目不应既官方又社区）：' + inter.join(', '));
+  });
+}
+
+// storyIds ↔ story.participantIds 双向一致性（v1.1.3 D5，WARN 级，不阻断 Release）
+// 设计：storyIds 由 story.participantIds 反向镜像得到。校验两条方向：
+//   方向1（声明了但剧情未记录其参与）→ 永远 WARN（真实数据错误）
+//   方向2（剧情记录其参与但角色未声明）→ 仅当该角色 storyIds 已部分填充时 WARN
+//            （完全为空时跳过，避免 P0 尚未回填时的噪声）
+function checkStoryIdsMirror(characters, story) {
+  const byChar = {};
+  story.forEach(function (s) {
+    (s.participantIds || []).forEach(function (cid) {
+      (byChar[cid] = byChar[cid] || new Set()).add(s.id);
+    });
+  });
+  characters.forEach(function (c) {
+    const declared = new Set((c.storyIds || []).filter(Boolean));
+    const expected = byChar[c.id] || new Set();
+    declared.forEach(function (sid) {
+      if (!expected.has(sid)) note(c.id + '.storyIds 含未见于 story.participantIds 的章节：' + sid);
+    });
+    if (declared.size > 0) {
+      expected.forEach(function (sid) {
+        if (!declared.has(sid)) note(c.id + ' 参与章节 ' + sid + ' 未回填至 storyIds（反向镜像缺失）');
+      });
+    }
+  });
 }
 
 function checkDates(entries, fields, label) {
@@ -393,9 +440,10 @@ function checkDates(entries, fields, label) {
   checkImages(factions, 'factions', 'factions', ZZZ);
   checkImages(locations, 'locations', 'locations', ZZZ);
 
-  // 9. aliases/nicknames 类型预检（v1.1.3 预埋）
-  console.log('\n--- 9. aliases/nicknames 类型预检 ---');
+  // 9. aliases/nicknames 类型预检（v1.1.3 预埋）+ storyIds 双向镜像（WARN）
+  console.log('\n--- 9. aliases/nicknames 类型预检 + storyIds 镜像 ---');
   checkAliasTypes(characters, 'characters');
+  checkStoryIdsMirror(characters, story);
 
   // 10. 数据规模概览（信息性输出，不计 PASS/FAIL）
   console.log('\n--- 10. 数据规模概览 ---');

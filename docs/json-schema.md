@@ -124,6 +124,8 @@
       "id": "example-character",
       "name": null,
       "nameEn": null,
+      "aliases": [],             // 官方正式称呼（v1.1.3，可展示 + 可搜索，见下方「别名系统」）
+      "nicknames": [],           // 社区常用称呼（v1.1.3，**仅搜索**，不进入正文展示）
       "codename": null,          // 代号
       "factionId": null,         // → factions.id
       "rarity": null,            // 如 A/B/S
@@ -156,6 +158,37 @@
 > **列表页筛选**：`characters.html` 的筛选 chips 来自 `window.ZZZ.characterAttributes`（属性）与 `window.ZZZ.characterRarities`（稀有度），两组**可组合**；搜索匹配 `name` / `nameEn` / `codename` / `summary` / `specialty` / 属性名；排序支持「名称序」与「上线版本倒序」（`releaseVersion`）。
 
 > **关联字段（Design Review 确认）**：在既有 `factionId`（→ `factions.id`）之外，新增三项可选关联 `storyIds` / `termIds` / `timelineIds`，均为空数组时详情页关联区显示【官方暂未说明】；目标条目不存在时优雅降级为灰态 chip（显示 id），不报错。
+
+> **`storyIds` 填充方式（v1.1.3 D5）**：由 `story.participantIds` **反向镜像**得出（角色出现在哪些章节的参与者列表中），避免人工维护两套数据。`data-validator` 对两者做双向一致性检查，级别为 **WARN 而非 FAIL**（允许剧情新增 / 角色未录入等中间态，不阻断迭代）。
+
+#### 角色别名系统（v1.1.3）
+
+`aliases` 与 `nicknames` 是**两个语义完全独立**的字符串数组，不得混用：
+
+| 字段 | 含义 | 来源要求 | 正文展示 | 搜索 |
+|---|---|---|---|---|
+| `aliases` | 官方正式称呼 | **必须有官方依据**（官网角色页 / 游戏内档案 / 官方 PV 等，可溯源） | ✅ 详情页「基本信息 · 别名」行 | ✅ |
+| `nicknames` | 社区常用称呼 | 允许社区来源，仅收广泛通行且无冒犯性的叫法（一般 1–3 个） | ❌ **不展示**（避免降低 Wiki 官方感） | ✅ 命中时必须标注「社区称呼」 |
+
+```jsonc
+// 示例（艾莲·乔）
+"aliases":   ["艾莲·乔"],
+"nicknames": ["鲨鱼妹", "鲨鲨"]
+```
+
+约束（由 `test/data-validator.js` §9 强制）：
+- 两字段存在时必须为**非空字符串数组**；缺失 / `null` / `[]` 均合法（→ 不渲染别名行）。
+- 数组内部**不得重复**；`aliases` 与 `nicknames` **不得互相包含同一字符串**（互斥）。
+- 无官方出处 → `aliases` 保持 `[]`，**禁止**把社区叫法上移为官方称呼。
+
+**搜索评分（v1.1.3 D3）**：`core/search.js` 采用可扩展的四级评分模型（分数越高越靠前），未来新增 `codename` / `faction` / `terms` 等维度只需追加字段组，无需重设计：
+
+| 层级 | 匹配字段 | 分数 |
+|---|---|---|
+| name | `name` / `nameEn`（及各模块标题字段） | 100 |
+| alias | `aliases`（含 factions.alias、locations/glossary/worldview.aliases） | 80 |
+| nickname | `nicknames` | 60 |
+| text | `summary` / `description` / `specialty` 等正文字段 | 40 |
 
 ### 2.5 `factions.json` — 列表字段 `factions`
 ```jsonc

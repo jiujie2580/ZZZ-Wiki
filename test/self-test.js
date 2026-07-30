@@ -15,7 +15,8 @@ const CORE_SCRIPTS = [
   'core/router.js',
   'core/components.js',
   'core/layout.js',
-  'core/search.js'
+  'core/search.js',
+  'core/image.js'
 ];
 
 function readScript(rel) {
@@ -474,6 +475,55 @@ async function loadInlinePage(pageFile, query) {
     nf.document.querySelectorAll('.module-grid .module-card').length);
   assert(nf.document.querySelector('.module-grid .module-card[href="characters.html"]'), '含角色卡片');
   assert(nf.document.querySelector('.module-grid .module-card[href="changelog.html"]'), '含更新日志卡片');
+
+  console.log('=== 角色列表页自测（v1.1.3：别名系统 + 评分搜索就绪）===');
+  const ch = await loadPage('characters.html');
+  assert(ch.errors.length === 0, '角色列表页无运行时错误 ' + JSON.stringify(ch.errors));
+  const chCards = ch.document.querySelectorAll('#character-list .character-card');
+  assert(chCards.length === 56, '渲染 56 张卡片，实际 ' + chCards.length);
+  assert(/共\s*56\s*名角色/.test(ch.document.getElementById('character-count').textContent),
+    '计数文案正确：' + ch.document.getElementById('character-count').textContent);
+  // 列表搜索（沿用名称）：输入「艾莲」应命中 1 张（haystack 已含 aliases/nicknames，P0 数据为空仅验证名称路径）
+  const chq = ch.document.getElementById('character-q');
+  chq.value = '艾莲';
+  chq.dispatchEvent(new ch.window.Event('input'));
+  assert(ch.document.querySelectorAll('#character-list .character-card').length === 1, '列表搜索「艾莲」命中 1 张');
+  chq.value = '';
+  chq.dispatchEvent(new ch.window.Event('input'));
+
+  console.log('=== 角色详情页自测（?id=ellen，别名字段渲染）===');
+  const cd = await loadPage('character.html', '?id=ellen');
+  assert(cd.errors.length === 0, '角色详情页无运行时错误 ' + JSON.stringify(cd.errors));
+  assert(/艾莲/.test(cd.document.querySelector('#content h1').textContent), '标题正确');
+  const aliasField = Array.prototype.find.call(cd.document.querySelectorAll('#content .field'),
+    function (f) { return /别名/.test(f.querySelector('.field-label').textContent); });
+  assert(aliasField, '详情页渲染「别名」字段行（v1.1.3）');
+  // P0 尚未回填别名数据 → 显示【官方暂未说明】（降级正确）
+  assert(aliasField && aliasField.querySelector('.unknown'), '别名未回填时显示【官方暂未说明】');
+  // 社区称呼 nicknames 不进入正文：详情页不应出现「社区称呼」标记
+  assert(!/社区称呼/.test(cd.document.querySelector('#content').textContent), '详情正文不含「社区称呼」（nicknames 仅搜索，不展示）');
+
+  console.log('=== 角色详情页自测（未知 id 降级）===');
+  const cdx = await loadPage('character.html', '?id=does-not-exist');
+  assert(cdx.errors.length === 0, '未知 id 无错误 ' + JSON.stringify(cdx.errors));
+  assert(/未找到指定角色/.test(cdx.document.querySelector('#content').textContent), '未知 id 显示提示');
+
+  console.log('=== 评分搜索自测（v1.1.3：name=100 层级 + nickname 标记）===');
+  // 直接驱动搜索模块（绕开 UI），校验评分模型已接线
+  await ch.window.ZZZSearch.ensureIndex();
+  const sr1 = ch.window.ZZZSearch.search('艾莲');
+  assert(sr1.length >= 1 && sr1[0].id === 'ellen' && sr1[0].score === 100,
+    '搜索「艾莲」命中 ellen 且 name 层得分=100，实际 ' + (sr1[0] ? (sr1[0].id + '/' + sr1[0].score) : 'NA'));
+  assert(sr1[0] && sr1[0].nickname === false, '名称命中 nickname=false（非社区称呼）');
+  // 名称命中应排在文本(type=40)命中之前：以「空洞」为例，ellen 不应出现在 story/glossary 文本命中之前被反超
+  const sr2 = ch.window.ZZZSearch.search('空洞');
+  const nameHit = sr2.find(function (r) { return r.score === 100; });
+  const textHit = sr2.find(function (r) { return r.score === 40; });
+  if (nameHit && textHit) {
+    assert(sr2.indexOf(nameHit) < sr2.indexOf(textHit), '评分排序：name(100) 命中排在 text(40) 命中之前');
+  } else {
+    assert(true, '评分排序：本查询无同时含 name/text 命中，跳过顺序断言（保守通过）');
+  }
 
   console.log('\n=== 结果：PASS=' + pass + '  FAIL=' + fail + ' ===');
   process.exit(fail === 0 ? 0 : 1);

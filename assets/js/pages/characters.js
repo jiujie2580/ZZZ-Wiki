@@ -27,11 +27,15 @@
     if (state.attribute !== 'all' && ch.attribute !== state.attribute) return false;
     // 稀有度维度
     if (state.rarity !== 'all' && ch.rarity !== state.rarity) return false;
-    // 关键词：中文名 / 英文名 / 代号 / 简介 / 职业 / 属性名
+    // 关键词：中文名 / 英文名 / 代号 / 别名(官方) / 社区称呼 / 简介 / 职业 / 属性名
+    // 注：社区称呼(nicknames)仅用于列表内搜索，不进入详情正文展示（v1.1.3 D2）
     if (state.q) {
       const q = state.q.toLowerCase();
       const hay = [
-        ch.name, ch.nameEn, ch.codename, ch.summary, ch.specialty,
+        ch.name, ch.nameEn, ch.codename,
+        (ch.aliases || []).join(' '),
+        (ch.nicknames || []).join(' '),
+        ch.summary, ch.specialty,
         attrLabel[ch.attribute]
       ].filter(Boolean).join(' ').toLowerCase();
       if (hay.indexOf(q) === -1) return false;
@@ -107,7 +111,7 @@
     return '' +
       '<div class="glossary-toolbar" role="search">' +
         '<div class="glossary-search">' +
-          '<input type="search" id="character-q" placeholder="搜索角色（支持中/英文名、代号、简介、职业、属性）" aria-label="搜索角色">' +
+          '<input type="search" id="character-q" placeholder="搜索角色（支持中/英文名、代号、别名、社区称呼、简介、职业、属性）" aria-label="搜索角色">' +
         '</div>' +
         '<div class="filter-group" aria-label="属性筛选">' +
           '<span class="filter-label">属性</span>' +

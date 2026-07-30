@@ -94,6 +94,7 @@
     let basic =
       UI.field('中文名称', ch.name) +
       UI.field('英文名称', ch.nameEn) +
+      UI.fieldList('别名', ch.aliases) +          // v1.1.3：官方正式称呼（可展示 + 可搜索）；社区称呼 nicknames 仅搜索，不进正文
       UI.field('代号', ch.codename) +
       UI.field('稀有度', rarityLbl) +
       UI.field('属性', attrLbl) +
