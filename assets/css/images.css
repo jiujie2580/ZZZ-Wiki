@@ -1,0 +1,73 @@
+/* images.css —— 图片系统样式（v1.1.0）
+   设计语言：沿用玻璃拟态 + 霓虹；占位/失败态与站点风格一致；响应式 + reduced-motion。 */
+
+/* ---------- 懒加载图片基础 ---------- */
+.zzz-img { display: block; max-width: 100%; border-radius: var(--radius-sm); }
+.zzz-img-wrap { position: relative; display: block; overflow: hidden;
+  background: var(--glass-bg); border-radius: var(--radius-sm); }
+.zzz-img-fallback { position: absolute; inset: 0; display: none;
+  align-items: center; justify-content: center; text-align: center; padding: 8px;
+  color: var(--text-3); font-size: 12px; background: var(--glass-bg); }
+.zzz-img-wrap.zzz-img--fail .zzz-img { display: none; }
+.zzz-img-wrap.zzz-img--fail .zzz-img-fallback { display: flex; }
+
+/* 列表卡片缩略图（圆形头像） */
+.character-card-thumb { width: 56px; height: 56px; border-radius: 50%; overflow: hidden;
+  margin-bottom: 8px; flex-shrink: 0; border: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, rgba(57,240,230,.25), rgba(155,107,255,.25)); }
+.character-card-thumb .zzz-img-wrap { width: 100%; height: 100%; border-radius: 50%; }
+.character-card-thumb .zzz-img { width: 100%; height: 100%; object-fit: cover; }
+
+/* 详情页横幅 */
+.character-hero-banner { width: 100%; margin: 0 0 var(--space-3); border-radius: var(--radius);
+  overflow: hidden; border: 1px solid var(--glass-border); background: var(--glass-bg); }
+.character-hero-banner .hero-banner-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+
+/* ---------- 画廊网格 ---------- */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-3); }
+.gallery-item { display: flex; flex-direction: column; gap: 0; padding: 0; text-align: left; cursor: pointer;
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  overflow: hidden; transition: transform .2s, border-color .2s, box-shadow .2s; color: inherit; font: inherit; }
+.gallery-item:hover { transform: translateY(-3px); border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+.gallery-item .zzz-img-wrap { border-radius: 0; aspect-ratio: 1 / 1; }
+.gallery-item .zzz-img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-meta { padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; }
+.gallery-badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.gallery-caption { color: var(--text-2); font-size: 13px; line-height: 1.5; }
+
+/* 关闭模式提示 */
+.img-disabled-note { color: var(--text-3); font-size: 13px; }
+.img-disabled-note code { background: rgba(255,255,255,.06); padding: 1px 6px; border-radius: 6px; color: var(--neon-cyan); }
+
+/* ---------- 灯箱 ---------- */
+.lightbox { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.lightbox[hidden] { display: none; }
+.lightbox-backdrop { position: absolute; inset: 0; background: rgba(5,5,12,.85);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.lightbox-dialog { position: relative; display: flex; flex-direction: column; gap: 10px; max-width: 92vw; max-height: 90vh; }
+.lightbox-img { max-width: 92vw; max-height: 78vh; display: block; border-radius: var(--radius);
+  border: 1px solid var(--glass-border); box-shadow: var(--glow-cyan); background: var(--glass-bg); }
+.lightbox-caption { color: var(--text-2); text-align: center; font-size: 13px; }
+.lightbox-close { position: absolute; top: -14px; right: -14px; width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; line-height: 1;
+  color: var(--text-1); background: var(--glass-bg); border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); }
+.lightbox-close:hover { border-color: var(--neon-magenta); color: var(--neon-magenta); }
+
+/* 灯箱淡入（仅在允许动效时） */
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox:not([hidden]) { animation: zzz-lb-in .18s ease-out; }
+  @keyframes zzz-lb-in { from { opacity: 0; } to { opacity: 1; } }
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 768px) {
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .lightbox-img { max-width: 96vw; max-height: 70vh; }
+  .character-hero-banner .hero-banner-img { height: 120px; }
+}
+
+/* 减少动效：关闭卡片/灯箱过渡 */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item, .gallery-item:hover { transition: none; transform: none; }
+}

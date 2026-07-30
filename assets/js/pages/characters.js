@@ -71,7 +71,14 @@
       ? '<span class="unknown">' + UI.UNKNOWN + '</span>'
       : UI.esc(ch.summary);
     const fac = ch.factionId ? (factionName[ch.factionId] || null) : null;
+    const Img = window.ZZZImage;
+    const thumbHtml = (ch.thumbnail && Img && !Img.isDisabled())
+      ? '<div class="character-card-thumb">' +
+        Img.lazyImg({ src: ch.thumbnail, alt: ch.name || ch.id, cls: 'character-card-thumb-img' }) +
+        '</div>'
+      : '';
     return '<a class="character-card" href="' + href + '">' +
+      thumbHtml +
       '<div class="character-card-head">' +
         '<h3 class="character-card-name">' + UI.esc(ch.name || ch.id) + '</h3>' +
         UI.badge(rarityLbl, 'rarity-' + UI.esc(ch.rarity)) +

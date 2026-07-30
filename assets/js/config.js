@@ -9,6 +9,24 @@ window.ZZZ = {
   // 当前游戏版本（更新新版本时改这里 + 对应 JSON）
   gameVersion: '3.0',
 
+  // 图片系统（v1.1.0）：图片自托管于 assets/images/，按实体分目录
+  imageBase: 'assets/images/',
+  // 图片来源类型受控词表（仅官方 / 游戏内截图；社区投稿未来再扩展，D2）
+  imageSourceTypes: [
+    { id: 'official', label: '官方素材' },
+    { id: 'game',     label: '游戏内截图' }
+  ],
+  // 图片类型受控词表（画廊徽标 / 分类展示用）
+  imageKinds: [
+    { id: 'art',        label: '角色立绘' },
+    { id: 'screenshot', label: '战斗截图' },
+    { id: 'promo',      label: '宣传图' },
+    { id: 'concept',    label: '概念图' },
+    { id: 'scene',      label: '场景图' },
+    { id: 'logo',       label: '标志' },
+    { id: 'banner',     label: '横幅' }
+  ],
+
   // 势力分类受控词表（单一数据源）：data/factions.json 的 category 存此 id，label 用于展示
   // 筛选/排序/渲染共用同一份，新增分类只需改这里，不散落页面逻辑。
   factionCategories: [

@@ -55,20 +55,23 @@
 ### 3.1 脚本加载顺序（每个 HTML 底部，顺序固定）
 
 ```
-config.js → data-loader.js → router.js → components.js → layout.js → search.js → pages/<page>.js
+config.js → data-loader.js → router.js → components.js → image.js → layout.js → search.js → pages/<page>.js
 ```
+
+> `image.js`（`window.ZZZImage`）放在 `components.js` 之后、`layout.js` 之前，使页面脚本（含 `character.js` 等）可直接使用图片组件；`images.css` 在 `<head>` 中于 `components.css` 之后引入。
 
 ### 3.2 各模块职责与依赖
 
 | 模块 | 全局对象 | 依赖 | 职责 |
 |---|---|---|---|
-| `config.js` | `window.ZZZ` | 无 | 站点标题、资源/数据基路径、图标、游戏版本、`dataFiles`（逻辑名→文件）、`pages`（逻辑名→html） |
+| `config.js` | `window.ZZZ` | 无 | 站点标题、资源/数据基路径、图标、游戏版本、`dataFiles`（逻辑名→文件）、`pages`（逻辑名→html）；**v1.1.0 新增** `imageBase` / `imageSourceTypes` / `imageKinds`（图片系统受控词表） |
 | `core/data-loader.js` | `window.ZZZData.loadJSON(name)` | `config` | `fetch` JSON，带 `Map` 缓存（按名缓存 Promise），错误兜底返回 `{ __error:true, message, url }` |
 | `core/router.js` | `window.ZZZRouter` | `config` | `getParam(key)` 读查询参数；`buildLink(page, params)` 构造链接；`currentPageKey()` 识别当前页 |
 | `core/components.js` | `window.ZZZUI` | `data-loader`, `router`（仅 `listPlaceholder`/`detailPlaceholder` 内部使用） | 通用 UI：`field`（空→【官方暂未说明】）、`fieldList`、`badge`、`card`、`breadcrumb`、`emptyState`、`errorState`、`placeholderPage`、`listPlaceholder`、`detailPlaceholder`、`esc` |
+| `core/image.js` | `window.ZZZImage` | `components`（转义）、`config`（受控词表） | **v1.1.0 图片系统**：`lazyImg`（懒加载 + onerror 兜底）、`gallery`（网格 + 类型/来源徽标）、`imgFallback`（加载失败降级）、`openLightbox`/`closeLightbox`（单例灯箱，原图按需加载）、`isDisabled`/`setDisabled`（关闭模式） |
 | `core/layout.js` | `window.ZZZLayout.render` | `config`, `data-loader`, `components`, `search` | DOMContentLoaded 自动注入 Header / Sidebar / Footer；构建移动端遮罩；绑定 `menu-toggle`；调用 `ZZZSearch.init()` |
 | `core/search.js` | `window.ZZZSearch` | `data-loader`, `router`, `components`, `config` | 构建搜索索引（`MAP` 配置）、Header 即时建议、结果页渲染 |
-| `pages/<page>.js` | （IIFE 内 `init`） | `components`（及间接 `data-loader`/`router`/`search`） | DOMContentLoaded 调 `ZZZUI.listPlaceholder` / `detailPlaceholder` / `ZZZSearch.renderResults`，把数据渲染进 `#content` |
+| `pages/<page>.js` | （IIFE 内 `init`） | `components`（及间接 `data-loader`/`router`/`search`/`image`） | DOMContentLoaded 调 `ZZZUI.listPlaceholder` / `detailPlaceholder` / `ZZZSearch.renderResults`，把数据渲染进 `#content`；图片页面额外调用 `ZZZImage` |
 
 ### 3.3 运行时数据流
 
@@ -186,3 +189,31 @@ config.js → data-loader.js → router.js → components.js → layout.js → s
 - **世界观（Worldview）模块缺数据文件**：`worldview.html` 与 `pages/worldview.js` 已存在，但 `data/` 下尚无 `worldview.json`，且 `config.dataFiles` 未登记 `worldview`。开发该模块时需补齐 `data/worldview.json` 并在 `config.dataFiles` 登记。
 - **搜索索引与核心耦合**：`core/search.js` 的 `MAP` 写死了纳入索引的数据文件与字段；新增“有内容且需被搜索”的模块时，需同步更新 `MAP`（以及 `hasDetail`）。属受控、文档化的改动。
 - **JSON 缓存失效**：`data-loader` 的 `fetch` 未带版本/哈希参数，部署新数据后用户可能命中浏览器/代理缓存。大规模更新时可考虑给 JSON URL 追加 `?v=<gameVersion>` 之类的缓存破坏参数（见 `development-guide.md`）。
+
+---
+
+## 9. 图片系统（v1.1.0）
+
+纯静态、数据驱动、零后端。所有图片信息存放于各实体 JSON（保持「缺失即标注」原则），`image.js` 统一渲染，`images.css` 统一样式。
+
+### 9.1 设计决策（D1-D7）
+- **D1 数据模型**：保留 `thumbnail` / `banner` / `icon` 平铺快速访问字段（首页/搜索卡片/OG Image 可能直接读取），新增 `images.gallery` 承载扩展画廊；不删除旧字段。
+- **D2 来源管理**：每张图携带 `source`（复用实体 `source` 范式）；`source.type` 受控词表仅 `official` / `game`，不引入 `fan` / `derived`（社区投稿未来再扩展）。
+- **D3 存储**：图片自托管于 GitHub Pages，目录按实体分（`assets/images/{module}/{id}/`）；格式 webp；不使用外链（避免脆弱与版权连带）。
+- **D4 首批范围**：v1.1.0 仅接入 **Characters**（列表头像 / Hero / 横幅 / 画廊 / 灯箱）；Factions、Locations 留待 v1.1.1。图片系统本身为通用能力，后续模块仅补 JSON + 页面分节即可接入。
+- **D5 版权**：关于页新增「图片版权说明」；仅用官方/游戏内素材，禁止上传未公开测试/泄露剧情/付费内容截图。
+- **D6 性能（取消 LQIP）**：`webp` + `loading="lazy"` + 可选 `srcset`/`sizes` + 灯箱打开才加载原图 + 加载失败玻璃拟态占位。不做模糊小图/双请求。
+- **D7 关闭模式**：`?no-images=true` 或 `localStorage zzz_disable_images=true` 可全局关闭图片（网络差/版权敏感场景）。
+
+### 9.2 组件与渲染
+- `ZZZImage.lazyImg(opts)`：返回 `<img loading="lazy" decoding="async" onerror=...>`；`bare:true` 时仅返回 `<img>`（置于 `.avatar` 等容器）；无图/关闭模式返回空串（调用方据此决定是否渲染占位容器）。
+- `ZZZImage.gallery(items)`：渲染响应式画廊网格，每项含类型徽标（`imageKinds`）+ 来源徽标（`imageSourceTypes`，有 `url` 则外链）；空数组 → 【官方暂未说明】；关闭模式 → 提示。
+- 灯箱：`document` 事件委托捕获 `.gallery-item` 点击 → `openLightbox` 加载 `data-full` 原图；点击遮罩/关闭按钮/`Esc` 关闭。单例模态由 `ensureLightbox` 惰性创建。
+- 转义：所有 `src` / `alt` / `caption` / `url` 经 `ZZZUI.esc()`，避免 XSS。
+
+### 9.3 缓存
+- 图片 URL 默认追加 `?v=<gameVersion>` 缓存破坏参数（与 JSON 策略一致）；外链与已带参数者跳过。更新图片建议同步更新文件名或游戏版本号以兑现缓存失效。
+
+### 9.4 降级保证
+- 无图（`thumbnail`/`banner` 为 `null`、`gallery` 为空）：列表卡不显示头像、Hero 显示渐变占位圆、画廊区显示【官方暂未说明】。
+- 图加载失败（`onerror`）：`ZZZImage.imgFallback` 将图片替换为玻璃拟态「图片缺失」占位，绝不显示破图。

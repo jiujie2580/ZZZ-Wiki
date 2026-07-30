@@ -419,8 +419,12 @@ async function loadInlinePage(pageFile, query) {
   console.log('=== 关于本站自测（v1.0.0 D2：站点信息 + 统计）===');
   const ab = await loadPage('about.html');
   assert(ab.errors.length === 0, '关于页无运行时错误 ' + JSON.stringify(ab.errors));
-  assert(ab.document.querySelectorAll('#content .detail-section').length === 4, '分节数 = 4（站点信息/统计/来源/免责），实际 ' +
+  assert(ab.document.querySelectorAll('#content .detail-section').length === 5, '分节数 = 5（站点信息/统计/来源规范/免责声明/图片版权说明），实际 ' +
     ab.document.querySelectorAll('#content .detail-section').length);
+  const imgCopyright = Array.prototype.find.call(ab.document.querySelectorAll('#content .detail-section'),
+    function (s) { return /图片版权说明/.test(s.querySelector('h2').textContent); });
+  assert(imgCopyright && /HoYoverse/.test(imgCopyright.textContent) && /no-images=true/.test(imgCopyright.textContent),
+    '图片版权说明分节含版权归属与关闭图片说明');
   assert(ab.document.querySelectorAll('.stat-grid .stat-card').length === 7, '统计卡片 7 个，实际 ' +
     ab.document.querySelectorAll('.stat-grid .stat-card').length);
   assert(ab.document.querySelectorAll('.stat-num').length === 7, 'stat-num 7 个');

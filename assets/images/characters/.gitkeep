@@ -1,0 +1,3 @@
+# 角色图片目录（v1.1.0）
+# 目录约定：assets/images/characters/<角色id>/thumb.webp、banner.webp、gallery-01.webp ...
+# 详见 docs/image-guidelines.md。此 .gitkeep 仅用于保留空目录结构。

@@ -57,10 +57,18 @@
     const attrLbl = attrLabel[ch.attribute] || ch.attribute;
 
     // ---------- Hero ----------
+    const Img = window.ZZZImage;
     const subNames = [ch.nameEn, ch.codename].filter(Boolean).join(' / ');
-    const avatar = ch.thumbnail
-      ? '<img class="avatar" src="' + UI.esc(ch.thumbnail) + '" alt="' + UI.esc(ch.name || ch.id) + '">'
+    const avatar = (ch.thumbnail && !(Img && Img.isDisabled()))
+      ? Img.lazyImg({ src: ch.thumbnail, alt: ch.name || ch.id, bare: true, cls: 'avatar', lazy: true })
       : '<div class="avatar"></div>';
+    // 横幅（banner）：存在则展示于 hero 下方
+    let bannerHtml = '';
+    if (ch.banner && Img && !Img.isDisabled()) {
+      bannerHtml = '<div class="character-hero-banner">' +
+        Img.lazyImg({ src: ch.banner, alt: (ch.name || '') + ' 横幅', bare: true, cls: 'hero-banner-img' }) +
+        '</div>';
+    }
     let html =
       '<section class="detail-hero character-hero">' + avatar +
         '<div>' +
@@ -72,6 +80,7 @@
           (ch.specialty ? UI.badge(ch.specialty, 'purple') : '') +
         '</div>' +
       '</div></section>';
+    html += bannerHtml;
 
     // ---------- 基本信息 ----------
     const va = ch.voiceActors || {};
@@ -109,6 +118,12 @@
     html += UI.section('关联剧情', UI.relChips(ch.storyIds, 'story', indexes.story));
     html += UI.section('关联术语', UI.relChips(ch.termIds, 'glossary', indexes.glossary));
     html += UI.section('关联时间线', UI.relChips(ch.timelineIds, 'timeline', indexes.timeline));
+
+    // ---------- 图片画廊（v1.1.0 图片系统）----------
+    if (Img) {
+      const galleryItems = (ch.images && ch.images.gallery) ? ch.images.gallery : [];
+      html += UI.section('图片画廊', Img.gallery(galleryItems));
+    }
 
     // ---------- 引用来源 ----------
     html += UI.section('引用来源', UI.renderSource(ch.source, indexes.story));

@@ -7,6 +7,22 @@
 
 ---
 
+## v1.1.0
+- Image System（图片系统）：数据驱动图片能力首次接入（Characters 首批）
+- Code Review Completed
+
+## [仓库] 能力：图片系统（Image System，跨模块基础设施）
+- `feat(image): add data-driven image system (D1-D7)` — 通用图片能力首次落地，按 Design Review 决策实施：
+  - **核心组件 `assets/js/core/image.js`（新增，`window.ZZZImage`）**：`lazyImg()`（`loading=lazy` + `decoding=async` + `onerror` 玻璃拟态兜底，绝不破图，D6）、`gallery()`（响应式网格 + kind/source 徽标，空→【官方暂未说明】，D2）、`lightbox`（单例模态，原图按需加载，Esc/遮罩/关闭按钮退出）；`?no-images=true` 或 `localStorage zzz_disable_images=true` 全局关闭模式（D7）；所有输出经 `ZZZUI.esc()` 防 XSS。
+  - **样式 `assets/css/images.css`（新增）**：沿用玻璃拟态 + 霓虹；列表圆头像、详情横幅、画廊网格、占位/失败态、灯箱、reduced-motion 与响应式断点。
+  - **配置 `config.js`**：新增 `imageBase`（`assets/images/`）、`imageSourceTypes`（official/game，D2）、`imageKinds`（art/screenshot/promo/concept/scene/logo/banner）。
+  - **数据 Schema（`json-schema.md` §2.4 / §2.12）**：保留 `thumbnail`/`banner`/`icon` 平铺快速访问字段（D1 不删除），新增 `images.gallery`（每项 `src`/`full`/`caption`/`kind`/`source`）。
+  - **首批接入 Characters（D4）**：`character.js` 详情页 Hero 头像（`lazyImg`）+ 横幅（banner）+ 图片画廊分节；`characters.js` 列表卡片圆头像；空数据优雅降级为占位/【官方暂未说明】。
+  - **版权强化（D5）**：关于页新增「图片版权说明」分节（非官方粉丝百科、版权归 miHoYo / HoYoverse、禁传泄露/付费内容、可关闭图片）。
+  - **文档**：新增 `docs/image-guidelines.md`（目录/命名/webp 参数/来源标注/版权红线/关闭模式/缓存）；`architecture.md` 增补 §9（图片系统 D1-D7 + 组件 + 缓存 + 降级）；`json-schema.md` 增补 §2.12 通用图片字段。
+  - **目录**：`assets/images/characters/.gitkeep` 建立按实体分目录约定（`assets/images/{module}/{id}/`，D3）。
+  - **范围说明**：v1.1.0 仅接入 Characters；Factions / Locations 图片接入留待 v1.1.1（系统已通用，后续仅补 JSON + 页面分节即可）。
+
 ## v1.0.0
 - First Public Release（首个正式公开版）
 - 四大支撑页产品化收尾：更新日志 / 搜索 / 关于 / 404

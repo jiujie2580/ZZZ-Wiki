@@ -140,11 +140,16 @@
       "storyIds": [],            // → story.id（关联剧情章节）
       "termIds": [],             // → glossary(terms).id（关联术语）
       "timelineIds": [],         // → timeline(events).id（关联时间线事件）
-      "source": null             // 资料出处（官方页面/公告）
+      "source": null,            // 资料出处（官方页面/公告）
+      "images": {                // v1.1.0 图片系统（见 §2.12）；thumbnail/banner 为快速访问字段，images.gallery 为扩展画廊
+        "gallery": []            // 画廊项数组（见 §2.12）
+      }
     }
   ]
 }
 ```
+
+> **图片系统（v1.1.0）**：角色图片通过 `thumbnail` / `banner`（快速访问，见 §2.12）与 `images.gallery`（画廊）承载；`thumbnail` / `banner` 缺失为 `null`，`images.gallery` 为空数组时详情页显示【官方暂未说明】。其它模块（factions / locations 等）在后续 minor 按相同范式接入。
 
 > **属性 / 稀有度受控词表（单一数据源）**：`attribute` 的取值（`physical` / `fire` / `ice` / `electric` / `ether` / `wind` / `auric-ink` / `honed-edge`）与 `rarity` 的取值（`S` / `A`）统一维护在 `assets/js/config.js` 的 `window.ZZZ.characterAttributes` / `window.ZZZ.characterRarities`（各含 `id` 与展示 `label`）。列表页筛选 chips、详情徽标、搜索均读取同一份词表；新增属性 / 稀有度只需改 `config.js`，**不在 JSON 或页面硬编码**。展示时 `label` 由该词表映射得到。
 
@@ -350,6 +355,26 @@
 > **剧透处理（复用 Story D5 模式）**：`spoiler=true` 时 `description` 默认折叠并显示「显示剧透内容」按钮，用户主动展开；`summary` 始终可见。基线官方 3.0 的 8 条条目均 `spoiler=false`。
 
 > **版本边界（D7 决策）**：仅录入截至官方 3.0 的设定；不含 3.1「漫长的告别」及任何粉丝推测；未知字段一律 `null` → 渲染【官方暂未说明】。
+
+### 2.12 通用：图片字段（images，v1.1.0）
+
+图片系统遵循「**保留旧字段 + 新增 `images.gallery`**」原则（D1）：`thumbnail` / `banner` / `icon` 作为快速访问字段保持不变（首页、搜索卡片、OG Image 等可能直接读取），画廊扩展统一放在 `images.gallery`。
+
+- `thumbnail` / `banner` / `icon`：平铺字符串路径（如 `assets/images/characters/<id>/thumb.webp`），与 `config.imageBase` 拼接；缺失为 `null`。
+- `images.gallery`：画廊项数组，每项结构：
+  ```jsonc
+  {
+    "src": "assets/images/characters/ellen/gallery-01.webp", // 缩略图/展示图（必填）
+    "full": null,        // 原图路径（可选；灯箱打开时加载；缺省用 src）
+    "caption": "角色立绘", // 说明文字
+    "kind": "art",       // 受控词表 id，词表见 config.imageKinds（art/screenshot/promo/concept/scene/logo/banner）
+    "source": { "type": "official", "title": "官方角色立绘" } // 来源（见下）
+  }
+  ```
+- `source.type` 受控词表（`config.imageSourceTypes`）：仅 `official`（官方素材）/ `game`（游戏内截图）；**不引入** `fan` / `derived`（社区投稿未来再扩展，D2）。
+- 图片存储：GitHub Pages 自托管，目录按实体分（`assets/images/{module}/{id}/`，D3）；格式 webp。
+- 画廊为空（`[]` 或字段缺失）→ 渲染【官方暂未说明】。
+- 关闭模式：网址加 `?no-images=true` 或本地 `localStorage zzz_disable_images=true` 可全局关闭图片（D7）。
 
 ### 2.9 预留文件（空数组，开发对应模块时细化字段）
 | 文件 | 列表字段 | 建议字段（待定，开发时确认） |
