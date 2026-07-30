@@ -20,6 +20,9 @@
     { "id": "game-1.0", "version": "1.0", "title": "欢迎来到新艾利都", "date": "2024-07-04" }
   ],
   "siteVersions": [
+    { "id": "site-v1.1.2", "version": "1.1.2", "title": "数据与门禁修复（Data & Gate Fixes）", "date": "2026-07-30", "highlights": ["修复猫又/赛斯错误引用他人图片", "门禁新增图片路径与目录一致性校验", "站点版本信息三方一致性校验", "顶栏搜索建议索引预热修复", "新增 release 前版本同步脚本"] },
+    { "id": "site-v1.1.1", "version": "1.1.1", "title": "Image Content Phase 1（图片内容录入一期）", "date": "2026-07-30", "highlights": ["7 名热门角色官方图片素材录入（21 张 webp）", "全部来自官方 CDN，来源标注完整", "零代码变更，纯数据层建设"] },
+    { "id": "site-v1.1.0", "version": "1.1.0", "title": "Image System（图片系统）", "date": "2026-07-30", "highlights": ["数据驱动图片系统 ZZZImage（懒加载/画廊/灯箱）", "images.gallery 数据结构与受控词表", "?no-images=true 全局关闭模式", "图片规范文档 image-guidelines"] },
     { "id": "site-v1.0.0", "version": "1.0.0", "title": "First Public Release（首个正式公开版）", "date": "2026-07-29", "highlights": ["数据健康门禁 data-validator", "更新日志 / 关于页 / 首页 / 搜索产品化收尾", "势力成员反向关联修复", "文档全面同步"] },
     { "id": "site-v0.9.0", "version": "0.9.0", "title": "Worldview 世界观模块", "date": "2026-07-29", "highlights": ["8 条世界观条目（6 分类）", "5 路正向关联", "剧透折叠"] },
     { "id": "site-v0.8.0", "version": "0.8.0", "title": "Locations 地区模块", "date": "2026-07-29", "highlights": ["7 个地区（parentId 层级）", "卡片 / 层级树双视图", "反向关联计算"] },

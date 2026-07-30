@@ -7,6 +7,12 @@
 //   5. source 结构（结构化对象 type ∈ official/game/video/story，或旧版字符串，或 null）
 //   6. 日期格式（date/releaseDate/updatedAt 非 null 时必须为 YYYY-MM-DD）
 //   7. version.json 新结构（gameVersions/siteVersions，见 §2.2）与 site.json 一致性
+//      + 版本三方一致（CHANGELOG.md 顶部版本 ≡ site.json.version ≡ siteVersions[0]，v1.1.2 B4/B5 修复后新增）
+//   8. 图片字段校验（v1.1.2 B3 修复后新增）：
+//      - thumbnail/banner/icon 与 images.gallery[].src/full：文件必须存在、扩展名必须 .webp、
+//        路径目录名必须与条目 id 一致（拦截“张冠李戴”类复制粘贴错误）
+//      - gallery.kind ∈ config.imageKinds；gallery.source.type ∈ config.imageSourceTypes
+//   9. aliases/nicknames 类型预检（为 v1.1.3 角色内容增强预埋）：字段存在时必须为字符串数组
 // 运行：node test/data-validator.js
 // 退出码：0 = 全部通过；1 = 存在 FAIL（Release 流程中作为固定门禁，FAIL 即阻断）
 const fs = require('fs');
@@ -101,6 +107,72 @@ function checkSource(entries, label) {
   });
   check(badSrc.length === 0, label + '.source 结构合法' +
     (badSrc.length ? '（违规：' + badSrc.join(', ') + '）' : ''));
+}
+
+// 图片字段校验（v1.1.2 B3）：路径存在 / .webp 扩展名 / 目录名 === 条目 id / 词表合法
+function checkImages(entries, module, label, ZZZ) {
+  const kinds = new Set(vocabIds(ZZZ.imageKinds));
+  const srcTypes = new Set(vocabIds(ZZZ.imageSourceTypes));
+  const problems = [];
+
+  function checkPath(id, field, p) {
+    if (p == null) return;                       // null 合法 → 渲染占位/【官方暂未说明】
+    if (typeof p !== 'string' || !p) { problems.push(id + '.' + field + ':非字符串'); return; }
+    if (!/\.webp$/i.test(p)) problems.push(id + '.' + field + ':扩展名非 .webp（' + p + '）');
+    const expectPrefix = 'assets/images/' + module + '/' + id + '/';
+    if (p.indexOf(expectPrefix) !== 0) {
+      problems.push(id + '.' + field + ':目录与条目 id 不一致（' + p + '，期望前缀 ' + expectPrefix + '）');
+    }
+    if (!fs.existsSync(path.join(ROOT, p))) {
+      problems.push(id + '.' + field + ':文件不存在（' + p + '）');
+    }
+  }
+
+  entries.forEach(function (e) {
+    checkPath(e.id, 'thumbnail', e.thumbnail);
+    checkPath(e.id, 'banner', e.banner);
+    checkPath(e.id, 'icon', e.icon);
+    if (e.images != null) {
+      if (typeof e.images !== 'object' || Array.isArray(e.images)) {
+        problems.push(e.id + '.images:应为对象');
+        return;
+      }
+      const gallery = e.images.gallery;
+      if (gallery != null && !Array.isArray(gallery)) {
+        problems.push(e.id + '.images.gallery:应为数组');
+        return;
+      }
+      (gallery || []).forEach(function (g, i) {
+        checkPath(e.id, 'images.gallery[' + i + '].src', g.src);
+        checkPath(e.id, 'images.gallery[' + i + '].full', g.full);
+        if (g.kind != null && !kinds.has(g.kind)) {
+          problems.push(e.id + '.gallery[' + i + '].kind:' + g.kind + ' 不在 imageKinds 词表');
+        }
+        if (g.source && g.source.type != null && !srcTypes.has(g.source.type)) {
+          problems.push(e.id + '.gallery[' + i + '].source.type:' + g.source.type + ' 不在 imageSourceTypes 词表');
+        }
+      });
+    }
+  });
+  check(problems.length === 0, label + ' 图片字段合法（路径存在 / .webp / 目录===id / 词表）' +
+    (problems.length ? '（违规：' + problems.join('；') + '）' : ''));
+}
+
+// aliases/nicknames 类型预检（v1.1.2 为 v1.1.3 预埋）：字段存在时必须为字符串数组
+function checkAliasTypes(entries, label) {
+  const problems = [];
+  entries.forEach(function (e) {
+    ['aliases', 'nicknames'].forEach(function (f) {
+      const v = e[f];
+      if (v === undefined || v === null) return;   // 缺失/null 合法（v1.1.3 才全面落地）
+      if (!Array.isArray(v)) { problems.push(e.id + '.' + f + ':非数组'); return; }
+      v.forEach(function (s) {
+        if (typeof s !== 'string' || !s.trim()) problems.push(e.id + '.' + f + ':含非法元素');
+      });
+    });
+  });
+  check(problems.length === 0, label + '.aliases/nicknames 类型合法（存在时为非空字符串数组）' +
+    (problems.length ? '（违规：' + problems.join('；') + '）' : ''));
 }
 
 function checkDates(entries, fields, label) {
@@ -302,10 +374,31 @@ function checkDates(entries, fields, label) {
     const siteVerSet = new Set(siteVersions.map(function (v) { return v.version; }));
     check(siteVerSet.has(data.site.site.version),
       'site.json version(' + data.site.site.version + ') 已收录于 siteVersions');
+
+    // 版本三方一致（v1.1.2 新增）：CHANGELOG 顶部 ≡ site.json ≡ siteVersions[0]
+    const changelog = fs.readFileSync(path.join(ROOT, 'CHANGELOG.md'), 'utf-8');
+    const cm = changelog.match(/^## v(\d+\.\d+\.\d+)\s*$/m);
+    check(!!cm, 'CHANGELOG.md 顶部含可解析的版本标题（## vX.Y.Z）');
+    if (cm) {
+      check(cm[1] === data.site.site.version,
+        'CHANGELOG 顶部版本(' + cm[1] + ') 与 site.json version(' + data.site.site.version + ') 一致');
+      check(siteVersions.length > 0 && siteVersions[0].version === cm[1],
+        'siteVersions[0](' + (siteVersions[0] ? siteVersions[0].version : 'NA') + ') 为最新版本且与 CHANGELOG(' + cm[1] + ') 一致');
+    }
   })();
 
-  // 8. 数据规模概览（信息性输出，不计 PASS/FAIL）
-  console.log('\n--- 8. 数据规模概览 ---');
+  // 8. 图片字段校验（v1.1.2 B3 新增）
+  console.log('\n--- 8. 图片字段校验 ---');
+  checkImages(characters, 'characters', 'characters', ZZZ);
+  checkImages(factions, 'factions', 'factions', ZZZ);
+  checkImages(locations, 'locations', 'locations', ZZZ);
+
+  // 9. aliases/nicknames 类型预检（v1.1.3 预埋）
+  console.log('\n--- 9. aliases/nicknames 类型预检 ---');
+  checkAliasTypes(characters, 'characters');
+
+  // 10. 数据规模概览（信息性输出，不计 PASS/FAIL）
+  console.log('\n--- 10. 数据规模概览 ---');
   console.log('  INFO story=' + story.length + ' characters=' + characters.length +
     ' factions=' + factions.length + ' locations=' + locations.length +
     ' terms=' + terms.length + ' events=' + events.length + ' worldview=' + entries.length +

@@ -1,7 +1,8 @@
 // search.js —— 站内搜索：索引构建 + Header 即时建议 + 搜索结果页
-// 暴露：window.ZZZSearch.init / buildIndex / renderResults / search
+// 暴露：window.ZZZSearch.init / buildIndex / ensureIndex / renderResults / search
 (function () {
   let index = [];
+  let indexPromise = null;   // 共享构建 Promise（v1.1.2 B6 修复）：防止并发重复构建
   const hasDetail = { character: true, faction: true, location: true, chapter: true, term: true, timeline: true, worldview: true };
 
   const TYPE_LABEL = {
@@ -58,6 +59,14 @@
     return index;
   }
 
+  // v1.1.2 B6 修复：索引惰性预热。此前 buildIndex 仅在搜索结果页触发，
+  // 导致未访问过 search.html 时顶栏搜索建议永远为空。现改为共享 Promise，
+  // 首次 focus 搜索框即预热，输入时若未就绪则先等待构建完成再出建议。
+  function ensureIndex() {
+    if (!indexPromise) indexPromise = buildIndex();
+    return indexPromise;
+  }
+
   function search(q) {
     q = (q || '').trim().toLowerCase();
     if (!q) return [];
@@ -86,9 +95,14 @@
     const box = document.getElementById('search-suggest');
     if (!input || !box) return;
 
-    input.addEventListener('input', function () {
+    // 首次聚焦即预热索引（v1.1.2 B6）：不在页面加载时构建，避免每页多拉 13 个 JSON
+    input.addEventListener('focus', function () { ensureIndex(); }, { once: true });
+
+    input.addEventListener('input', async function () {
       const q = input.value;
       if (!q.trim()) { box.innerHTML = ''; box.classList.remove('show'); return; }
+      if (!index.length) await ensureIndex();
+      if (input.value !== q) return;   // 构建期间输入已变化，交给后续 input 事件渲染
       const res = search(q);
       if (!res.length) {
         box.innerHTML = '<div class="suggest-empty">无匹配结果</div>';
@@ -128,7 +142,7 @@
   }
 
   async function renderResults() {
-    if (!index.length) await buildIndex();
+    if (!index.length) await ensureIndex();
     const q = window.ZZZRouter.getParam('q') || '';
     const c = document.getElementById('content');
     if (!c) return;
@@ -181,6 +195,7 @@
   window.ZZZSearch = {
     init: init,
     buildIndex: buildIndex,
+    ensureIndex: ensureIndex,
     renderResults: renderResults,
     search: search
   };

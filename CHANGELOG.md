@@ -7,6 +7,23 @@
 
 ---
 
+## v1.1.2
+- 数据与门禁修复（Data & Gate Fixes）：修复错误图片引用 + 版本信息漂移 + 搜索索引预热 + 门禁强化
+- Code Review Completed
+
+## [仓库] 修复：数据正确性 + 门禁强化（v1.1.2，纯修复无新功能）
+- `fix(data): correct nekomata/seth wrong image references (B1/B2)` — v1.1.1 录入时的复制粘贴错误：
+  - `nekomata`（猫宫又奈）：`thumbnail`/`banner`/`gallery` 全部错误指向 `ellen` 的图片 → 回退为 `null` 并移除 `images` 块（官方图未获取 = null 规则）。
+  - `seth`（赛斯·洛威尔）：`gallery` 错误指向 `qingyi` 的图片 → 移除 `images` 块。
+- `fix(data): sync site version info (B4/B5)` — `site.json` version `1.0.0 → 1.1.2`、updatedAt 更新；`version.json` `siteVersions` 补录 v1.1.0 / v1.1.1 / v1.1.2 三条（此前缺失导致 About 页与更新日志显示过期版本）。
+- `fix(search): prewarm index on first focus (B6)` — 此前索引仅在搜索结果页构建，未访问过 `search.html` 时顶栏搜索建议永远为空；改为共享 Promise + 搜索框首次 focus 预热，输入时索引未就绪则先构建再渲染（含过期输入丢弃保护）。
+- `feat(test): add image & version-consistency gates (B3)` — `data-validator.js` 新增：
+  - **图片字段校验**（characters/factions/locations 通用）：路径文件必须存在、扩展名必须 `.webp`、**路径目录名必须与条目 id 一致**（正是本次 B1/B2 类错误的针对性拦截）、`gallery.kind`/`source.type` 必须在受控词表内。
+  - **版本三方一致校验**：CHANGELOG.md 顶部版本 ≡ `site.json.version` ≡ `siteVersions[0].version`，任何一方漂移即 FAIL。
+  - **aliases/nicknames 类型预检**：为 v1.1.3 角色内容增强预埋（字段存在时必须为非空字符串数组，缺失合法）。
+- `feat(scripts): add sync-version.js (D4)` — 新增 `scripts/sync-version.js`：Release 前人工执行的零依赖同步脚本，以 CHANGELOG 顶部版本为单一事实源回写 `site.json` 并补录 `version.json`；**不引入构建步骤**，保持纯静态项目。
+- `test: update changelog assertions` — 站点版本条目断言 10 → 13（随数据补录更新）。
+
 ## v1.1.1
 - Image Content Phase 1（图片内容录入 Phase 1）：7 名热门角色官方图片素材 + JSON 数据录入
 - Code Review Completed

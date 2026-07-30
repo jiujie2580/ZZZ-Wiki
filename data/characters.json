@@ -13,24 +13,13 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.0",
-      "thumbnail": "assets/images/characters/ellen/thumb.webp",
-      "banner": "assets/images/characters/ellen/banner.webp",
+      "thumbnail": null,
+      "banner": null,
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
-      "images": {
-        "gallery": [
-          {
-            "src": "assets/images/characters/ellen/gallery-01.webp",
-            "full": null,
-            "caption": "艾莲角色立绘",
-            "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
-          }
-        ]
-      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -790,17 +779,6 @@
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
-      "images": {
-        "gallery": [
-          {
-            "src": "assets/images/characters/qingyi/gallery-01.webp",
-            "full": null,
-            "caption": "青衣角色立绘",
-            "kind": "art",
-            "source": { "type": "official", "title": "官方角色资料" }
-          }
-        ]
-      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
