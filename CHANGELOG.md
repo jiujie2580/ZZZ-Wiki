@@ -7,6 +7,23 @@
 
 ---
 
+## v1.1.1
+- Image Content Phase 1（图片内容录入 Phase 1）：7 名热门角色官方图片素材 + JSON 数据录入
+- Code Review Completed
+
+## [仓库] 内容：角色图片内容录入（Image Content，Phase 1）
+- `feat(image): add character image content (Phase 1, 7 characters)` — 图片系统基础设施（v1.1.0）已完备，本版本为纯内容层建设：
+  - **图片素材**：从 HoYoLAB 官方 Wiki API 获取 7 名试点角色的官方头像（icon 256×250）与立绘（header 1000×1000），经 Pillow 处理为规范 webp：
+    - `thumb.webp`（200×200，≤30KB，列表圆头像）
+    - `banner.webp`（1200×300，≤80KB，详情 Hero 横幅）
+    - `gallery-01.webp`（600×600，≤80KB，图片画廊）
+    - 共计 **21 张 webp**，全部来自 `act-webstatic.hoyoverse.com` 官方 CDN。
+  - **数据录入**（仅修改 `data/characters.json`，零代码变更）：为以下 7 个角色填入 `thumbnail`/`banner` 路径 + 新增 `images.gallery` 数组：
+    - `ellen`（艾莲·乔）、`zhu-yuan`（朱鸢）、`qingyi`（青衣）、`soldier-11`（11 号）、`anby`（安比·德玛拉）、`billy`（比利·奇德）、`nicole`（妮可·德玛拉）
+    - 每项 gallery 含 `kind: "art"`（受控词表）+ `source.type: "official"` + `source.title`（来源标注完整）。
+  - **验证**：`data-validator.js` PASS=114 FAIL=0；`self-test.js` PASS=152 FAIL=0；Code Review CLEAN；49 个非目标角色未受影响。
+  - **范围**：Phase 1 仅 Characters 7 人试点；其余 49 角色留待 Phase 2（v1.1.2）；Factions / Locations 留待 v1.1.3。
+
 ## v1.1.0
 - Image System（图片系统）：数据驱动图片能力首次接入（Characters 首批）
 - Code Review Completed

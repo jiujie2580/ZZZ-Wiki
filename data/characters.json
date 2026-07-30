@@ -13,13 +13,24 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.0",
-      "thumbnail": null,
-      "banner": null,
+      "thumbnail": "assets/images/characters/ellen/thumb.webp",
+      "banner": "assets/images/characters/ellen/banner.webp",
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/ellen/gallery-01.webp",
+            "full": null,
+            "caption": "艾莲角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -35,13 +46,24 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.0",
-      "thumbnail": null,
-      "banner": null,
+      "thumbnail": "assets/images/characters/billy/thumb.webp",
+      "banner": "assets/images/characters/billy/banner.webp",
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/billy/gallery-01.webp",
+            "full": null,
+            "caption": "比利角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -57,13 +79,24 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.0",
-      "thumbnail": null,
-      "banner": null,
+      "thumbnail": "assets/images/characters/nicole/thumb.webp",
+      "banner": "assets/images/characters/nicole/banner.webp",
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/nicole/gallery-01.webp",
+            "full": null,
+            "caption": "妮可角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -79,13 +112,24 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.0",
-      "thumbnail": null,
-      "banner": null,
+      "thumbnail": "assets/images/characters/anby/thumb.webp",
+      "banner": "assets/images/characters/anby/banner.webp",
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/anby/gallery-01.webp",
+            "full": null,
+            "caption": "安比角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -123,13 +167,24 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.0",
-      "thumbnail": null,
-      "banner": null,
+      "thumbnail": "assets/images/characters/ellen/thumb.webp",
+      "banner": "assets/images/characters/ellen/banner.webp",
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/ellen/gallery-01.webp",
+            "full": null,
+            "caption": "艾莲角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -519,13 +574,24 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.0",
-      "thumbnail": null,
-      "banner": null,
+      "thumbnail": "assets/images/characters/soldier-11/thumb.webp",
+      "banner": "assets/images/characters/soldier-11/banner.webp",
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/soldier-11/gallery-01.webp",
+            "full": null,
+            "caption": "11号角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -651,13 +717,24 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.1",
-      "thumbnail": null,
-      "banner": null,
+      "thumbnail": "assets/images/characters/qingyi/thumb.webp",
+      "banner": "assets/images/characters/qingyi/banner.webp",
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/qingyi/gallery-01.webp",
+            "full": null,
+            "caption": "青衣角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -673,13 +750,24 @@
       "birthday": null,
       "voiceActors": { "zh": null, "ja": null, "en": null, "ko": null },
       "releaseVersion": "1.0",
-      "thumbnail": null,
-      "banner": null,
+      "thumbnail": "assets/images/characters/zhu-yuan/thumb.webp",
+      "banner": "assets/images/characters/zhu-yuan/banner.webp",
       "summary": null,
       "description": null,
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/zhu-yuan/gallery-01.webp",
+            "full": null,
+            "caption": "朱鸢角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {
@@ -702,6 +790,17 @@
       "storyIds": [],
       "termIds": [],
       "timelineIds": [],
+      "images": {
+        "gallery": [
+          {
+            "src": "assets/images/characters/qingyi/gallery-01.webp",
+            "full": null,
+            "caption": "青衣角色立绘",
+            "kind": "art",
+            "source": { "type": "official", "title": "官方角色资料" }
+          }
+        ]
+      },
       "source": { "type": "official", "title": "《绝区零》官方角色资料", "url": null }
     },
     {

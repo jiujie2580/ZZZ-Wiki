@@ -30,7 +30,7 @@
 | 搜索 Search | `search.html` | 聚合各模块 + `version.json` | ✅ Released（v1.0.0） | 聚合各模块索引 + 版本；关键词高亮 + Ctrl/⌘K 聚焦 + 空结果模块引导 |
 | 关于 About | `about.html` | `site.json` + 各模块 | ✅ Released（v1.0.0） | 站点信息（版本 / 游戏版本 / 数据基线 / 开源协议 / 仓库）+ 数据统计（7 模块共 160 条）+ 来源规范 + 免责声明 |
 | 404 | `404.html` | — | ✅ 完成（v1.0.0） | 返回首页 + 站内搜索 + 热门栏目网格 |
-| 图片系统 Image System | `character.html` / `characters.html`（v1.1.0 接入） | `assets/images/*` | 🟡 跨模块能力（v1.1.0 接入 Characters；Factions / Locations 待 v1.1.1） | 数据驱动图片：`image.js`（`ZZZImage`）+ `images.css` + `config.imageBase`；D1-D7 决策；按实体分目录自托管 |
+| 图片系统 Image System | `character.html` / `characters.html`（v1.1.0 接入） | `assets/images/*` | 🟡 跨模块能力（v1.1.0 接入 Characters；v1.1.1 Phase 1 内容录入 7/56 角色；Factions / Locations 待后续） | 数据驱动图片：`image.js`（`ZZZImage`）+ `images.css` + `config.imageBase`；D1-D7 决策；按实体分目录自托管；Phase 1 录入 7 人（ellen/zhu-yuan/qingyi/soldier-11/anby/billy/nicole）各 thumb+banner+gallery |
 
 预留数据文件（已建空数组，暂无页面）：`enemies.json` / `bangboo.json` / `w-engines.json` / `drive-discs.json`。
 
@@ -138,6 +138,7 @@ detail-hero（标题区：名称 / 外文名 / 分类徽标 / 标签）
 | v0.9.0 | 世界观 Worldview（已 Released） |
 | v1.0.0 | 首个正式公开版 First Public Release |
 | v1.1.0 | 图片系统 Image System（Characters 首批接入；Factions / Locations 待 v1.1.1） |
+| v1.1.1 | 图片内容录入 Phase 1（7/56 角色：ellen/zhu-yuan/qingyi/soldier-11/anby/billy/nicole） |
 
 > 更新日志 / 搜索 / 关于 为支撑页，归入 `v1.0.0` 前的收尾阶段。
 
